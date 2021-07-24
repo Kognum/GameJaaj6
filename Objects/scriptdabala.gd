@@ -1,8 +1,8 @@
-extends Sprite
+extends KinematicBody2D
 
 export var bulletspeed = 250.0
 
-export var rotation_to_inherit : float
+export var rotation_to_inherit : Vector2
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
