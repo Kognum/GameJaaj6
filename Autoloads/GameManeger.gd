@@ -5,7 +5,8 @@ var read_only = {
 var globals = {
 	"lock_mouse": false,
 	"player_move": true,
-	"player_look": true}
+	"player_look": true,
+	"player_shoot": true}
 
 func _process(delta):
 	if Input.is_action_just_pressed("player_quit"):
