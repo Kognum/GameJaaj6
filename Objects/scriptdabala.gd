@@ -1,6 +1,12 @@
 extends Area2D
 
-export var bulletspeed = 670.0
+export var bulletspeed = 1150.0
+
+export var basetilt = 0.05
+
+var slighttilt : float
+
+var rng = RandomNumberGenerator.new()
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -8,7 +14,10 @@ export var bulletspeed = 670.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	rng.randomize()
+	slighttilt = rng.randf_range(-basetilt, basetilt)
+	self.global_rotation = global_rotation + slighttilt
+	print(slighttilt)
 	pass # Replace with function body.
 
 
