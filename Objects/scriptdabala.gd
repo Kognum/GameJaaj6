@@ -1,8 +1,6 @@
-extends KinematicBody2D
+extends Area2D
 
-export var bulletspeed = 250.0
-
-export var rotation_to_inherit : Vector2
+export var bulletspeed = 670.0
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -10,13 +8,13 @@ export var rotation_to_inherit : Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _move(_delta):
-	self.move_and_collide(rotation_to_inherit)
-
+func _process(delta):
+	position += (Vector2.RIGHT*bulletspeed).rotated(rotation) * delta
 
 
 func _on_Area2D_body_entered(body):
