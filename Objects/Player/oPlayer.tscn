@@ -1,8 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Sprites/Prototype/sprWhite.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Player/sprArm.png" type="Texture" id=2]
 [ext_resource path="res://Objects/Player/scrPlayer.gd" type="Script" id=3]
+[ext_resource path="res://Objects/Player/sprGunfire.png" type="Texture" id=4]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+light_mode = 1
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 44.0
@@ -31,6 +36,15 @@ texture = ExtResource( 2 )
 
 [node name="BulletPos" type="Position2D" parent="sprites/playerArm"]
 position = Vector2( 118.605, -1.52588e-05 )
+
+[node name="bulletGunfire" type="Sprite" parent="sprites/playerArm/BulletPos"]
+visible = false
+material = SubResource( 2 )
+position = Vector2( 0.895004, 0 )
+scale = Vector2( 0.6, 0.6 )
+z_index = 1
+texture = ExtResource( 4 )
+offset = Vector2( 4.394, 2.175 )
 
 [node name="playerCol" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -84 )

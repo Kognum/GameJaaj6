@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/8f683cf533ecdea01e90529adc8413e8.png-6174be936529fb34d0f3af8834ea9084.stex"
+path="res://.import/light_blue.png-2993ee044c2f229d5481c3defe2f9b02.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Prototype/8f683cf533ecdea01e90529adc8413e8.png"
-dest_files=[ "res://.import/8f683cf533ecdea01e90529adc8413e8.png-6174be936529fb34d0f3af8834ea9084.stex" ]
+source_file="res://addons/Godot-Camera-Shake-master/addons/camera_shake/demo/textures/light_blue.png"
+dest_files=[ "res://.import/light_blue.png-2993ee044c2f229d5481c3defe2f9b02.stex" ]
 
 [params]
 

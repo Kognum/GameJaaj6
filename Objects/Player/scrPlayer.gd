@@ -71,15 +71,22 @@ func arm(_delta):
 	if $sprites.rotation_degrees < 90 and $sprites.rotation_degrees > -90:
 		$sprites/playerArm.flip_v = false
 
-var _bullet = preload("res://Objects/aBala.tscn")
+var _bullet = preload("res://Objects/Bullet/oBullet.tscn")
 func shoot():
-	if Input.is_action_just_pressed("player_shoot"):
+	if Input.is_action_pressed("player_shoot"):
+		$sprites/playerArm/BulletPos/bulletGunfire.rotation_degrees = rand_range(0, 359)
+		$sprites/playerArm/BulletPos/bulletGunfire.visible = true
+		
 		var bala_instance = _bullet.instance()
 		bala_instance.global_position = $sprites/playerArm/BulletPos.global_position
 		bala_instance.rotation = $sprites/playerArm.global_rotation
 		get_parent().call_deferred("add_child", bala_instance)
 		print($sprites/playerArm/BulletPos.global_position)
 		print($sprites/playerArm.global_rotation)
+		
+		yield(get_tree().create_timer(0.25), "timeout")
+	else:
+		$sprites/playerArm/BulletPos/bulletGunfire.visible = false
 
 var _cursor = preload("res://Objects/oCursor.tscn")
 func spawn_cursor():
