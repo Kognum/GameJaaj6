@@ -8,7 +8,14 @@ onready var jump_velocity : float = ((2.0 * jump_height) / jump_time_to_peak) * 
 onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 
-var _cursor = preload("res://Objects/oCursor.tscn")
+onready var arm = $playerSprites/ArmPivot/Arm
+onready var arm_pivot = $playerSprites/ArmPivot
+onready var bulletPos = $playerSprites/ArmPivot/Arm/BulletPos
+onready var gunFire = $playerSprites/ArmPivot/Arm/BulletPos/bulletGunfire
+onready var body = $playerSprites/playerSprite
+onready var anm = $playerAnimation
+
+var _cursor = preload("res://Objects/Cursor/oCursor.tscn")
 func spawn_cursor():
 	var cursor_instance = _cursor.instance()
 	get_parent().call_deferred("add_child",cursor_instance)
@@ -16,7 +23,6 @@ func spawn_cursor():
 func _ready():
 	GameManeger.globals.lock_mouse = true
 	spawn_cursor()
-	
 func _physics_process(delta):
 	if GameManeger.globals.player_move:
 		move(delta)
@@ -24,6 +30,8 @@ func _physics_process(delta):
 		arm(delta)
 	if GameManeger.globals.player_shoot:
 		shoot()
+	
+	animate()
 
 export var speed = 100.0
 var velocity := Vector2.ZERO
@@ -50,54 +58,58 @@ func jump(_delta):
 	if is_on_floor():
 		if Input.is_action_just_pressed("player_jump"):
 			velocity.y = jump_velocity
-	#else:       --guardar pra dps--
-	#	if velocity.y < 0:
-			#$Sprite.play("Jump")
-		#else:
-			#$Sprite.play("Fall")
+
+func animate():
+	#Walk
+	if is_on_floor():
+		if not velocity.x == 0: 
+			anm.play("anmWalk")
+		else:
+			anm.play("anmIdle")
+	else:
+		if velocity.y < 0:
+			anm.play("anmJump")
+		else:
+			anm.play("anmFall")
 
 # TW : DOR E SOFRIMENTO, Risco de sangramento em suas retinas
 func arm(_delta):
-	var _playerArm = $sprites/playerArm
-	
 	var _cursor = get_viewport().get_mouse_position()
 	
-	var _sprites = _playerArm.get_parent()
+	var _sprites = arm.get_parent()
 	
-	$playerPrototype.flip_h = _playerArm.flip_v
+	body.flip_h = arm.flip_v
 	
-	if _playerArm.flip_v:
-		_sprites.position = Vector2(-70.0, 13.0)
+	if arm.flip_v:
+		_sprites.position = Vector2(-70.0, -69.227)
 	else:
-		_sprites.position = Vector2(0.0, 13.0)
+		_sprites.position = Vector2(0.0, -69.227)
 	
-	_playerArm.look_at(get_viewport().get_mouse_position())
+	arm.look_at(get_viewport().get_mouse_position())
 	
 	
-	if _playerArm.flip_v:
-		if _cursor.x > (_playerArm.global_position.x + 60):
-			_playerArm.flip_v = false
+	if arm.flip_v:
+		if _cursor.x > (arm.global_position.x + 60):
+			arm.flip_v = false
 	else:
-		if _cursor.x < (_playerArm.global_position.x + -60):
-			_playerArm.flip_v = true
-			
-	print(_cursor.x)
-	print(_playerArm.global_position.x)
+		if _cursor.x < (arm.global_position.x + -60):
+			arm.flip_v = true
 
 var _bullet = preload("res://Objects/Bullet/oBullet.tscn")
-
 func shoot():
 	if Input.is_action_pressed("player_shoot"):
-		$sprites/playerArm/BulletPos/bulletGunfire.rotation_degrees = rand_range(0, 359)
-		$sprites/playerArm/BulletPos/bulletGunfire.visible = true
+		gunFire.rotation_degrees = rand_range(0, 359)
+		gunFire.visible = true
 		
 		var bala_instance = _bullet.instance()
-		bala_instance.global_position = $sprites/playerArm/BulletPos.global_position
-		bala_instance.rotation = $sprites/playerArm.global_rotation
+		bala_instance.global_position = bulletPos.global_position
+		bala_instance.rotation = arm.global_rotation
 		get_parent().call_deferred("add_child", bala_instance)
-		print($sprites/playerArm/BulletPos.global_position)
-		print($sprites/playerArm.global_rotation)
 		
 		yield(get_tree().create_timer(0.25), "timeout")
 	else:
-		$sprites/playerArm/BulletPos/bulletGunfire.visible = false
+		gunFire.visible = false
+
+func play_footstep():
+	$sfxFootstep.pitch_scale = rand_range(0.75, 1.3)
+	$sfxFootstep.play()
