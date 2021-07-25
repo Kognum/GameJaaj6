@@ -15,5 +15,6 @@ func _process(delta):
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("inimigo"):
 		print("u killed the bad guy!!!")
-	
-	queue_free()
+		
+	if !body.is_in_group("Jogador"):
+		queue_free()

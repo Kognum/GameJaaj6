@@ -15,9 +15,10 @@ position = Vector2( 1000.87, 884.001 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="floor"]
-modulate = Color( 0.411765, 0.411765, 0.411765, 1 )
 scale = Vector2( 3.05766, 0.277595 )
 texture = ExtResource( 1 )
 
-[node name="oPlayer" parent="." instance=ExtResource( 2 )]
+[node name="oPlayer" parent="." groups=[
+"Jogador",
+] instance=ExtResource( 2 )]
 position = Vector2( 1000.87, 551.377 )

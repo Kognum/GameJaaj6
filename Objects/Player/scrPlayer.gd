@@ -8,10 +8,15 @@ onready var jump_velocity : float = ((2.0 * jump_height) / jump_time_to_peak) * 
 onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 
+var _cursor = preload("res://Objects/oCursor.tscn")
+func spawn_cursor():
+	var cursor_instance = _cursor.instance()
+	get_parent().call_deferred("add_child",cursor_instance)
+
 func _ready():
 	GameManeger.globals.lock_mouse = true
-	
 	spawn_cursor()
+	
 func _physics_process(delta):
 	if GameManeger.globals.player_move:
 		move(delta)
@@ -53,25 +58,34 @@ func jump(_delta):
 
 # TW : DOR E SOFRIMENTO, Risco de sangramento em suas retinas
 func arm(_delta):
-	$playerPrototype.flip_v = $sprites/playerArm.flip_v
+	var _playerArm = $sprites/playerArm
 	
-	$sprites.look_at(get_viewport().get_mouse_position())
-	if $sprites.rotation_degrees < -90:
-		$sprites/playerArm.flip_v = true
-	if $sprites.rotation_degrees <= -270:
-		$sprites/playerArm.flip_v = false
-		$sprites.rotation_degrees = -90
+	var _cursor = get_viewport().get_mouse_position()
 	
-	if $sprites.rotation_degrees > 90:
-		$sprites/playerArm.flip_v = true
-	if $sprites.rotation_degrees >= 270:
-		$sprites/playerArm.flip_v = false
-		$sprites.rotation_degrees = -90
+	var _sprites = _playerArm.get_parent()
 	
-	if $sprites.rotation_degrees < 90 and $sprites.rotation_degrees > -90:
-		$sprites/playerArm.flip_v = false
+	$playerPrototype.flip_h = _playerArm.flip_v
+	
+	if _playerArm.flip_v:
+		_sprites.position = Vector2(-70.0, 13.0)
+	else:
+		_sprites.position = Vector2(0.0, 13.0)
+	
+	_playerArm.look_at(get_viewport().get_mouse_position())
+	
+	
+	if _playerArm.flip_v:
+		if _cursor.x > (_playerArm.global_position.x + 60):
+			_playerArm.flip_v = false
+	else:
+		if _cursor.x < (_playerArm.global_position.x + -60):
+			_playerArm.flip_v = true
+			
+	print(_cursor.x)
+	print(_playerArm.global_position.x)
 
 var _bullet = preload("res://Objects/Bullet/oBullet.tscn")
+
 func shoot():
 	if Input.is_action_pressed("player_shoot"):
 		$sprites/playerArm/BulletPos/bulletGunfire.rotation_degrees = rand_range(0, 359)
@@ -87,8 +101,3 @@ func shoot():
 		yield(get_tree().create_timer(0.25), "timeout")
 	else:
 		$sprites/playerArm/BulletPos/bulletGunfire.visible = false
-
-var _cursor = preload("res://Objects/oCursor.tscn")
-func spawn_cursor():
-	var cursor_instance = _cursor.instance()
-	get_parent().call_deferred("add_child",cursor_instance)
