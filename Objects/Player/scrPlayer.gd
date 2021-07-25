@@ -20,6 +20,8 @@ func spawn_cursor():
 	var cursor_instance = _cursor.instance()
 	get_parent().call_deferred("add_child",cursor_instance)
 
+func _init():
+	GameManeger.globals.player_node = self
 func _ready():
 	GameManeger.globals.lock_mouse = true
 	spawn_cursor()
@@ -62,7 +64,7 @@ func jump(_delta):
 func animate():
 	#Walk
 	if is_on_floor():
-		if not velocity.x == 0: 
+		if Input.is_action_pressed("player_left") or Input.is_action_pressed("player_right"): 
 			anm.play("anmWalk")
 		else:
 			anm.play("anmIdle")

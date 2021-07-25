@@ -6,7 +6,8 @@ var globals = {
 	"lock_mouse": false,
 	"player_move": true,
 	"player_look": true,
-	"player_shoot": true}
+	"player_shoot": true,
+	"player_node": null}
 
 func _ready():
 	$PauseScreen.visible = false
