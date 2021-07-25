@@ -4,7 +4,7 @@
 [ext_resource path="res://Sprites/Prototype/playergun.png" type="Texture" id=2]
 [ext_resource path="res://Objects/Player/scrPlayer.gd" type="Script" id=3]
 [ext_resource path="res://Objects/Player/sprGunfire.png" type="Texture" id=4]
-[ext_resource path="res://Audio/SFX/sfxFootstep.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Audio/SFX/sfxFootstep.mp3" type="AudioStream" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 41.0
@@ -245,4 +245,4 @@ anims/anmWalk = SubResource( 6 )
 
 [node name="sfxFootstep" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
-bus = "SFX"
+volume_db = 15.0

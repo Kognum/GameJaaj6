@@ -1,0 +1,395 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Scenes/Menu/shrQuake.shader" type="Shader" id=1]
+[ext_resource path="res://Scenes/Menu/A01.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Menu/A02.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Menu/A06.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Menu/A03.png" type="Texture" id=5]
+[ext_resource path="res://Data/Fonts/Raleway-VariableFont_wght.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Scenes/Menu/scrMenu.gd" type="Script" id=7]
+[ext_resource path="res://Audio/MUS/musMenu.mp3" type="AudioStream" id=8]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/strenth = 0.02
+
+[sub_resource type="DynamicFont" id=4]
+size = 54
+outline_size = 1
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 960, 540 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/strenth = -0.02
+
+[sub_resource type="DynamicFont" id=5]
+size = 50
+outline_size = 2
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 50
+outline_size = 2
+outline_color = Color( 0.211765, 0.211765, 0.211765, 1 )
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 1 )
+shader_param/strenth = -0.02
+
+[sub_resource type="DynamicFont" id=7]
+size = 78
+outline_size = 4
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 44
+outline_size = 1
+use_filter = true
+font_data = ExtResource( 6 )
+
+[node name="scnMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Page1" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="Page1"]
+material = SubResource( 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1035.5
+margin_top = -745.5
+margin_right = 1035.5
+margin_bottom = 745.5
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info" type="Label" parent="Page1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -254.0
+margin_top = -29.5
+margin_right = 254.0
+margin_bottom = 29.5
+grow_horizontal = 2
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "clique para focar"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnClick" type="TouchScreenButton" parent="Page1"]
+shape = SubResource( 9 )
+
+[node name="Page2" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="Page2"]
+material = SubResource( 2 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1035.5
+margin_top = -745.5
+margin_right = 1035.5
+margin_bottom = 745.5
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info2" type="Label" parent="Page2"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 201.0
+margin_top = -476.0
+margin_right = 709.0
+margin_bottom = -417.0
+grow_horizontal = 2
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Controles :"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info3" type="RichTextLabel" parent="Page2"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 201.0
+margin_top = -387.0
+margin_right = 709.0
+margin_bottom = 523.0
+grow_horizontal = 2
+custom_fonts/mono_font = SubResource( 4 )
+custom_fonts/bold_italics_font = SubResource( 4 )
+custom_fonts/italics_font = SubResource( 4 )
+custom_fonts/bold_font = SubResource( 6 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[b][color=#363636]A, D[/color][/b] [right] mover-se[/right]
+
+[b][color=#363636]ESPAÇO[/color][/b] [right] pular[/right]
+
+[b][color=#363636]E[/color][/b] [right] interagir[/right]
+
+[b][color=#363636]LMB[/color][/b] [right] tiro primario[/right]
+
+[b][color=#363636]RMB[/color][/b] [right] ciclo da arma[/right]"
+text = "A, D  mover-se
+
+ESPAÇO  pular
+
+E  interagir
+
+LMB  tiro primario
+
+RMB  ciclo da arma"
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info4" type="Label" parent="Page2"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -835.0
+margin_top = -29.0
+margin_right = -200.0
+margin_bottom = 30.0
+grow_horizontal = 2
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "clique para continuar"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnClick2" type="TouchScreenButton" parent="Page2"]
+shape = SubResource( 9 )
+
+[node name="Page3" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="Page3"]
+material = SubResource( 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1035.5
+margin_top = -745.0
+margin_right = 1035.5
+margin_bottom = 746.0
+texture = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info5" type="Label" parent="Page3"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -739.0
+margin_top = -509.0
+margin_right = -231.0
+margin_bottom = -450.0
+grow_horizontal = 2
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Contexto :"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info6" type="RichTextLabel" parent="Page3"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -739.0
+margin_top = -420.0
+margin_right = -231.0
+margin_bottom = 490.0
+grow_horizontal = 2
+custom_fonts/mono_font = SubResource( 4 )
+custom_fonts/bold_italics_font = SubResource( 4 )
+custom_fonts/italics_font = SubResource( 4 )
+custom_fonts/bold_font = SubResource( 6 )
+custom_fonts/normal_font = SubResource( 4 )
+bbcode_enabled = true
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info7" type="Label" parent="Page3"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 165.0
+margin_top = -29.5
+margin_right = 800.0
+margin_bottom = 29.5
+grow_horizontal = 2
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "clique para continuar"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnClick3" type="TouchScreenButton" parent="Page3"]
+shape = SubResource( 9 )
+
+[node name="Page4" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="Page4"]
+material = SubResource( 3 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1035.5
+margin_top = -745.5
+margin_right = 1035.5
+margin_bottom = 745.5
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info8" type="Label" parent="Page4"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -317.5
+margin_top = -161.0
+margin_right = 317.5
+margin_bottom = -102.0
+grow_horizontal = 2
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "clique para começar"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info9" type="RichTextLabel" parent="Page4"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -460.5
+margin_top = -241.5
+margin_right = 460.5
+margin_bottom = 241.5
+grow_horizontal = 2
+custom_fonts/mono_font = SubResource( 4 )
+custom_fonts/bold_italics_font = SubResource( 4 )
+custom_fonts/italics_font = SubResource( 4 )
+custom_fonts/bold_font = SubResource( 7 )
+custom_fonts/normal_font = SubResource( 8 )
+bbcode_enabled = true
+bbcode_text = "[center]
+[b]kaiser's future cycle[/b]
+across lands of annihilation and fear 
+[color=363636] [i][ r e / b o r n  b i o / p u n k ][/i] [/color]
+[/center]
+
+	
+"
+text = "
+kaiser's future cycle
+across lands of annihilation and fear 
+ [ r e / b o r n  b i o / p u n k ] 
+
+
+	
+"
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnClick4" type="TouchScreenButton" parent="Page4"]
+shape = SubResource( 9 )
+
+[node name="musMenu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = 5.0
+autoplay = true
+
+[connection signal="released" from="Page1/btnClick" to="." method="_on_btnClick_released"]
+[connection signal="released" from="Page2/btnClick2" to="." method="_on_btnClick2_released"]
+[connection signal="released" from="Page3/btnClick3" to="." method="_on_btnClick3_released"]
+[connection signal="released" from="Page4/btnClick4" to="." method="_on_btnClick4_released"]
