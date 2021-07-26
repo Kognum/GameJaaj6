@@ -386,7 +386,6 @@ shape = SubResource( 3 )
 
 [node name="musMenu" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
-volume_db = 5.0
 autoplay = true
 
 [connection signal="released" from="Page1/btnClick" to="." method="_on_btnClick_released"]

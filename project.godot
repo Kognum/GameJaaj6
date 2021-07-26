@@ -20,7 +20,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-GameManager="*res://Autoloads/GameManager.gd"
+GameManager="*res://Autoloads/GameManager/GameManager.tscn"
 SceneChanger="*res://Autoloads/SceneChanger/SceneChanger.tscn"
 
 [display]
@@ -28,6 +28,7 @@ SceneChanger="*res://Autoloads/SceneChanger/SceneChanger.tscn"
 window/size/width=1920
 window/size/height=1080
 window/size/fullscreen=true
+window/size/always_on_top=true
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 

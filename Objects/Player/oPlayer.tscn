@@ -10,15 +10,14 @@
 radius = 41.0
 height = 81.5
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 43, 80 )
 
-[sub_resource type="CanvasItemMaterial" id=2]
+[sub_resource type="CanvasItemMaterial" id=3]
 blend_mode = 1
 light_mode = 1
 
-[sub_resource type="Animation" id=3]
-resource_name = "anmFall"
+[sub_resource type="Animation" id=4]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("playerSprites:scale")
@@ -57,7 +56,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -97,8 +96,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 84.2273 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "anmJump"
+[sub_resource type="Animation" id=6]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("playerSprites:scale")
@@ -137,7 +135,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 84.2273 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -211,7 +209,7 @@ shape = SubResource( 1 )
 
 [node name="playerHitbox" type="CollisionShape2D" parent="."]
 position = Vector2( -0.629944, 3.77977 )
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 disabled = true
 
 [node name="playerSprites" type="Node2D" parent="."]
@@ -237,7 +235,7 @@ position = Vector2( 418.005, -0.235535 )
 
 [node name="bulletGunfire" type="Sprite" parent="playerSprites/ArmPivot/Arm/BulletPos"]
 visible = false
-material = SubResource( 2 )
+material = SubResource( 3 )
 position = Vector2( 0.895004, 0 )
 scale = Vector2( 1.2, 1.2 )
 z_index = 1
@@ -248,12 +246,11 @@ offset = Vector2( 4.394, 2.175 )
 autoplay = "anmIdle"
 playback_default_blend_time = 0.1
 playback_speed = 1.3
-anims/anmFall = SubResource( 3 )
-anims/anmIdle = SubResource( 4 )
-anims/anmJump = SubResource( 5 )
-anims/anmWalk = SubResource( 6 )
+anims/anmFall = SubResource( 4 )
+anims/anmIdle = SubResource( 5 )
+anims/anmJump = SubResource( 6 )
+anims/anmWalk = SubResource( 7 )
 
 [node name="sfxFootstep" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
-
 volume_db = 15.0

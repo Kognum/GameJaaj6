@@ -107,6 +107,7 @@ func shoot():
 		bala_instance.global_position = bulletPos.global_position
 		bala_instance.rotation = arm.global_rotation
 		get_parent().call_deferred("add_child", bala_instance)
+		
 		GameManager.camera.startshaking(1.5, 10, 0.3)
 		
 		yield(get_tree().create_timer(0.25), "timeout")
