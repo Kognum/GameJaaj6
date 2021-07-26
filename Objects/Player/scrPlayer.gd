@@ -14,17 +14,22 @@ onready var bulletPos = $playerSprites/ArmPivot/Arm/BulletPos
 onready var gunFire = $playerSprites/ArmPivot/Arm/BulletPos/bulletGunfire
 onready var body = $playerSprites/playerSprite
 onready var anm = $playerAnimation
+onready var flash = $Flash
 
 var _cursor = preload("res://Objects/Cursor/oCursor.tscn")
 func spawn_cursor():
 	var cursor_instance = _cursor.instance()
 	get_parent().call_deferred("add_child",cursor_instance)
+	
+func setupflash():
+	flash.scale = get_viewport_rect().size
 
 func _init():
 	GameManager.globals.player_node = self
 func _ready():
 	GameManager.globals.lock_mouse = true
 	spawn_cursor()
+	setupflash()
 func _physics_process(delta):
 	if GameManager.globals.player_move:
 		move(delta)
@@ -32,7 +37,7 @@ func _physics_process(delta):
 		arm(delta)
 	if GameManager.globals.player_shoot:
 		shoot()
-	
+	flashfadeout(1)
 	animate()
 
 export var speed = 100.0
@@ -110,6 +115,10 @@ func shoot():
 		
 		GameManager.camera.startshaking(1.5, 10, 0.3)
 		
+		#flashscreen(10)
+		
+		knockback(100)
+		
 		yield(get_tree().create_timer(0.25), "timeout")
 	else:
 		gunFire.visible = false
@@ -117,3 +126,34 @@ func shoot():
 func play_footstep():
 	$sfxFootstep.pitch_scale = rand_range(0.75, 1.3)
 	$sfxFootstep.play()
+
+func flashscreen(howmuch):
+	flash.modulate = Color(255, 255, 255, howmuch)
+	pass
+
+func flashfadeout(howfast):
+	var howmuchleft = flash.modulate.a
+	
+	if howmuchleft != 0:
+		
+		howmuchleft -= howfast
+		
+		flash.modulate = Color(255, 255, 255, howmuchleft)
+		
+		print(flash.modulate.a)
+		
+func knockback(howstrong):
+	var direction
+	
+	if arm.flip_v:
+		direction = Vector2.RIGHT
+		pass
+	else:
+		direction = Vector2.LEFT
+		pass
+	
+	if howstrong != 0:
+		howstrong -= 1
+	
+	move_and_slide(direction * howstrong)
+	pass

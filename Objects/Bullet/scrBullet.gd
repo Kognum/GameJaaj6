@@ -1,6 +1,6 @@
 extends Area2D
 
-export var bulletspeed = 1150.0
+export var bulletspeed = 1740.0
 export var basetilt = 0.05
 
 var slighttilt : float

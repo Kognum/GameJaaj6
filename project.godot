@@ -32,6 +32,10 @@ window/size/always_on_top=true
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
+[global]
+
+flash=false
+
 [input]
 
 player_left={
