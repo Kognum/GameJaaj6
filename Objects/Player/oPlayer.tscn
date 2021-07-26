@@ -245,4 +245,3 @@ anims/anmWalk = SubResource( 6 )
 
 [node name="sfxFootstep" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
-bus = "SFX"

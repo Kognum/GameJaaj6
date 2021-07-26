@@ -1,5 +1,7 @@
 extends Node
 
+var camera = null
+
 var read_only = {
 	"move" : 0.0}
 var globals = {

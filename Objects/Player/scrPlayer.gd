@@ -21,14 +21,14 @@ func spawn_cursor():
 	get_parent().call_deferred("add_child",cursor_instance)
 
 func _ready():
-	GameManeger.globals.lock_mouse = true
+	GameManager.globals.lock_mouse = true
 	spawn_cursor()
 func _physics_process(delta):
-	if GameManeger.globals.player_move:
+	if GameManager.globals.player_move:
 		move(delta)
-	if GameManeger.globals.player_look:
+	if GameManager.globals.player_look:
 		arm(delta)
-	if GameManeger.globals.player_shoot:
+	if GameManager.globals.player_shoot:
 		shoot()
 	
 	animate()
@@ -74,7 +74,7 @@ func animate():
 
 # TW : DOR E SOFRIMENTO, Risco de sangramento em suas retinas
 func arm(_delta):
-	var _cursor = get_viewport().get_mouse_position()
+	var _cursor = get_global_mouse_position()
 	
 	var _sprites = arm.get_parent()
 	
@@ -85,7 +85,7 @@ func arm(_delta):
 	else:
 		_sprites.position = Vector2(0.0, -69.227)
 	
-	arm.look_at(get_viewport().get_mouse_position())
+	arm.look_at(_cursor)
 	
 	
 	if arm.flip_v:
@@ -105,6 +105,7 @@ func shoot():
 		bala_instance.global_position = bulletPos.global_position
 		bala_instance.rotation = arm.global_rotation
 		get_parent().call_deferred("add_child", bala_instance)
+		GameManager.camera.startshaking(1.5, 10, 0.3)
 		
 		yield(get_tree().create_timer(0.25), "timeout")
 	else:
