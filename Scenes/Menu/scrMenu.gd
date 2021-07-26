@@ -3,12 +3,12 @@ extends Control
 var clicks := 0
 
 func _ready():
-	GameManeger.globals.lock_mouse = false
+	GameManager.globals.lock_mouse = false
 	$musMenu.pitch_scale = 2.7
 
 func _on_btnClick_released():
 	$Page1/btnClick.queue_free()
-	GameManeger.globals.lock_mouse = true
+	GameManager.globals.lock_mouse = true
 	$Page2.visible = true
 	$musMenu.pitch_scale = 1.2
 func _on_btnClick2_released():

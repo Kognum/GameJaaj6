@@ -21,7 +21,7 @@ func spawn_cursor():
 	get_parent().call_deferred("add_child",cursor_instance)
 
 func _init():
-	GameManeger.globals.player_node = self
+	GameManager.globals.player_node = self
 func _ready():
 	GameManager.globals.lock_mouse = true
 	spawn_cursor()
