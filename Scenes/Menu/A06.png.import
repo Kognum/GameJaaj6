@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Sem título.png-b6a25ea832691c1ab6418df0abb3a3a7.stex"
+path="res://.import/A06.png-c67c61104b319cd548b3598a322fe7da.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Prototype/Sem título.png"
-dest_files=[ "res://.import/Sem título.png-b6a25ea832691c1ab6418df0abb3a3a7.stex" ]
+source_file="res://Scenes/Menu/A06.png"
+dest_files=[ "res://.import/A06.png-c67c61104b319cd548b3598a322fe7da.stex" ]
 
 [params]
 

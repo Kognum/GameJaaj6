@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mapa_prototipo_p1.png-2f720273836b80178fe2a4d788ce2fcc.stex"
+path="res://.import/A02.png-992a6ea707fa6c2fa75c27c2897b8e6a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mapa_prototipo_p1.png"
-dest_files=[ "res://.import/mapa_prototipo_p1.png-2f720273836b80178fe2a4d788ce2fcc.stex" ]
+source_file="res://Scenes/Menu/A02.png"
+dest_files=[ "res://.import/A02.png-992a6ea707fa6c2fa75c27c2897b8e6a.stex" ]
 
 [params]
 
