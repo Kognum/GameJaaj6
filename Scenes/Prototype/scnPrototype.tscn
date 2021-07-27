@@ -117,7 +117,6 @@ shape = SubResource( 4 )
 
 [node name="bgmATIMOSFERICU" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 6 )
-autoplay = true
 
 [node name="Entities" type="Node" parent="."]
 

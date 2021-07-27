@@ -217,7 +217,11 @@ shape = SubResource( 1 )
 position = Vector2( -98, 31 )
 shape = SubResource( 2 )
 
-[node name="enemyHitbox2" type="CollisionShape2D" parent="enemyHitbox"]
+[node name="enemyHitbox2" type="Area2D" parent="." groups=[
+"Enemy",
+]]
+
+[node name="enemyHitbox2" type="CollisionShape2D" parent="enemyHitbox2"]
 position = Vector2( 100, 31 )
 shape = SubResource( 2 )
 
@@ -281,3 +285,4 @@ anims/anmHunting = SubResource( 7 )
 anims/anmWaiting = SubResource( 8 )
 
 [connection signal="area_entered" from="enemyHitbox" to="." method="_on_enemyHitbox_area_entered"]
+[connection signal="area_entered" from="enemyHitbox2" to="." method="_on_enemyHitbox2_area_entered"]

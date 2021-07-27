@@ -68,6 +68,8 @@ func move(_delta):
 	velocity.x = horizontal 
 	velocity.y += get_gravity() * _delta
 	
+	print(velocity.y)
+	
 	jump(_delta)
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -76,7 +78,9 @@ func get_gravity() -> float:
 func jump(_delta):
 	if is_on_floor():
 		if Input.is_action_just_pressed("player_jump"):
-			velocity.y = jump_velocity
+			if not jumping_on_knockback:
+				velocity.y = jump_velocity
+				print("jumped on:" + String(OS.get_system_time_secs()))
 
 func aply_only_gravity(_delta):
 	velocity.x = 0 
@@ -156,20 +160,30 @@ func flashfadeout(howfast):
 		
 		flash.modulate = Color(255, 255, 255, howmuchleft)
 
-func knockback(howstrong):
-	var direction
+var jumping_on_knockback = false
+func knockback(howstrong :int = 100, whichside :int = 0):
+	var direction : Vector2
 	
-	if arm.flip_v:
-		direction = Vector2.RIGHT
+	if whichside == 0:
+		if arm.flip_v:
+			direction.x += 1
+		else:
+			direction.x += -1
 	else:
-		direction = Vector2.LEFT
+		direction.x = whichside
 	
 	if howstrong != 0:
 		howstrong -= 1
 	
-	velocity.x -= direction.x * howstrong
+	if is_on_floor():
+		if Input.is_action_just_pressed("player_jump"):
+			jumping_on_knockback = true
+			direction.y = jump_velocity / 9
+	jumping_on_knockback = false
 	
-	#direction = move_and_slide(direction * howstrong, Vector2.UP)
+	print(direction.y)
+	
+	direction = move_and_slide(direction * howstrong, Vector2.UP)
 
 func manage_health():
 	match health:

@@ -231,5 +231,13 @@ func _on_enemyHitbox_area_entered(area):
 		if body.is_in_group("Player"):
 			if not body.dead: 
 				body.health -= 1
-				body.knockback(200)
+				body.knockback(20000, -1)
+				GameManager.camera.startshaking(1.3, 8, 0.2)
+func _on_enemyHitbox2_area_entered(area):
+	if attack_type == attack_types.MELEE:
+		var body = area.get_parent()
+		if body.is_in_group("Player"):
+			if not body.dead: 
+				body.health -= 1
+				body.knockback(20000, 1)
 				GameManager.camera.startshaking(1.3, 8, 0.2)
