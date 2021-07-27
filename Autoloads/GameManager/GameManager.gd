@@ -11,6 +11,8 @@ var globals = {
 
 var camera = null
 
+var playerdoorexitloc = Vector2.ZERO
+
 func _ready():
 	$PauseScreen.visible = false
 func _process(delta):

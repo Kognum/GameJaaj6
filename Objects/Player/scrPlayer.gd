@@ -33,6 +33,8 @@ func _ready():
 	GameManager.globals.lock_mouse = true
 	spawn_cursor()
 	setup_flash()
+	if GameManager.playerdoorexitloc != Vector2.ZERO:
+		global_position = GameManager.playerdoorexitloc
 func _physics_process(delta):
 	if not dead:
 		if GameManager.globals.player_move:

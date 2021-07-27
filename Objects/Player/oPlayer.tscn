@@ -7,6 +7,7 @@
 [ext_resource path="res://Audio/SFX/sfxFootstep.mp3" type="AudioStream" id=5]
 [ext_resource path="res://Shaders/shrCC.shader" type="Shader" id=6]
 [ext_resource path="res://Sprites/UI/WeaponCycle/sprWPCycle1.png" type="Texture" id=7]
+[ext_resource path="res://Objects/Player/shrCC.shader" type="Shader" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 41.0

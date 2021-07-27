@@ -1,17 +1,21 @@
 extends Area2D
 
-export(PackedScene) var ToWhere
+export(String) var ToWhere
 export(bool) var shouldtrigger = true
+
+export var wheretosendtheplayer = Vector2.ZERO
 
 var playerhere = false
 
 func _process(delta):
 	if playerhere:
+		GameManager.playerdoorexitloc = wheretosendtheplayer
 		if shouldtrigger:
 			if Input.is_action_just_pressed("player_interact"):
-				SceneChanger.change_scene(ToWhere.resource_path, true)
+				SceneChanger.change_scene(ToWhere, true)
 		else:
-			SceneChanger.change_scene(ToWhere.resource_path, false)
+			SceneChanger.change_scene(ToWhere, false)
+	pass
 
 func _on_Door_body_entered(body):
 		if body.is_in_group("Player"):
