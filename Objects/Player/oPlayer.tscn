@@ -377,10 +377,10 @@ layer = 6
 [node name="sprWPCycle" type="TextureRect" parent="nHUD"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 710.922
-margin_top = 43.3032
-margin_right = 922.922
-margin_bottom = 246.303
+margin_left = -890.164
+margin_top = 109.513
+margin_right = -678.164
+margin_bottom = 312.513
 texture = ExtResource( 7 )
 expand = true
 __meta__ = {

@@ -130,3 +130,4 @@ position = Vector2( 150.916, 512.476 )
 scale = Vector2( 1.5, 1.5 )
 ToWhere = "res://Scenes/Prototype/scnPrototype.tscn"
 shouldtrigger = false
+wheretosendtheplayer = Vector2( 928, 667 )

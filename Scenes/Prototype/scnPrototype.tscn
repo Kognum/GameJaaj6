@@ -140,3 +140,4 @@ maxoffset = Vector2( 5, 5 )
 
 [node name="oDoor" parent="Objects" instance=ExtResource( 10 )]
 position = Vector2( 1157, 646 )
+ToWhere = "res://Scenes/Proto2/scnProto2.tscn"
