@@ -17,6 +17,7 @@ onready var anm = $playerAnimation
 onready var flash = $Flash
 
 var _cursor = preload("res://Objects/Cursor/oCursor.tscn")
+var possibledoortoentner = null
 func spawn_cursor():
 	var cursor_instance = _cursor.instance()
 	get_parent().call_deferred("add_child",cursor_instance)
@@ -157,3 +158,4 @@ func knockback(howstrong):
 	
 	move_and_slide(direction * howstrong)
 	pass
+	# Replace with function body.

@@ -20,4 +20,4 @@ func _on_btnClick3_released():
 	$Page4.visible = true
 	$musMenu.pitch_scale = 1
 func _on_btnClick4_released():
-	SceneChanger.change_scene("res://Scenes/Prototype/scnPrototype.tscn")
+	SceneChanger.change_scene("res://Scenes/Prototype/scnPrototype.tscn", true)

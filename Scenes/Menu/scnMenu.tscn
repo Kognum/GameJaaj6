@@ -6,8 +6,33 @@
 [ext_resource path="res://Scenes/Menu/A06.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/Menu/A03.png" type="Texture" id=5]
 [ext_resource path="res://Data/Fonts/Raleway-VariableFont_wght.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://Scenes/Menu/scrMenu.gd" type="Script" id=7]
 [ext_resource path="res://Audio/MUS/musMenu.mp3" type="AudioStream" id=8]
+
+[sub_resource type="GDScript" id=10]
+script/source = "extends Control
+
+var clicks := 0
+
+func _ready():
+	GameManager.globals.lock_mouse = false
+	$musMenu.pitch_scale = 2.7
+
+func _on_btnClick_released():
+	$Page1/btnClick.queue_free()
+	GameManager.globals.lock_mouse = true
+	$Page2.visible = true
+	$musMenu.pitch_scale = 1.2
+func _on_btnClick2_released():
+	$Page2/btnClick2.queue_free()
+	$Page3.visible = true
+	$musMenu.pitch_scale = 0.8
+func _on_btnClick3_released():
+	$Page3/btnClick3.queue_free()
+	$Page4.visible = true
+	$musMenu.pitch_scale = 1
+func _on_btnClick4_released():
+	SceneChanger.change_scene(\"res://Scenes/Prototype/scnPrototype.tscn\", true)
+"
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -58,7 +83,7 @@ font_data = ExtResource( 6 )
 [node name="scnMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 7 )
+script = SubResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
