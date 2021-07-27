@@ -1,5 +1,8 @@
 extends KinematicBody2D
 
+var health := 3
+var dead := false
+
 export var jump_height : float
 export var jump_time_to_peak : float
 export var jump_time_to_descent : float
@@ -32,14 +35,20 @@ func _ready():
 	spawn_cursor()
 	setupflash()
 func _physics_process(delta):
-	if GameManager.globals.player_move:
-		move(delta)
-	if GameManager.globals.player_look:
-		arm(delta)
-	if GameManager.globals.player_shoot:
-		shoot()
-	flashfadeout(1)
-	animate()
+	if not dead:
+		if GameManager.globals.player_move:
+			move(delta)
+		if GameManager.globals.player_look:
+			arm(delta)
+		if GameManager.globals.player_shoot:
+			shoot()
+		
+		flashfadeout(1)
+		animate()
+		manage_health()
+	else:
+		aply_only_gravity(delta)
+		$playerAnimation.play("anmDead", 1)
 
 export var speed = 100.0
 var velocity := Vector2.ZERO
@@ -67,8 +76,13 @@ func jump(_delta):
 		if Input.is_action_just_pressed("player_jump"):
 			velocity.y = jump_velocity
 
+func aply_only_gravity(_delta):
+	velocity.x = 0 
+	velocity.y += get_gravity() * _delta
+	
+	velocity = move_and_slide(velocity, Vector2.UP)
+
 func animate():
-	#Walk
 	if is_on_floor():
 		if Input.is_action_pressed("player_left") or Input.is_action_pressed("player_right"): 
 			anm.play("anmWalk")
@@ -112,6 +126,7 @@ func shoot():
 		var bala_instance = _bullet.instance()
 		bala_instance.global_position = bulletPos.global_position
 		bala_instance.rotation = arm.global_rotation
+		bala_instance.add_to_group("ShootByPlayer")
 		get_parent().call_deferred("add_child", bala_instance)
 		
 		GameManager.camera.startshaking(1.5, 10, 0.3)
@@ -159,3 +174,23 @@ func knockback(howstrong):
 	move_and_slide(direction * howstrong)
 	pass
 	# Replace with function body.
+func manage_health():
+	match health:
+		0:
+			$nUI/BackBufferCopy/fxDamage.visible = true
+			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Shadows", Color(255, 0, 0, 255))
+			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Hilights", Color(196, 0, 0, 255))
+			dead = true
+		1:
+			$nUI/BackBufferCopy/fxDamage.visible = true
+			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Shadows", Color(170, 0, 0, 255))
+			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Hilights", Color(131, 0, 0, 255))
+		2:
+			$nUI/BackBufferCopy/fxDamage.visible = true
+			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Shadows", Color(170, 0, 0, 255))
+			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Hilights", Color(67, 0, 0, 255))
+		3:
+			$nUI/BackBufferCopy/fxDamage.visible = false
+			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Shadows", Color(0, 0, 0, 0))
+			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Hilights", Color(0, 0, 0, 0))
+			dead = false

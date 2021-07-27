@@ -1,7 +1,8 @@
 extends Area2D
 
-export var bulletspeed = 1740.0
-export var basetilt = 0.05
+export(float) var bulletspeed := 1150.0
+export(float) var basetilt := 0.05
+export(int) var damage := 2
 
 var slighttilt : float
 
@@ -12,8 +13,13 @@ func _process(delta):
 	position += (Vector2.RIGHT * bulletspeed).rotated(rotation) * delta
 
 func _on_Area2D_body_entered(body):
-	if body.is_in_group("Enemy"):
-		body.health -= 2
-		
-	if !body.is_in_group("Player"):
-		queue_free()
+	if is_in_group("ShootByPlayer"):
+		if body.is_in_group("Enemy"):
+			body.health -= damage
+		if !body.is_in_group("Player"):
+			queue_free()
+	elif is_in_group("ShootByEnemy"):
+		if body.is_in_group("Player"):
+			body.health -= damage
+		if !body.is_in_group("Enemy"):
+			queue_free()

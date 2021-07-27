@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Sprites/mapa_prototipo_p1.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Player/oPlayer.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sprites/mapa_prototipo_p2.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/mapa_prototipo_f.png" type="Texture" id=5]
 [ext_resource path="res://Audio/BGS/bgsATIMOSFERICU.wav" type="AudioStream" id=6]
+[ext_resource path="res://Objects/Enemy/oEnemy.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Prototype/sky.png" type="Texture" id=8]
 [ext_resource path="res://Scripts/Camerashake.gd" type="Script" id=9]
 [ext_resource path="res://Objects/oDoor.tscn" type="PackedScene" id=10]
@@ -126,10 +127,16 @@ autoplay = true
 
 [node name="Entities" type="Node" parent="."]
 
+[node name="oEnemy" parent="Entities" instance=ExtResource( 7 )]
+visible = false
+position = Vector2( 173, 768 )
+eye_reach = 250
+attack_type = 1
+
 [node name="oPlayer" parent="Entities" groups=[
 "Jogador",
 ] instance=ExtResource( 2 )]
-position = Vector2( 168, 823 )
+position = Vector2( 1321, 336 )
 
 [node name="Camera2D" type="Camera2D" parent="Entities/oPlayer"]
 current = true
@@ -147,7 +154,7 @@ maxoffset = Vector2( 10, 10 )
 [node name="Objects" type="Node" parent="."]
 
 [node name="oBroca" parent="Objects" instance=ExtResource( 3 )]
-position = Vector2( 1833, 812 )
+position = Vector2( 1746, 741 )
 scale = Vector2( 1.5, 1.5 )
 
 [node name="Door" parent="." instance=ExtResource( 10 )]

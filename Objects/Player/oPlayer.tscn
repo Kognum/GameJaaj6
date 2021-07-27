@@ -6,19 +6,59 @@
 [ext_resource path="res://Objects/Player/sprGunfire.png" type="Texture" id=4]
 [ext_resource path="res://Audio/SFX/sfxFootstep.mp3" type="AudioStream" id=5]
 [ext_resource path="res://Sprites/Prototype/sprWhite.png" type="Texture" id=6]
+[ext_resource path="res://Objects/Player/shrCC.shader" type="Shader" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 41.0
 height = 81.5
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 43, 80 )
+extents = Vector2( 62.6299, 96.7798 )
 
 [sub_resource type="CanvasItemMaterial" id=3]
 blend_mode = 1
 light_mode = 1
 
 [sub_resource type="Animation" id=4]
+resource_name = "anmDead"
+tracks/0/type = "value"
+tracks/0/path = NodePath("playerBlood:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("playerSprites:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.4, 1 ),
+"update": 0,
+"values": [ Vector2( 1.17, 0.8 ), Vector2( 1.17, 0.8 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("playerSprites:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.705882, 0.286275, 0.286275, 1 ), Color( 0.705882, 0.286275, 0.286275, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("playerSprites:scale")
@@ -57,7 +97,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -96,8 +136,32 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector2( 0, 84.2273 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("playerBlood:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("playerSprites:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("playerSprites:scale")
@@ -136,7 +200,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 84.2273 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -193,6 +257,12 @@ tracks/3/keys = {
 } ]
 }
 
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 6 )
+shader_param/Shadows = Color( 1, 0, 0, 1 )
+shader_param/Midtones = Color( 0, 0, 0, 1 )
+shader_param/Hilights = Color( 0.768627, 0, 0, 1 )
+
 [node name="oPlayer" type="KinematicBody2D" groups=[
 "Player",
 ]]
@@ -208,14 +278,33 @@ speed = 300.0
 position = Vector2( -0.629944, 3.77977 )
 shape = SubResource( 1 )
 
-[node name="playerHitbox" type="CollisionShape2D" parent="."]
+[node name="playerBlood" type="CPUParticles2D" parent="."]
+position = Vector2( 0, 19 )
+emitting = false
+amount = 320
+lifetime = 5.2
+speed_scale = 3.0
+emission_shape = 2
+emission_rect_extents = Vector2( 20, 1 )
+direction = Vector2( 0, -1 )
+initial_velocity = 225.0
+damping = 25.0
+scale_amount = 8.35
+scale_amount_random = 0.63
+color = Color( 0.886275, 0.168627, 0.168627, 1 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="playerHitbox" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2( -0.629944, 3.77977 )
 shape = SubResource( 2 )
-disabled = true
 
 [node name="playerSprites" type="Node2D" parent="."]
 position = Vector2( 0, 84.2273 )
 scale = Vector2( 1.05, 0.95 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="playerSprite" type="Sprite" parent="playerSprites"]
 position = Vector2( 0, -84.2273 )
@@ -247,10 +336,11 @@ offset = Vector2( 4.394, 2.175 )
 autoplay = "anmIdle"
 playback_default_blend_time = 0.1
 playback_speed = 1.3
-anims/anmFall = SubResource( 4 )
-anims/anmIdle = SubResource( 5 )
-anims/anmJump = SubResource( 6 )
-anims/anmWalk = SubResource( 7 )
+anims/anmDead = SubResource( 4 )
+anims/anmFall = SubResource( 5 )
+anims/anmIdle = SubResource( 6 )
+anims/anmJump = SubResource( 7 )
+anims/anmWalk = SubResource( 8 )
 
 [node name="sfxFootstep" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
@@ -260,3 +350,23 @@ volume_db = 15.0
 modulate = Color( 1, 1, 1, 0 )
 z_index = 2
 texture = ExtResource( 6 )
+[node name="nUI" type="CanvasLayer" parent="."]
+layer = 8
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="nUI"]
+position = Vector2( 960, 540 )
+scale = Vector2( 9.6, 5.4 )
+copy_mode = 2
+
+[node name="fxDamage" type="ColorRect" parent="nUI/BackBufferCopy"]
+visible = false
+material = SubResource( 9 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -100.0
+margin_right = -100.0
+margin_bottom = -100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

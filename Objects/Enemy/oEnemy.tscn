@@ -9,7 +9,7 @@ radius = 56.0
 height = 142.0
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 59, 88 )
+extents = Vector2( 43, 89 )
 
 [sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -209,14 +209,16 @@ script = ExtResource( 1 )
 [node name="enemyCol" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="enemyHitbox" type="Area2D" parent="."]
+[node name="enemyHitbox" type="Area2D" parent="." groups=[
+"Enemy",
+]]
 
 [node name="enemyHitbox" type="CollisionShape2D" parent="enemyHitbox"]
-position = Vector2( -131, 31 )
+position = Vector2( -98, 31 )
 shape = SubResource( 2 )
 
 [node name="enemyHitbox2" type="CollisionShape2D" parent="enemyHitbox"]
-position = Vector2( 128, 31 )
+position = Vector2( 100, 31 )
 shape = SubResource( 2 )
 
 [node name="EnemyBlood" type="CPUParticles2D" parent="."]
@@ -243,10 +245,14 @@ region_enabled = true
 region_rect = Rect2( 253, 113.021, 152, 292 )
 region_filter_clip = true
 
+[node name="BulletPos" type="Position2D" parent="enemySprite"]
+position = Vector2( 0, -93.75 )
+scale = Vector2( 1, 1.04167 )
+
 [node name="sprAlert" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 3.8147e-06, -209 )
-scale = Vector2( 0.55, 0.3 )
+modulate = Color( 1, 0, 0, 0 )
+position = Vector2( 3.8147e-06, -164 )
+scale = Vector2( 1.1, 0.6 )
 texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 105, 60, 55, 130 )
@@ -273,3 +279,5 @@ anims/anmIdle = SubResource( 5 )
 anims/anmDead = SubResource( 6 )
 anims/anmHunting = SubResource( 7 )
 anims/anmWaiting = SubResource( 8 )
+
+[connection signal="area_entered" from="enemyHitbox" to="." method="_on_enemyHitbox_area_entered"]

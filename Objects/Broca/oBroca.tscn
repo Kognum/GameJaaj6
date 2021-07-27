@@ -129,7 +129,7 @@ color = Color( 0.886275, 0.168627, 0.168627, 1 )
 
 [node name="brocaSprite" type="Sprite" parent="."]
 modulate = Color( 1, 0.345098, 0.345098, 1 )
-position = Vector2( 8, -104 )
+position = Vector2( 6, 0 )
 scale = Vector2( 0.38, 0.38 )
 texture = ExtResource( 1 )
 offset = Vector2( 1.19209e-07, -75.7927 )
@@ -137,7 +137,6 @@ region_enabled = true
 region_rect = Rect2( 1532.46, 777.323, 341.731, 744.13 )
 
 [node name="sprInterract" type="Sprite" parent="."]
-visible = false
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 0, -180 )
 scale = Vector2( 0.308594, 0.308594 )

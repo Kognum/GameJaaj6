@@ -24,10 +24,11 @@ func _init():
 		$enemySprite.texture = sprite
 func _process(delta):
 	if health <= 0:
-		print("dead")
+		#print("dead")
 		currect_state = state_machine.DEAD
 	else:
-		print("state: " + String(currect_state) + "\nhealth: " + String(health))
+		#print("state: " + String(currect_state) + "\nhealth: " + String(health))
+		pass
 	
 	match currect_state:
 		state_machine.WAITING:
@@ -41,6 +42,7 @@ func _process(delta):
 					currect_state = state_machine.HUNTING
 		state_machine.HUNTING:
 			hunt(delta)
+			shoot()
 			if not find_player():
 				currect_state = state_machine.WAITING
 			if is_health_low():
@@ -49,12 +51,15 @@ func _process(delta):
 			$enemyAnm.play("anmHunting", -1, 1.2)
 			$EnemySprint.emitting = true
 			runaway(delta)
+			shoot(0.3)
 			eye_reach = 600
 			if not find_player():
 				currect_state = state_machine.WAITING
 		state_machine.DEAD:
 			$EnemySprint.emitting = false
 			$enemyAnm.play("anmDead")
+			$enemyHitbox/enemyHitbox.disabled = true
+			$enemyHitbox/enemyHitbox2.disabled = true
 			if not is_on_floor():
 				aply_gravity(delta)
 			else:
@@ -70,6 +75,7 @@ export(int) var eye_reach = 240
 func find_player(vision := 600, eyeReach := -1) -> bool:
 	if eyeReach == -1:
 		eyeReach = eye_reach
+	vision = vision + (eyeReach / 4)
 	
 	var eye_center = get_global_position()
 	var eye_top = eye_center + Vector2(0, -eyeReach)
@@ -77,7 +83,7 @@ func find_player(vision := 600, eyeReach := -1) -> bool:
 	var eye_right = eye_center + Vector2(eyeReach, 0)
 
 	var player_pos = Player.get_global_position()
-	var player_extents = Player.get_node("playerHitbox").shape.extents - Vector2(1, 1)
+	var player_extents = Player.get_node("Hitbox/playerHitbox").shape.extents - Vector2(1, 1)
 	var top_left = player_pos + Vector2(-player_extents.x, -player_extents.y)
 	var top_right = player_pos + Vector2(player_extents.x, -player_extents.y)
 	var bottom_left = player_pos + Vector2(-player_extents.x, player_extents.y)
@@ -199,3 +205,30 @@ func aply_gravity(delta):
 
 	vel = move_and_slide(vel, Vector2(0, -1))
 
+var _bullet = preload("res://Objects/Bullet/oBullet.tscn")
+onready var bulletPos = $enemySprite/BulletPos
+func shoot(rate_speed := 1):
+	match attack_type:
+		attack_types.SNIPER:
+			pass
+		attack_types.METRALHADORA:
+			pass
+		attack_types.SHOTGUN:
+			var bala_instance = _bullet.instance()
+			bala_instance.global_position = bulletPos.global_position
+			bala_instance.rotation = $enemySprite.global_rotation
+			bala_instance.damage = 1
+			bala_instance.add_to_group("ShootByEnemy")
+			get_parent().call_deferred("add_child", bala_instance)
+			
+			GameManager.camera.startshaking(1.2, 6, 0.25)
+			
+			yield(get_tree().create_timer(1.5 * rate_speed), "timeout")
+func _on_enemyHitbox_area_entered(area):
+	if attack_type == attack_types.MELEE:
+		var body = area.get_parent()
+		if body.is_in_group("Player"):
+			if not body.dead: 
+				body.health -= 1
+				GameManager.camera.startshaking(1.3, 8, 0.2)
+				print("Health: " + String(body.health))
