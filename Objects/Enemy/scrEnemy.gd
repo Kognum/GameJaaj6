@@ -106,9 +106,9 @@ export(int) var target_player_dist = 140
 export(int) var jump_heigh = 800
 enum attack_types {
 	MELEE,
-	SHOTGUN,
-	METRALHADORA,
-	SNIPER}
+	HORDA,
+	MULTIPLICADOR,
+	TANQUE}
 export(attack_types) var attack_type = attack_types.MELEE
 export(int) var avoid_distance = 20
 var vel = Vector2(0, 0)

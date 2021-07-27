@@ -1,7 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Sprites/Prototype/bala.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Bullet/scrBullet.gd" type="Script" id=2]
+
+[sub_resource type="StreamTexture" id=2]
+flags = 4
+load_path = "res://.import/bala.png-60b98c6d950561177712a4aa0d472948.stex"
+
+[sub_resource type="StreamTexture" id=3]
+flags = 4
+load_path = "res://.import/bala.png-60b98c6d950561177712a4aa0d472948.stex"
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 11.0
@@ -12,11 +20,25 @@ height = 19.5
 ]]
 script = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="sprMetralhadora" type="Sprite" parent="."]
 position = Vector2( 2.04737, 0.314982 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 23.5618, 31.4392, 43.7048, 31.5884 )
+
+[node name="sprShotgun" type="Sprite" parent="."]
+visible = false
+position = Vector2( 2.04737, 0.314982 )
+texture = SubResource( 2 )
+region_enabled = true
+region_rect = Rect2( 23.5618, 2.822, 34.7014, 31 )
+
+[node name="sprSniper" type="Sprite" parent="."]
+visible = false
+position = Vector2( 2.04737, 0.314982 )
+texture = SubResource( 3 )
+region_enabled = true
+region_rect = Rect2( 23.5618, 60.1579, 32.5961, 35.7895 )
 
 [node name="Colisão2" type="CollisionShape2D" parent="."]
 position = Vector2( 2.28204, 0.464417 )

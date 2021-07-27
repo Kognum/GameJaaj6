@@ -68,8 +68,6 @@ func move(_delta):
 	velocity.x = horizontal 
 	velocity.y += get_gravity() * _delta
 	
-	print(velocity.y)
-	
 	jump(_delta)
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -80,7 +78,6 @@ func jump(_delta):
 		if Input.is_action_just_pressed("player_jump"):
 			if not jumping_on_knockback:
 				velocity.y = jump_velocity
-				print("jumped on:" + String(OS.get_system_time_secs()))
 
 func aply_only_gravity(_delta):
 	velocity.x = 0 
@@ -124,26 +121,124 @@ func arm(_delta):
 			arm.flip_v = true
 
 var _bullet = preload("res://Objects/Bullet/oBullet.tscn")
+var wpc_tex1 = preload("res://Sprites/UI/WeaponCycle/sprWPCycle1.png")
+var wpc_tex2 = preload("res://Sprites/UI/WeaponCycle/sprWPCycle2.png")
+var wpc_tex3 = preload("res://Sprites/UI/WeaponCycle/sprWPCycle3.png")
+enum wp_cycles {
+	SHOTGUN,
+	SPNIPER,
+	METRALHADORA}
+var wp_cycle = wp_cycles.SHOTGUN
 func shoot():
-	if Input.is_action_pressed("player_shoot"):
-		gunFire.rotation_degrees = rand_range(0, 359)
-		gunFire.visible = true
-		
-		var bala_instance = _bullet.instance()
-		bala_instance.global_position = bulletPos.global_position
-		bala_instance.rotation = arm.global_rotation
-		bala_instance.add_to_group("ShootByPlayer")
-		get_parent().call_deferred("add_child", bala_instance)
-		
-		GameManager.camera.startshaking(1.5, 10, 0.3)
-		
-		#flashscreen(10)
-		
-		knockback(100)
-		
-		yield(get_tree().create_timer(0.25), "timeout")
-	else:
-		gunFire.visible = false
+	match wp_cycle:
+		wp_cycles.SHOTGUN:
+			$nHUD/sprWPCycle.texture = wpc_tex1
+			
+			if Input.is_action_just_pressed("player_shoot"):
+				gunFire.rotation_degrees = rand_range(0, 359)
+				gunFire.visible = true
+				
+				#-----------------------1------------------------#
+				var bala_instance_1 = _bullet.instance()
+				bala_instance_1.global_position = bulletPos.global_position
+				bala_instance_1.rotation = arm.global_rotation
+				bala_instance_1.add_to_group("ShootByPlayer")
+				
+				bala_instance_1.bullet_type = bala_instance_1.bullet_types.SHOTGUN
+				bala_instance_1.damage = 3
+				bala_instance_1.bulletspeed = 2500
+				bala_instance_1.basetilt = 0.12
+				
+				get_parent().call_deferred("add_child", bala_instance_1)
+				
+				#-----------------------2------------------------#
+				var bala_instance_2 = _bullet.instance()
+				bala_instance_2.global_position = bulletPos.global_position
+				bala_instance_2.rotation = arm.global_rotation
+				bala_instance_2.add_to_group("ShootByPlayer")
+				
+				bala_instance_2.bullet_type = bala_instance_2.bullet_types.SHOTGUN
+				bala_instance_2.damage = 3
+				bala_instance_2.bulletspeed = 2500
+				bala_instance_2.basetilt = 0.15
+				
+				get_parent().call_deferred("add_child", bala_instance_2)
+				
+				#-----------------------3------------------------#
+				var bala_instance_3 = _bullet.instance()
+				bala_instance_3.global_position = bulletPos.global_position
+				bala_instance_3.rotation = arm.global_rotation
+				bala_instance_3.add_to_group("ShootByPlayer")
+				
+				bala_instance_3.bullet_type = bala_instance_3.bullet_types.SHOTGUN
+				bala_instance_3.damage = 3
+				bala_instance_3.bulletspeed = 2500
+				bala_instance_3.basetilt = 0.1
+				
+				get_parent().call_deferred("add_child", bala_instance_3)
+				
+				GameManager.camera.startshaking(1.5, 10, 0.3)
+				knockback(100)
+			else:
+				gunFire.visible = false
+		wp_cycles.SPNIPER:
+			$nHUD/sprWPCycle.texture = wpc_tex2
+			
+			if Input.is_action_just_pressed("player_shoot"):
+				gunFire.rotation_degrees = rand_range(0, 359)
+				gunFire.visible = true
+				
+				var bala_instance = _bullet.instance()
+				bala_instance.global_position = bulletPos.global_position
+				bala_instance.rotation = arm.global_rotation
+				bala_instance.add_to_group("ShootByPlayer")
+				
+				bala_instance.bullet_type = bala_instance.bullet_types.SNIPER
+				bala_instance.damage = 5
+				bala_instance.bulletspeed = 3000
+				bala_instance.basetilt = 0.05
+				
+				get_parent().call_deferred("add_child", bala_instance)
+				
+				GameManager.camera.startshaking(1.5, 10, 0.3)
+				knockback(100)
+			else:
+				gunFire.visible = false
+		wp_cycles.METRALHADORA:
+			$nHUD/sprWPCycle.texture = wpc_tex3
+			
+			if Input.is_action_pressed("player_shoot"):
+				gunFire.rotation_degrees = rand_range(0, 359)
+				gunFire.visible = true
+				
+				var bala_instance = _bullet.instance()
+				bala_instance.global_position = bulletPos.global_position
+				bala_instance.rotation = arm.global_rotation
+				bala_instance.add_to_group("ShootByPlayer")
+				
+				bala_instance.bullet_type = bala_instance.bullet_types.METRALHADORA
+				bala_instance.damage = 1
+				bala_instance.bulletspeed = 2500
+				bala_instance.basetilt = 0.05
+				
+				get_parent().call_deferred("add_child", bala_instance)
+				
+				GameManager.camera.startshaking(1.5, 10, 0.3)
+				knockback(100)
+				
+				#yield(get_tree().create_timer(2), "timeout")
+			else:
+				gunFire.visible = false
+	
+	if wp_cycle > 2:
+		wp_cycle = 0 
+	elif wp_cycle < 0:
+		wp_cycle = 2
+	print(wp_cycle)
+	
+	if Input.is_action_just_pressed("player_secondary"): # DEBUG
+		wp_cycle += 1
+
 
 func play_footstep():
 	$sfxFootstep.pitch_scale = rand_range(0.75, 1.3)
@@ -180,8 +275,6 @@ func knockback(howstrong :int = 100, whichside :int = 0):
 			jumping_on_knockback = true
 			direction.y = jump_velocity / 9
 	jumping_on_knockback = false
-	
-	print(direction.y)
 	
 	direction = move_and_slide(direction * howstrong, Vector2.UP)
 

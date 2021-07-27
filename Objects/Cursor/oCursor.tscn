@@ -73,7 +73,7 @@ tracks/0/keys = {
 [node name="oCursor" type="Node2D"]
 modulate = Color( 0.854902, 0.854902, 0.854902, 1 )
 rotation = 3.14159
-z_index = 5
+z_index = 7
 script = ExtResource( 2 )
 
 [node name="Sprite2" type="Sprite" parent="."]
