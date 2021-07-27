@@ -1,6 +1,6 @@
 extends Area2D
 
-export(float) var bulletspeed := 1150.0
+export(float) var bulletspeed := 2500.0
 export(float) var basetilt := 0.05
 export(int) var damage := 2
 

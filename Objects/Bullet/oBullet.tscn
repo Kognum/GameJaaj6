@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Sprites/Prototype/sprBullet.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Prototype/bala.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Bullet/scrBullet.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -13,8 +13,10 @@ height = 19.5
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.15, 0.15 )
+position = Vector2( 2.04737, 0.314982 )
 texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 23.5618, 31.4392, 43.7048, 31.5884 )
 
 [node name="Colisão2" type="CollisionShape2D" parent="."]
 position = Vector2( 2.28204, 0.464417 )
