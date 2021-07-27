@@ -232,7 +232,7 @@ initial_velocity = 225.0
 damping = 25.0
 scale_amount = 8.35
 scale_amount_random = 0.63
-color = Color( 0.886275, 0.168627, 0.168627, 1 )
+color = Color( 0.886275, 0.168627, 0.168627, 0 )
 
 [node name="enemySprite" type="Sprite" parent="."]
 position = Vector2( 0, 121 )

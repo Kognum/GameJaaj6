@@ -1,15 +1,16 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://Scenes/Prototype/mapa_prototipo_p2.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/mapa_prototipo_p1.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Player/oPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/Broca/oBroca.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Prototype/mapa_prototipo_p1.png" type="Texture" id=4]
-[ext_resource path="res://Scenes/Prototype/mapa_prototipo_f.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/mapa_prototipo_p2.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/mapa_prototipo_f.png" type="Texture" id=5]
 [ext_resource path="res://Audio/BGS/bgsATIMOSFERICU.wav" type="AudioStream" id=6]
-[ext_resource path="res://Objects/Enemy/oEnemy.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Prototype/sky.png" type="Texture" id=8]
 [ext_resource path="res://Scripts/Camerashake.gd" type="Script" id=9]
 [ext_resource path="res://Objects/oDoor.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Sprites/mapa_prototipo_p4.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/mapa_prototipo_p3.png" type="Texture" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1008, 162 )
@@ -32,7 +33,7 @@ __meta__ = {
 }
 
 [node name="Base" type="Sprite" parent="Map"]
-scale = Vector2( 2.7, 2.7 )
+position = Vector2( -12.0482, 15.119 )
 texture = ExtResource( 5 )
 centered = false
 
@@ -47,16 +48,28 @@ position = Vector2( 231, 146 )
 scale = Vector2( 3.0754, 3.07453 )
 texture = ExtResource( 8 )
 
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="Map/BG"]
+motion_scale = Vector2( 0.5, 0.5 )
+
+[node name="Sprite" type="Sprite" parent="Map/BG/ParallaxLayer4"]
+position = Vector2( 273.205, 194.411 )
+texture = ExtResource( 11 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Map/BG"]
+motion_scale = Vector2( 0.6, 0.6 )
+
+[node name="Sprite" type="Sprite" parent="Map/BG/ParallaxLayer3"]
+position = Vector2( 373.045, 242.482 )
+texture = ExtResource( 12 )
+
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Map/BG"]
 motion_scale = Vector2( 0.7, 0.7 )
 
 [node name="Assets_03" type="Sprite" parent="Map/BG/ParallaxLayer2"]
 modulate = Color( 0.662745, 0.662745, 0.662745, 1 )
-position = Vector2( -358, 329 )
-scale = Vector2( 3.06977, 3.06977 )
-texture = ExtResource( 1 )
+position = Vector2( -456.564, -188.693 )
+texture = ExtResource( 4 )
 centered = false
-region_enabled = true
 region_rect = Rect2( -0.5, 209, 411, 172.5 )
 
 [node name="FG" type="ParallaxBackground" parent="Map"]
@@ -66,9 +79,8 @@ layer = 1
 motion_scale = Vector2( 1.2, 1.2 )
 
 [node name="mapa_prototipo_p1" type="Sprite" parent="Map/FG/ParallaxLayer"]
-position = Vector2( 318, 231 )
-scale = Vector2( 2.7, 2.7 )
-texture = ExtResource( 4 )
+position = Vector2( 202.087, 152.885 )
+texture = ExtResource( 1 )
 centered = false
 
 [node name="collision" type="StaticBody2D" parent="Map"]
@@ -114,9 +126,6 @@ autoplay = true
 
 [node name="Entities" type="Node" parent="."]
 
-[node name="oEnemy" parent="Entities" instance=ExtResource( 7 )]
-position = Vector2( 850.12, 662.143 )
-
 [node name="oPlayer" parent="Entities" groups=[
 "Jogador",
 ] instance=ExtResource( 2 )]
@@ -127,7 +136,7 @@ current = true
 zoom = Vector2( 0.85, 0.85 )
 limit_left = 0
 limit_top = -254
-limit_right = 1942
+limit_right = 1895
 limit_bottom = 1082
 limit_smoothed = true
 smoothing_enabled = true
