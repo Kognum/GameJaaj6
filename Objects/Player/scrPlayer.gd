@@ -49,6 +49,8 @@ func _physics_process(delta):
 	else:
 		aply_only_gravity(delta)
 		$playerAnimation.play("anmDead", 1)
+		yield($playerAnimation, "animation_finished")
+		SceneChanger.change_scene("res://Scenes/GameOver/scnGameOver.tscn")
 
 export var speed = 100.0
 var velocity := Vector2.ZERO
@@ -157,7 +159,7 @@ func flashfadeout(howfast):
 		flash.modulate = Color(255, 255, 255, howmuchleft)
 		
 		print(flash.modulate.a)
-		
+
 func knockback(howstrong):
 	var direction
 	
