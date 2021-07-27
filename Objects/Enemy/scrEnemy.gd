@@ -59,7 +59,7 @@ func _process(delta):
 			$EnemySprint.emitting = false
 			$enemyAnm.play("anmDead")
 			$enemyHitbox/enemyHitbox.disabled = true
-			$enemyHitbox/enemyHitbox2.disabled = true
+			$enemyHitbox2/enemyHitbox2.disabled = true
 			if not is_on_floor():
 				aply_gravity(delta)
 			else:
@@ -231,7 +231,7 @@ func _on_enemyHitbox_area_entered(area):
 		if body.is_in_group("Player"):
 			if not body.dead: 
 				body.health -= 1
-				body.knockback(20000, -1)
+				body.knockback(10000, -1)
 				GameManager.camera.startshaking(1.3, 8, 0.2)
 func _on_enemyHitbox2_area_entered(area):
 	if attack_type == attack_types.MELEE:
@@ -239,5 +239,5 @@ func _on_enemyHitbox2_area_entered(area):
 		if body.is_in_group("Player"):
 			if not body.dead: 
 				body.health -= 1
-				body.knockback(20000, 1)
+				body.knockback(10000, 1)
 				GameManager.camera.startshaking(1.3, 8, 0.2)
