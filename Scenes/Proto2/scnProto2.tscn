@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Scenes/Prototype/mapa_prototipo_p2.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Proto2/mapa_prototipo_p2.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Player/oPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/Broca/oBroca.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Prototype/mapa_prototipo_p1.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Proto2/mapa_prototipo_p1.png" type="Texture" id=4]
 [ext_resource path="res://Audio/BGS/bgsATIMOSFERICU.wav" type="AudioStream" id=6]
 [ext_resource path="res://Scenes/Prototype/sky.png" type="Texture" id=8]
 [ext_resource path="res://Scripts/Camerashake.gd" type="Script" id=9]

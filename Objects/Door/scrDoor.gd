@@ -1,19 +1,9 @@
 extends Area2D
 
 export(PackedScene) var ToWhere
-
-export var shouldtrigger = true
+export(bool) var shouldtrigger = true
 
 var playerhere = false
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 
 func _process(delta):
 	if playerhere:
@@ -23,13 +13,13 @@ func _process(delta):
 		else:
 			SceneChanger.change_scene(ToWhere.resource_path, false)
 
-
 func _on_Door_body_entered(body):
 		if body.is_in_group("Player"):
+			$interactAnm.play("anmInteract")
 			playerhere = true # Replace with function body.
-
 
 func _on_Door_body_exited(body):
 	if body.is_in_group("Player"):
+			$interactAnm.play_backwards("anmInteract")
 			playerhere = false
 	pass # Replace with function body.

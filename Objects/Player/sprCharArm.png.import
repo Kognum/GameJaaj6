@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mapa_prototipo_p3.png-8fb8dcc3549a3d17436742a38fc3c63e.stex"
+path="res://.import/sprCharArm.png-2c44eee2862c67c1fc31764eb2a33c3c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/mapa_prototipo_p3.png"
-dest_files=[ "res://.import/mapa_prototipo_p3.png-8fb8dcc3549a3d17436742a38fc3c63e.stex" ]
+source_file="res://Objects/Player/sprCharArm.png"
+dest_files=[ "res://.import/sprCharArm.png-2c44eee2862c67c1fc31764eb2a33c3c.stex" ]
 
 [params]
 

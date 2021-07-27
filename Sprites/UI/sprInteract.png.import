@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/playergun.png-77d6957d3a04a0bb695546cf3fe83ac8.stex"
+path="res://.import/sprInteract.png-95cf473cc756d1f9bbcd06ad029a870e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Prototype/playergun.png"
-dest_files=[ "res://.import/playergun.png-77d6957d3a04a0bb695546cf3fe83ac8.stex" ]
+source_file="res://Sprites/UI/sprInteract.png"
+dest_files=[ "res://.import/sprInteract.png-95cf473cc756d1f9bbcd06ad029a870e.stex" ]
 
 [params]
 

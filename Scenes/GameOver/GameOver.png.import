@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mapa_prototipo_p4.png-86424f8d9652eb51878e98fcf7534999.stex"
+path="res://.import/GameOver.png-233daa2ffbbd0d4264b349b7c62d4e23.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/mapa_prototipo_p4.png"
-dest_files=[ "res://.import/mapa_prototipo_p4.png-86424f8d9652eb51878e98fcf7534999.stex" ]
+source_file="res://Scenes/GameOver/GameOver.png"
+dest_files=[ "res://.import/GameOver.png-233daa2ffbbd0d4264b349b7c62d4e23.stex" ]
 
 [params]
 

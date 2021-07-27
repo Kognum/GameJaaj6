@@ -2,7 +2,7 @@ extends CanvasLayer
 
 onready var anm = $scAnm
 
-func change_scene(scene_path :String, playanim :bool):
+func change_scene(scene_path :String, playanim :bool = true):
 	if playanim:
 		GameManager.globals.player_move = false
 		anm.play("anmFade")

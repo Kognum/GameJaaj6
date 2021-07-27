@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/GameOver/GameOver.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/GameOver/scrGameOver.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 960, 540 )
+
+[node name="scnGameOver" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="sprMain" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="btnContinue" type="TouchScreenButton" parent="."]
+shape = SubResource( 1 )
+
+[connection signal="released" from="btnContinue" to="." method="_on_btnContinue_released"]
