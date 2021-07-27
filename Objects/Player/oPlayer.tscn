@@ -5,7 +5,7 @@
 [ext_resource path="res://Objects/Player/scrPlayer.gd" type="Script" id=3]
 [ext_resource path="res://Objects/Player/sprGunfire.png" type="Texture" id=4]
 [ext_resource path="res://Audio/SFX/sfxFootstep.mp3" type="AudioStream" id=5]
-[ext_resource path="res://Shaders/shrCC.shader" type="Shader" id=6]
+[ext_resource path="res://Objects/Player/shrCC.shader" type="Shader" id=6]
 [ext_resource path="res://Sprites/UI/WeaponCycle/sprWPCycle1.png" type="Texture" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -377,10 +377,10 @@ layer = 6
 [node name="sprWPCycle" type="TextureRect" parent="nHUD"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -106.0
-margin_top = 70.0
-margin_right = 106.0
-margin_bottom = 273.0
+margin_left = 710.922
+margin_top = 43.3032
+margin_right = 922.922
+margin_bottom = 246.303
 texture = ExtResource( 7 )
 expand = true
 __meta__ = {
