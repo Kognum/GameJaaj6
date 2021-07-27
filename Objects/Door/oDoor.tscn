@@ -60,7 +60,7 @@ shape = SubResource( 1 )
 visible = false
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 0, -156 )
-scale = Vector2( 0.308594, 0.308594 )
+scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 3 )
 
 [node name="interactAnm" type="AnimationPlayer" parent="."]

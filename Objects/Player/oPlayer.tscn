@@ -5,7 +5,7 @@
 [ext_resource path="res://Objects/Player/scrPlayer.gd" type="Script" id=3]
 [ext_resource path="res://Objects/Player/sprGunfire.png" type="Texture" id=4]
 [ext_resource path="res://Audio/SFX/sfxFootstep.mp3" type="AudioStream" id=5]
-[ext_resource path="res://Objects/Player/shrCC.shader" type="Shader" id=6]
+[ext_resource path="res://Shaders/shrCC.shader" type="Shader" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 41.0
@@ -346,7 +346,7 @@ stream = ExtResource( 5 )
 volume_db = 15.0
 
 [node name="Flash" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 282, 146 )
 z_index = 2
 
 [node name="nUI" type="CanvasLayer" parent="."]

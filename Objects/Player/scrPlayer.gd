@@ -24,8 +24,7 @@ var possibledoortoentner = null
 func spawn_cursor():
 	var cursor_instance = _cursor.instance()
 	get_parent().call_deferred("add_child",cursor_instance)
-	
-func setupflash():
+func setup_flash():
 	flash.scale = get_viewport_rect().size
 
 func _init():
@@ -33,7 +32,7 @@ func _init():
 func _ready():
 	GameManager.globals.lock_mouse = true
 	spawn_cursor()
-	setupflash()
+	setup_flash()
 func _physics_process(delta):
 	if not dead:
 		if GameManager.globals.player_move:
@@ -55,8 +54,9 @@ func _physics_process(delta):
 export var speed = 100.0
 var velocity := Vector2.ZERO
 var acceleration = 5;
+var horizontal := 0.0
 func move(_delta):
-	var horizontal := 0.0
+	horizontal = 0.0
 	
 	if Input.is_action_pressed("player_left"):
 		horizontal = min(horizontal + acceleration, -speed)
@@ -148,34 +148,29 @@ func play_footstep():
 func flashscreen(howmuch):
 	flash.modulate = Color(255, 255, 255, howmuch)
 	pass
-
 func flashfadeout(howfast):
 	var howmuchleft = flash.modulate.a
 	
 	if howmuchleft != 0:
-		
 		howmuchleft -= howfast
 		
 		flash.modulate = Color(255, 255, 255, howmuchleft)
-		
-		print(flash.modulate.a)
 
 func knockback(howstrong):
 	var direction
 	
 	if arm.flip_v:
 		direction = Vector2.RIGHT
-		pass
 	else:
 		direction = Vector2.LEFT
-		pass
 	
 	if howstrong != 0:
 		howstrong -= 1
 	
-	move_and_slide(direction * howstrong)
-	pass
-	# Replace with function body.
+	velocity.x -= direction.x * howstrong
+	
+	#direction = move_and_slide(direction * howstrong, Vector2.UP)
+
 func manage_health():
 	match health:
 		0:

@@ -63,6 +63,7 @@ func _process(delta):
 			if not is_on_floor():
 				aply_gravity(delta)
 			else:
+				$enemyCol.disabled = true
 				set_process(false)
 
 func is_health_low() -> bool:
@@ -230,5 +231,5 @@ func _on_enemyHitbox_area_entered(area):
 		if body.is_in_group("Player"):
 			if not body.dead: 
 				body.health -= 1
+				body.knockback(200)
 				GameManager.camera.startshaking(1.3, 8, 0.2)
-				print("Health: " + String(body.health))

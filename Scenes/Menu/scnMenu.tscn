@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://Scenes/Menu/shrQuake.shader" type="Shader" id=1]
+[ext_resource path="res://Shaders/shrQuake.shader" type="Shader" id=1]
 [ext_resource path="res://Scenes/Menu/A01.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Menu/A02.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Menu/A06.png" type="Texture" id=4]
