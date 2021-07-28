@@ -7,13 +7,24 @@ export(Texture) var sprite
 enum state_machine {
 	WAITING,
 	HUNTING,
+	SHOOTING,
 	RUNAWAY,
 	DEAD}
+
+enum attack_types {
+	MELEE,
+	HORDA,
+	MULTIPLICADOR,
+	TANQUE}
+
+export(attack_types) var attack_type = attack_types.MELEE
 
 export(state_machine) var default_state = state_machine.WAITING
 onready var currect_state = default_state
 
 export(int) var speed = 250
+export(float) var HWGtimetofire = 3.5
+export(float) var HWGprevioustimetofire
 
 export(int) var max_health = 100
 export(int) var runaway_health = 55
@@ -42,7 +53,12 @@ func _process(delta):
 					currect_state = state_machine.HUNTING
 		state_machine.HUNTING:
 			hunt(delta)
-			shoot()
+			if attack_type == attack_types.TANQUE:
+				if OS.get_ticks_msec() > HWGprevioustimetofire:
+					currect_state = state_machine.SHOOTING
+			else:
+				shoot()
+				
 			if not find_player():
 				currect_state = state_machine.WAITING
 			if is_health_low():
@@ -55,6 +71,15 @@ func _process(delta):
 			eye_reach = 600
 			if not find_player():
 				currect_state = state_machine.WAITING
+		state_machine.SHOOTING:
+			aply_gravity(delta)
+			shoot(1)
+			
+			if HWGtimetofire != 0:
+				HWGtimetofire -= 1
+			else:
+				HWGprevioustimetofire = OS.get_ticks_msec() + 40
+				currect_state = state_machine.HUNTING
 		state_machine.DEAD:
 			$EnemySprint.emitting = false
 			$enemyAnm.play("anmDead")
@@ -104,12 +129,6 @@ func find_player(vision := 600, eyeReach := -1) -> bool:
 export(int) var react_time = 500
 export(int) var target_player_dist = 140
 export(int) var jump_heigh = 800
-enum attack_types {
-	MELEE,
-	HORDA,
-	MULTIPLICADOR,
-	TANQUE}
-export(attack_types) var attack_type = attack_types.MELEE
 export(int) var avoid_distance = 20
 var vel = Vector2(0, 0)
 var grav = 1800
@@ -210,14 +229,14 @@ var _bullet = preload("res://Objects/Bullet/oBullet.tscn")
 onready var bulletPos = $enemySprite/BulletPos
 func shoot(rate_speed := 1):
 	match attack_type:
-		attack_types.SNIPER:
+		attack_types.HORDA:
 			pass
-		attack_types.METRALHADORA:
+		attack_types.MULTIPLICADOR:
 			pass
-		attack_types.SHOTGUN:
+		attack_types.TANQUE:
 			var bala_instance = _bullet.instance()
 			bala_instance.global_position = bulletPos.global_position
-			bala_instance.rotation = $enemySprite.global_rotation
+			bala_instance.look_at(Player.get_global_position())
 			bala_instance.damage = 1
 			bala_instance.add_to_group("ShootByEnemy")
 			get_parent().call_deferred("add_child", bala_instance)
