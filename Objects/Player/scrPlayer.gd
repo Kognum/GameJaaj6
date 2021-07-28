@@ -246,7 +246,6 @@ func shoot():
 		wp_cycle = 0 
 	elif wp_cycle < 0:
 		wp_cycle = 2
-	print(wp_cycle)
 	
 	if Input.is_action_just_pressed("player_secondary"): # DEBUG
 		wp_cycle += 1
