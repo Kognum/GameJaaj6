@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/GunR_Shotgun3.mp3-ed2aa53107f343a1937cee21c2014b6d.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Shoot/GunR_Shotgun3.mp3"
+dest_files=[ "res://.import/GunR_Shotgun3.mp3-ed2aa53107f343a1937cee21c2014b6d.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

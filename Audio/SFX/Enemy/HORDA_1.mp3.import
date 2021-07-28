@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/HORDA_1.mp3-135ce6f51704ae1c59ff887007cd1ddb.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Enemy/HORDA_1.mp3"
+dest_files=[ "res://.import/HORDA_1.mp3-135ce6f51704ae1c59ff887007cd1ddb.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

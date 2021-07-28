@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/SPAWN_2.mp3-a1e2352888cc434ab537d08d0e6b4c12.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Enemy/SPAWN_2.mp3"
+dest_files=[ "res://.import/SPAWN_2.mp3-a1e2352888cc434ab537d08d0e6b4c12.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

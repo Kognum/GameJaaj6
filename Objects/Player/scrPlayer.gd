@@ -79,6 +79,7 @@ func jump(_delta):
 	if is_on_floor():
 		if Input.is_action_just_pressed("player_jump"):
 			if not jumping_on_knockback:
+				$sfxFootstepJump.play()
 				velocity.y = jump_velocity
 
 func aply_only_gravity(_delta):
@@ -131,12 +132,15 @@ enum wp_cycles {
 	SPNIPER,
 	METRALHADORA}
 var wp_cycle = wp_cycles.SHOTGUN
-func shoot():
+func shoot(): 
 	match wp_cycle:
 		wp_cycles.SHOTGUN:
 			$nHUD/sprWPCycle.texture = wpc_tex1
 			
 			if Input.is_action_just_pressed("player_shoot"):
+				$sfxShoot.stream = load("res://Audio/SFX/Shoot/GunFIRE_Shotgun3.mp3")
+				$sfxShoot.play()
+				#------------------------------------------------#
 				gunFire.rotation_degrees = rand_range(0, 359)
 				gunFire.visible = true
 				
@@ -187,6 +191,9 @@ func shoot():
 			$nHUD/sprWPCycle.texture = wpc_tex2
 			
 			if Input.is_action_just_pressed("player_shoot"):
+				$sfxShoot.stream = load("res://Audio/SFX/Shoot/GunFIRE_Snipe1.mp3")
+				$sfxShoot.play()
+				#------------------------------------------------#
 				gunFire.rotation_degrees = rand_range(0, 359)
 				gunFire.visible = true
 				
@@ -210,6 +217,9 @@ func shoot():
 			$nHUD/sprWPCycle.texture = wpc_tex3
 			
 			if Input.is_action_pressed("player_shoot"):
+				$sfxShoot.stream = load("res://Audio/SFX/Shoot/GunFIRE_MachineGun2.mp3")
+				$sfxShoot.play()
+				#------------------------------------------------#
 				gunFire.rotation_degrees = rand_range(0, 359)
 				gunFire.visible = true
 				
@@ -228,7 +238,7 @@ func shoot():
 				GameManager.camera.startshaking(1.5, 10, 0.3)
 				knockback(100)
 				
-				#yield(get_tree().create_timer(2), "timeout")
+				yield(get_tree().create_timer(.2), "timeout")
 			else:
 				gunFire.visible = false
 	
@@ -240,7 +250,6 @@ func shoot():
 	
 	if Input.is_action_just_pressed("player_secondary"): # DEBUG
 		wp_cycle += 1
-
 
 func play_footstep():
 	$sfxFootstep.pitch_scale = rand_range(0.75, 1.3)
@@ -258,7 +267,7 @@ func flashfadeout(howfast):
 		flash.modulate = Color(255, 255, 255, howmuchleft)
 
 var jumping_on_knockback = false
-func knockback(howstrong :int = 100, whichside :int = 0):
+func knockback(howstrong :int = 100, whichside :int = 0, has_sound :bool = false):
 	var direction : Vector2
 	
 	if whichside == 0:
@@ -274,29 +283,25 @@ func knockback(howstrong :int = 100, whichside :int = 0):
 	
 	if is_on_floor():
 		if Input.is_action_just_pressed("player_jump"):
+			$sfxFootstepJump.play()
 			jumping_on_knockback = true
 			direction.y = jump_velocity / 9
 	jumping_on_knockback = false
+	
+	if has_sound:
+		$sfxHit.play()
 	
 	direction = move_and_slide(direction * howstrong, Vector2.UP)
 
 func manage_health():
 	match health:
 		0:
-			$nUI/BackBufferCopy/fxDamage.visible = true
-			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Shadows", Color(255, 0, 0, 255))
-			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Hilights", Color(196, 0, 0, 255))
+			$bgsHeartbeat.volume_db = linear2db(1)
 			dead = true
 		1:
-			$nUI/BackBufferCopy/fxDamage.visible = true
-			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Shadows", Color(170, 0, 0, 255))
-			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Hilights", Color(131, 0, 0, 255))
+			$bgsHeartbeat.volume_db = linear2db(0.75)
 		2:
-			$nUI/BackBufferCopy/fxDamage.visible = true
-			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Shadows", Color(170, 0, 0, 255))
-			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Hilights", Color(67, 0, 0, 255))
+			$bgsHeartbeat.volume_db = linear2db(0.35)
 		3:
-			$nUI/BackBufferCopy/fxDamage.visible = false
-			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Shadows", Color(0, 0, 0, 0))
-			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("Hilights", Color(0, 0, 0, 0))
+			$bgsHeartbeat.volume_db = linear2db(0)
 			dead = false

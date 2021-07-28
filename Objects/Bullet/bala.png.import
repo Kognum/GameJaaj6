@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bala.png-60b98c6d950561177712a4aa0d472948.stex"
+path="res://.import/bala.png-ab3d944db31a48c1f09800757e2019a6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Prototype/bala.png"
-dest_files=[ "res://.import/bala.png-60b98c6d950561177712a4aa0d472948.stex" ]
+source_file="res://Objects/Bullet/bala.png"
+dest_files=[ "res://.import/bala.png-ab3d944db31a48c1f09800757e2019a6.stex" ]
 
 [params]
 

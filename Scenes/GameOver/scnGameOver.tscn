@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/GameOver/GameOver.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/GameOver/scrGameOver.gd" type="Script" id=2]
+[ext_resource path="res://Audio/BGM/Game_Over.mp3" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 960, 540 )
@@ -15,5 +16,11 @@ centered = false
 
 [node name="btnContinue" type="TouchScreenButton" parent="."]
 shape = SubResource( 1 )
+
+[node name="bgmGameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = 24.0
+autoplay = true
+bus = "BGM"
 
 [connection signal="released" from="btnContinue" to="." method="_on_btnContinue_released"]

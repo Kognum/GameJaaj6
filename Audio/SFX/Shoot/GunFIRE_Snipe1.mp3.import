@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/GunFIRE_Snipe1.mp3-9c01a1cbdc5e525c5d416bf086e6ae81.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Shoot/GunFIRE_Snipe1.mp3"
+dest_files=[ "res://.import/GunFIRE_Snipe1.mp3-9c01a1cbdc5e525c5d416bf086e6ae81.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

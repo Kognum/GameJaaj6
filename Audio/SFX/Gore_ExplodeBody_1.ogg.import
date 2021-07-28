@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Gore_ExplodeBody_1.ogg-7a8886ba245f592e7fcc89cd6a2b0c0c.oggstr"
+
+[deps]
+
+source_file="res://Audio/SFX/Gore_ExplodeBody_1.ogg"
+dest_files=[ "res://.import/Gore_ExplodeBody_1.ogg-7a8886ba245f592e7fcc89cd6a2b0c0c.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

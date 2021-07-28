@@ -250,7 +250,7 @@ func _on_enemyHitbox_area_entered(area):
 		if body.is_in_group("Player"):
 			if not body.dead: 
 				body.health -= 1
-				body.knockback(10000, -1)
+				body.knockback(10000, -1, true)
 				GameManager.camera.startshaking(1.3, 8, 0.2)
 func _on_enemyHitbox2_area_entered(area):
 	if attack_type == attack_types.MELEE:
@@ -258,5 +258,5 @@ func _on_enemyHitbox2_area_entered(area):
 		if body.is_in_group("Player"):
 			if not body.dead: 
 				body.health -= 1
-				body.knockback(10000, 1)
+				body.knockback(10000, 1, true)
 				GameManager.camera.startshaking(1.3, 8, 0.2)
