@@ -5,7 +5,7 @@
 [ext_resource path="res://Objects/Player/scrPlayer.gd" type="Script" id=3]
 [ext_resource path="res://Objects/Player/sprGunfire.png" type="Texture" id=4]
 [ext_resource path="res://Audio/SFX/Footstep/footstep_2.mp3" type="AudioStream" id=5]
-[ext_resource path="res://Shaders/shrCC.shader" type="Shader" id=6]
+[ext_resource path="res://Objects/Player/shrCC.shader" type="Shader" id=6]
 [ext_resource path="res://Sprites/UI/WeaponCycle/sprWPCycle1.png" type="Texture" id=7]
 [ext_resource path="res://Audio/SFX/Footstep/footstep_jump_3.mp3" type="AudioStream" id=8]
 [ext_resource path="res://Audio/SFX/Shoot/GunFIRE_MachineGun2.mp3" type="AudioStream" id=9]
@@ -263,9 +263,6 @@ tracks/3/keys = {
 
 [sub_resource type="ShaderMaterial" id=9]
 shader = ExtResource( 6 )
-shader_param/Shadows = Color( 0, 0, 0, 1 )
-shader_param/Midtones = Color( 0, 0, 0, 1 )
-shader_param/Hilights = Color( 0, 0, 0, 1 )
 
 [node name="oPlayer" type="KinematicBody2D" groups=[
 "Player",
@@ -348,27 +345,22 @@ anims/anmWalk = SubResource( 8 )
 
 [node name="sfxFootstep" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
-bus = "SFX"
 
 [node name="sfxFootstepJump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 8 )
-bus = "SFX"
 
 [node name="sfxShoot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 9 )
 volume_db = 5.0
-bus = "SFX"
 
 [node name="bgsHeartbeat" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 10 )
 volume_db = 5.0
 autoplay = true
-bus = "BGS"
 
 [node name="sfxHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 11 )
 volume_db = 15.0
-bus = "SFX"
 
 [node name="Flash" type="Sprite" parent="."]
 position = Vector2( 282, 146 )
@@ -383,6 +375,7 @@ scale = Vector2( 9.6, 5.4 )
 copy_mode = 2
 
 [node name="fxDamage" type="ColorRect" parent="nUI/BackBufferCopy"]
+visible = false
 material = SubResource( 9 )
 anchor_right = 1.0
 anchor_bottom = 1.0

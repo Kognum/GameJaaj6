@@ -28,8 +28,8 @@ func _ready():
 			$sprMetralhadora.visible = false
 			$sprSniper.visible = false
 			$sprShotgun.visible = true
-func _process(delta):
-	position += (Vector2.RIGHT * bulletspeed).rotated(rotation) * delta
+func _process(_delta):
+	position += (Vector2.RIGHT * bulletspeed).rotated(rotation) * _delta
 
 func _on_Area2D_body_entered(body):
 	if is_in_group("ShootByPlayer"):
