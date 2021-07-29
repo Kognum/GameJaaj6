@@ -260,7 +260,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=9]
 resource_name = "anmHit"
 length = 3.0
 tracks/0/type = "value"
@@ -276,7 +276,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.431373 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.431373 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.431373 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Shader" id=9]
+[sub_resource type="Shader" id=10]
 code = "shader_type canvas_item;
 
 // MODES
@@ -346,8 +346,8 @@ void fragment(){
 	COLOR = vec4(c_f.rbg, opacity * c_f.a);
     }"
 
-[sub_resource type="ShaderMaterial" id=10]
-shader = SubResource( 9 )
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 10 )
 shader_param/mode = 5
 shader_param/linearColorSpace = false
 shader_param/color1 = Color( 0.388235, 0, 0, 0 )
@@ -436,7 +436,7 @@ anims/anmJump = SubResource( 7 )
 anims/anmWalk = SubResource( 8 )
 
 [node name="hitAnimation" type="AnimationPlayer" parent="."]
-anims/anmHit = SubResource( 11 )
+anims/anmHit = SubResource( 9 )
 
 [node name="sfxFootstep" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
@@ -477,7 +477,7 @@ scale = Vector2( 9.6, 5.4 )
 copy_mode = 2
 
 [node name="fxDamage" type="ColorRect" parent="nUI/BackBufferCopy"]
-material = SubResource( 10 )
+material = SubResource( 11 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -100.0

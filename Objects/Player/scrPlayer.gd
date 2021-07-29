@@ -337,22 +337,26 @@ func manage_health(_delta):
 	var opacity_level = $nUI/BackBufferCopy/fxDamage.material.get_shader_param("opacity")
 	match health:
 		0:
-			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(1), _delta * health)
+			#$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(1), _delta * health)
+			$bgsHeartbeat.volume_db = linear2db(1)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 1, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = true
 		1:
-			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0.75), _delta * health)
+			#$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0.75), _delta * health)
+			$bgsHeartbeat.volume_db = linear2db(0.75)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.5, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = false
 		2:
-			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0.35), _delta * health)
+			#$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0.35), _delta * health)
+			$bgsHeartbeat.volume_db = linear2db(0.35)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.3, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = false
 		3:
-			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0), _delta * health)
+			#$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0), _delta * health)
+			$bgsHeartbeat.volume_db = linear2db(0)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.0, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = false
