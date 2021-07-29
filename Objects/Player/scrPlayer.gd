@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+var max_health := 3
 var health := 3
 var dead := false
 
@@ -35,18 +36,20 @@ func _ready():
 	setup_flash()
 	if GameManager.playerdoorexitloc != Vector2.ZERO:
 		global_position = GameManager.playerdoorexitloc
+func _process(delta):
+	if not dead:
+		if GameManager.globals.player_shoot:
+			shoot()
 func _physics_process(delta):
 	if not dead:
 		if GameManager.globals.player_move:
 			move(delta)
 		if GameManager.globals.player_look:
 			arm(delta)
-		if GameManager.globals.player_shoot:
-			shoot()
 		
 		flashfadeout(1)
 		animate()
-		manage_health()
+		manage_health(delta)
 	else:
 		aply_only_gravity(delta)
 		$playerAnimation.play("anmDead", 1)
@@ -151,7 +154,7 @@ func shoot():
 				bala_instance_1.add_to_group("ShootByPlayer")
 				
 				bala_instance_1.bullet_type = bala_instance_1.bullet_types.SHOTGUN
-				bala_instance_1.damage = 3
+				bala_instance_1.damage = 7
 				bala_instance_1.bulletspeed = 2500
 				bala_instance_1.basetilt = 0.12
 				
@@ -164,7 +167,7 @@ func shoot():
 				bala_instance_2.add_to_group("ShootByPlayer")
 				
 				bala_instance_2.bullet_type = bala_instance_2.bullet_types.SHOTGUN
-				bala_instance_2.damage = 3
+				bala_instance_2.damage = 7
 				bala_instance_2.bulletspeed = 2500
 				bala_instance_2.basetilt = 0.15
 				
@@ -177,7 +180,7 @@ func shoot():
 				bala_instance_3.add_to_group("ShootByPlayer")
 				
 				bala_instance_3.bullet_type = bala_instance_3.bullet_types.SHOTGUN
-				bala_instance_3.damage = 3
+				bala_instance_3.damage = 7
 				bala_instance_3.bulletspeed = 2500
 				bala_instance_3.basetilt = 0.1
 				
@@ -185,6 +188,11 @@ func shoot():
 				
 				GameManager.camera.startshaking(1.5, 10, 0.3)
 				knockback(100)
+				
+				gunFire.visible = false
+				set_process(false)
+				yield(get_tree().create_timer(.5), "timeout")
+				set_process(true)
 			else:
 				gunFire.visible = false
 		wp_cycles.SPNIPER:
@@ -203,7 +211,7 @@ func shoot():
 				bala_instance.add_to_group("ShootByPlayer")
 				
 				bala_instance.bullet_type = bala_instance.bullet_types.SNIPER
-				bala_instance.damage = 5
+				bala_instance.damage = 30
 				bala_instance.bulletspeed = 3000
 				bala_instance.basetilt = 0.05
 				
@@ -211,6 +219,11 @@ func shoot():
 				
 				GameManager.camera.startshaking(1.5, 10, 0.3)
 				knockback(100)
+				
+				gunFire.visible = false
+				set_process(false)
+				yield(get_tree().create_timer(1), "timeout")
+				set_process(true)
 			else:
 				gunFire.visible = false
 		wp_cycles.METRALHADORA:
@@ -229,16 +242,18 @@ func shoot():
 				bala_instance.add_to_group("ShootByPlayer")
 				
 				bala_instance.bullet_type = bala_instance.bullet_types.METRALHADORA
-				bala_instance.damage = 1
+				bala_instance.damage = 3
 				bala_instance.bulletspeed = 2500
-				bala_instance.basetilt = 0.05
+				bala_instance.basetilt = 0.1
 				
 				get_parent().call_deferred("add_child", bala_instance)
 				
 				GameManager.camera.startshaking(1.5, 10, 0.3)
 				knockback(100)
 				
-				yield(get_tree().create_timer(.2), "timeout")
+				set_process(false)
+				yield(get_tree().create_timer(.07), "timeout")
+				set_process(true)
 			else:
 				gunFire.visible = false
 	
@@ -280,27 +295,68 @@ func knockback(howstrong :int = 100, whichside :int = 0, has_sound :bool = false
 	if howstrong != 0:
 		howstrong -= 1
 	
-	if is_on_floor():
-		if Input.is_action_just_pressed("player_jump"):
-			$sfxFootstepJump.play()
-			jumping_on_knockback = true
-			direction.y = jump_velocity / 9
-	jumping_on_knockback = false
+	#if is_on_floor():
+	#	if Input.is_action_just_pressed("player_jump"):
+	#		$sfxFootstepJump.play()
+	#		jumping_on_knockback = true
+	#		direction.y = jump_velocity / 9
+	#jumping_on_knockback = false
 	
 	if has_sound:
 		$sfxHit.play()
 	
 	direction = move_and_slide(direction * howstrong, Vector2.UP)
 
-func manage_health():
+var regenRate := 0.5
+var can_regenerate := false
+var heal_cooldown := 9.0
+var max_heal_cooldown := 9.0
+var start_cooldown = false
+func take_damage(damage : float = 1):
+	if not health <= 0:
+		health -= damage
+		
+		can_regenerate = false
+		heal_cooldown = max_heal_cooldown
+		start_cooldown = true
+func manage_health(_delta):
+	print(health)
+	
+	if health < 0:
+		health = 0
+	
+	var opacity_level = $nUI/BackBufferCopy/fxDamage.material.get_shader_param("opacity")
 	match health:
 		0:
 			$bgsHeartbeat.volume_db = linear2db(1)
+			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 1, _delta * health))
+			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = true
 		1:
 			$bgsHeartbeat.volume_db = linear2db(0.75)
+			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.5, _delta * health))
+			$nUI/BackBufferCopy/fxDamage.visible = true
+			dead = false
 		2:
 			$bgsHeartbeat.volume_db = linear2db(0.35)
+			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.3, _delta * health))
+			$nUI/BackBufferCopy/fxDamage.visible = true
+			dead = false
 		3:
 			$bgsHeartbeat.volume_db = linear2db(0)
+			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.0, _delta * health))
+			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = false
+	
+	if start_cooldown:
+		heal_cooldown -= _delta
+		if heal_cooldown <= 0:
+			can_regenerate = true
+			start_cooldown = false
+	if can_regenerate:
+		if health < max_health:
+			health += ceil(_delta * regenRate)
+		else:
+			health = max_health
+			heal_cooldown = max_heal_cooldown
+			can_regenerate = false

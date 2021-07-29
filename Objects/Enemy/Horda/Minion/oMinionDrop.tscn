@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Objects/Enemy/Horda/sprHorda.png" type="Texture" id=1]
+
+[sub_resource type="PhysicsMaterial" id=2]
+rough = true
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 45.4306
+height = 46.2901
+
+[node name="oMinionDrop" type="RigidBody2D"]
+physics_material_override = SubResource( 2 )
+gravity_scale = 32.03
+
+[node name="dropCol" type="CollisionShape2D" parent="."]
+rotation = 0.523598
+scale = Vector2( 0.3, 0.3 )
+shape = SubResource( 1 )
+
+[node name="dropSprite" type="Sprite" parent="."]
+scale = Vector2( 0.397249, 0.397249 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 67, 10.818, 111, 137.807 )

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bala.png-ab3d944db31a48c1f09800757e2019a6.stex"
+path="res://.import/bala_shotgun.png-6b57b7b37df8886e32e37d35126d5913.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/Bullet/bala.png"
-dest_files=[ "res://.import/bala.png-ab3d944db31a48c1f09800757e2019a6.stex" ]
+source_file="res://Objects/Bullet/bala_shotgun.png"
+dest_files=[ "res://.import/bala_shotgun.png-6b57b7b37df8886e32e37d35126d5913.stex" ]
 
 [params]
 

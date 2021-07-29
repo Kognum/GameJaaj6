@@ -5,34 +5,32 @@ onready var Player = GameManager.globals.player_node
 enum behaviour{
 	FLYINGAROUND,
 	HUNTINGPLAYER,
-	SEPARATING}
-
+	SEPARATING,
+	DEAD}
 export(behaviour) var currentbeh = behaviour.FLYINGAROUND
-	
+
 enum SIZE{
 	GIANT,
 	SMALL,
 	MINI,
 	}
-	
 export(SIZE) var currentsize = SIZE.GIANT
-export var health = 100
+
+export(int) var health = 50
+
 var directiontospawn : Vector2
-export var spawnvel : float
+
+export(float) var spawnvel : float
 
 var rects = [
 	Rect2(Vector2(37.481, 1307.31), Vector2(402.277, 359.65)),
 	Rect2(Vector2(138, 1850.832), Vector2(146, 148.126)),
-	Rect2(Vector2(93.74, 1679.415), Vector2(272.041, 168.406))
-]
+	Rect2(Vector2(93.74, 1679.415), Vector2(272.041, 168.406))]
 
-export var keepdriftingforhowlong = 250.0
+export(float) var keepdriftingforhowlong = 250.0
+
 onready var playersprite = $Sprite
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 export(int) var eye_reach = 240
 func find_player(vision := 600, eyeReach := -1) -> bool:
 	if eyeReach == -1:
@@ -62,12 +60,6 @@ func find_player(vision := 600, eyeReach := -1) -> bool:
 				return true
 	return false
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	fitsprite()
-	pass # Replace with function body.
-
-
 func fitsprite():
 	var whichrect
 	match currentsize:
@@ -78,18 +70,14 @@ func fitsprite():
 		SIZE.SMALL:
 			whichrect = 2
 	playersprite.region_rect = rects[whichrect]
-	
-	pass
 
+func _ready():
+	fitsprite()
 var wheretogo : Vector2
 var holdtime = 1500
 var maxtime
 var prevtime
 func _process(delta):
-	
-
-	
-	
 	match currentbeh:
 		behaviour.FLYINGAROUND:
 			if OS.get_ticks_msec() > holdtime:
@@ -100,15 +88,13 @@ func _process(delta):
 				move_and_slide(wheretogo) * 5
 			
 			if find_player():
+				$alertAnm.play("anmAlert")
+				$sfxNotice.play()
 				currentbeh = behaviour.HUNTINGPLAYER
-				pass
-			pass
 		behaviour.HUNTINGPLAYER:
 			var playerpos = Player.get_global_position()
 			wheretogo = -(global_position - playerpos)
 			move_and_slide(wheretogo) * 7
-			#global_position = lerp(global_position, playerpos, delta)
-			pass
 		behaviour.SEPARATING:
 			if maxtime == null and prevtime == null:
 				prevtime = OS.get_ticks_msec()
@@ -116,18 +102,19 @@ func _process(delta):
 				
 			if maxtime > OS.get_ticks_msec():
 				var driftingstrenght = inverse_lerp(maxtime, prevtime, OS.get_ticks_msec())
-				print(driftingstrenght)
 				global_position += (directiontospawn * driftingstrenght)
 				
 			else:
 				currentbeh = behaviour.FLYINGAROUND
-			pass
-		
-		
-		
+		behaviour.DEAD:
+			$damagetakerCol.disabled = true
+			$damagetakerColDead.disabled = false
+			
+			modulate = Color.red
+			aply_only_gravity(delta)
+	
 	playersprite.flip_h = wheretogo.x >= 0
 	
-
 	if health <= 0:
 		var sizetochoose
 		var quantitytochoose : float
@@ -135,37 +122,50 @@ func _process(delta):
 			SIZE.GIANT:
 				sizetochoose = SIZE.SMALL
 				quantitytochoose = 3
-				pass
+				queue_free()
 			SIZE.SMALL:
 				sizetochoose = SIZE.MINI
 				quantitytochoose = 2
-				pass
-			SIZE.MINI:
 				queue_free()
-				pass
+			SIZE.MINI:
+				currentbeh = behaviour.DEAD
 		createchildren(sizetochoose, quantitytochoose)
-		queue_free()
-	pass
+
+var jump_height : float = 250
+var jump_time_to_descent : float = 0.2
+onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
+var velocity :Vector2
+func aply_only_gravity(_delta):
+	velocity.x = 0 
+	velocity.y += fall_gravity * _delta
 	
+	velocity = move_and_slide(velocity, Vector2.UP)
+
 func createchildren(whatsize, howmany : float):
 	var selfclonetscn = load("res://Objects/Enemy/HardHitter/oHardHitter.tscn")
 	while howmany > 0:
 		var newchild = selfclonetscn.instance()
+		
 		newchild.global_position = global_position
 		newchild.currentsize = whatsize
 		newchild.directiontospawn = Vector2(rand_range(-spawnvel, spawnvel), rand_range(-spawnvel, spawnvel))
 		newchild.currentbeh = behaviour.SEPARATING
+		
 		get_parent().add_child(newchild)
 		howmany -= 1
-		pass
-	pass
-	
+
 func _on_damagedoerCol_area_entered(area):
 		if currentbeh == behaviour.HUNTINGPLAYER:
 			var body = area.get_parent()
 			if body.is_in_group("Player"):
 				if not body.dead: 
-					body.health -= 1
+					match currentsize:
+						SIZE.GIANT:
+							body.take_damage(2)
+						SIZE.SMALL:
+							body.take_damage(0.3)
+						SIZE.MINI:
+							body.take_damage(0.3)
 					body.knockback(10000, -1, true)
+					
 					GameManager.camera.startshaking(1.3, 8, 0.2)
-		pass # Replace with function body.

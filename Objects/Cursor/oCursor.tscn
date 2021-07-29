@@ -36,16 +36,15 @@ tracks/0/keys = {
 }
 
 [node name="oCursor" type="Node2D"]
-modulate = Color( 0.854902, 0.854902, 0.854902, 1 )
 z_index = 7
 script = ExtResource( 2 )
 
 [node name="sprCursor" type="Sprite" parent="."]
-position = Vector2( -5.94604, -2.37843 )
+position = Vector2( -2.84217e-14, -1.42109e-14 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 1578.51, 22, 392, 403 )
+region_rect = Rect2( 364.125, 26.125, 398.25, 405 )
 
 [node name="cursorAnm" type="AnimationPlayer" parent="."]
 autoplay = "anmIdle"

@@ -17,17 +17,11 @@ func _ready():
 	
 	match bullet_type:
 		bullet_types.METRALHADORA:
-			$sprMetralhadora.visible = true
-			$sprSniper.visible = false
-			$sprShotgun.visible = false
+			$sprBullet.texture = load("res://Objects/Bullet/bala_metralhadora.png")
 		bullet_types.SNIPER:
-			$sprMetralhadora.visible = false
-			$sprSniper.visible = true
-			$sprShotgun.visible = false
+			$sprBullet.texture = load("res://Objects/Bullet/bala_sniper.png")
 		bullet_types.SHOTGUN:
-			$sprMetralhadora.visible = false
-			$sprSniper.visible = false
-			$sprShotgun.visible = true
+			$sprBullet.texture = load("res://Objects/Bullet/bala_shotgun.png")
 func _process(_delta):
 	position += (Vector2.RIGHT * bulletspeed).rotated(rotation) * _delta
 
@@ -37,8 +31,9 @@ func _on_Area2D_body_entered(body):
 			body.health -= damage
 		if !body.is_in_group("Player"):
 			queue_free()
+	
 	elif is_in_group("ShootByEnemy"):
 		if body.is_in_group("Player"):
-			body.health -= damage
+			body.take_damage(damage)
 		if !body.is_in_group("Enemy"):
 			queue_free()

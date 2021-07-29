@@ -5,7 +5,6 @@
 [ext_resource path="res://Objects/Player/scrPlayer.gd" type="Script" id=3]
 [ext_resource path="res://Objects/Player/sprGunfire.png" type="Texture" id=4]
 [ext_resource path="res://Audio/SFX/Footstep/footstep_2.mp3" type="AudioStream" id=5]
-[ext_resource path="res://Objects/Player/shrCC.shader" type="Shader" id=6]
 [ext_resource path="res://Sprites/UI/WeaponCycle/sprWPCycle1.png" type="Texture" id=7]
 [ext_resource path="res://Audio/SFX/Footstep/footstep_jump_3.mp3" type="AudioStream" id=8]
 [ext_resource path="res://Audio/SFX/Shoot/GunFIRE_MachineGun2.mp3" type="AudioStream" id=9]
@@ -261,8 +260,84 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="ShaderMaterial" id=9]
-shader = ExtResource( 6 )
+[sub_resource type="Shader" id=9]
+code = "shader_type canvas_item;
+
+// MODES
+// 0 - DEBUG
+// 1 - MULTIPLY
+// 2 - SCREEN
+// 3 - SOFTLIGHT
+// 4 - HARDLIGHT
+// 5 - OVERLAY
+uniform int mode :hint_range(0,5) = 5;
+uniform bool linearColorSpace = false;
+uniform vec4 color1 :hint_color = vec4(1, 0.5, 0.8, 1);
+uniform vec4 color2 :hint_color = vec4(0.4, 0.8, 1, 1);
+uniform vec2 direction = vec2(1.0, 1.0);
+uniform float opacity :hint_range(0, 1) = 0.5;
+
+ vec4 srgb_to_linear(vec4 c){
+	return c * (c * (c * 0.305306011 + 0.682171111) + 0.012522878);
+}
+
+vec4 linear_to_srgb(vec4 c){
+	return max(1.055 * pow(c, vec4(0.416666667)) - 0.055, 0.0);
+}
+
+void fragment(){
+	vec2 uv = FRAGCOORD.xy / (1.0 / SCREEN_PIXEL_SIZE).xy;
+	vec4 src = texture(SCREEN_TEXTURE, uv);
+	
+	vec4 c_a = src.rgba;
+	vec4 grad1 = color1.rgba;
+	vec4 grad2 = color2.rgba;
+	vec4 c_f;
+	
+	if (linearColorSpace){ 
+		c_a = linear_to_srgb(c_a);
+		grad1 = linear_to_srgb(grad1);
+		grad2 = linear_to_srgb(grad2);
+	}
+
+	float param = dot(uv - 0.5, direction);
+	vec4 c_b = mix(grad1, grad2, param + 0.5);
+	
+	if (mode == 0){       // DEBUG
+		c_f = c_b;
+	}else if (mode == 1){ // MULTIPLY
+		c_f = c_a * c_b;
+	}else if (mode == 2){ // SCREEN
+		c_f = 1.0 - (1.0 - c_a) * (1.0 - c_b);
+	}else if (mode == 3){ // SOFTLIGHT
+		vec4 c_u = c_a * c_b * 2.0 + (1.0 - c_b * 2.0) * c_a * c_a;
+		vec4 c_d = (1.0 - c_b) * c_a * 2.0 + (c_b * 2.0 - 1.0) * sqrt(c_a);
+		c_f = mix(c_u, c_d, c_b + 0.5);
+	}else if (mode == 4){ // HARDLIGHT
+		vec4 c_u = c_a * c_b * 2.0;
+		vec4 c_d = 1.0 - (1.0 - c_a) * (1.0 - c_b) * 2.0;
+		c_f = mix(c_u, c_d, c_b + 0.5);
+	}else if (mode == 5){ // OVERLAY
+		vec4 c_u = c_a * c_b * 2.0;
+		vec4 c_d = 1.0 - (1.0 - c_a) * (1.0 - c_b) * 2.0;
+		c_f = mix (c_u, c_d, c_a + 0.5);
+	}
+	
+	if (linearColorSpace){
+		c_f = srgb_to_linear(c_f);
+	}
+
+	COLOR = vec4(c_f.rbg, opacity * c_f.a);
+    }"
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
+shader_param/mode = 5
+shader_param/linearColorSpace = false
+shader_param/color1 = Color( 0.388235, 0, 0, 0 )
+shader_param/color2 = Color( 0.756863, 0.054902, 0.054902, 1 )
+shader_param/direction = Vector2( 0, -2 )
+shader_param/opacity = 0.0
 
 [node name="oPlayer" type="KinematicBody2D" groups=[
 "Player",
@@ -345,15 +420,17 @@ anims/anmWalk = SubResource( 8 )
 
 [node name="sfxFootstep" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
+volume_db = 4.0
 
 [node name="sfxFootstepJump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 8 )
+volume_db = 4.0
 
-[node name="sfxShoot" type="AudioStreamPlayer2D" parent="."]
+[node name="sfxShoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 volume_db = 5.0
 
-[node name="bgsHeartbeat" type="AudioStreamPlayer2D" parent="."]
+[node name="bgsHeartbeat" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
 volume_db = 5.0
 autoplay = true
@@ -375,8 +452,7 @@ scale = Vector2( 9.6, 5.4 )
 copy_mode = 2
 
 [node name="fxDamage" type="ColorRect" parent="nUI/BackBufferCopy"]
-visible = false
-material = SubResource( 9 )
+material = SubResource( 10 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -100.0

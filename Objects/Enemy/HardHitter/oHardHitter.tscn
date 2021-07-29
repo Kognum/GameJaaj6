@@ -1,19 +1,103 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Objects/Enemy/HardHitter/scrHardHitter.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/download.png" type="Texture" id=3]
+[ext_resource path="res://Audio/SFX/Enemy/SPAWN_2.mp3" type="AudioStream" id=2]
+[ext_resource path="res://Objects/Enemy/HardHitter/sprHardHitter.png" type="Texture" id=3]
+[ext_resource path="res://Audio/SFX/Gore_ExplodeBody_1.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Sprites/UI/sprInteract.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 72.3609
 
+[sub_resource type="CircleShape2D" id=5]
+radius = 35.7925
+
 [sub_resource type="CircleShape2D" id=2]
 radius = 84.1518
+
+[sub_resource type="Animation" id=3]
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprAlert:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.4, 1 ),
+"update": 0,
+"values": [ Vector2( 0.55, 0.3 ), Vector2( 1.1, 0.6 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprAlert:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 1.2, 1.5 ),
+"transitions": PoolRealArray( 0.4, 1, 0.4, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("sprAlert:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.2, 1.5 ),
+"transitions": PoolRealArray( 1, 0.4, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -164 ), Vector2( 0, -164 ), Vector2( 0, -119 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprAlert:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3.8147e-06, -209 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprAlert:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.55, 0.3 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("sprAlert:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0 ) ]
+}
 
 [node name="oHardHitter" type="KinematicBody2D" groups=[
 "Enemy",
 ]]
 collision_layer = 4
-collision_mask = 17
+collision_mask = 3
 script = ExtResource( 1 )
 health = 10
 spawnvel = 15.0
@@ -21,7 +105,14 @@ spawnvel = 15.0
 [node name="damagetakerCol" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="damagedoerCol" type="Area2D" parent="."]
+[node name="damagetakerColDead" type="CollisionShape2D" parent="."]
+shape = SubResource( 5 )
+
+[node name="damagedoerCol" type="Area2D" parent="." groups=[
+"Enemy",
+]]
+collision_layer = 4
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="damagedoerCol"]
 shape = SubResource( 2 )
@@ -31,5 +122,27 @@ scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 37.481, 1307.31, 402.277, 359.65 )
+
+[node name="sfxNotice" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+bus = "SFX"
+
+[node name="sfxDie" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -8.0
+bus = "SFX"
+
+[node name="sprAlert" type="Sprite" parent="."]
+modulate = Color( 1, 0, 0, 0 )
+position = Vector2( 3.8147e-06, -209 )
+scale = Vector2( 0.55, 0.3 )
+texture = ExtResource( 5 )
+region_enabled = true
+region_rect = Rect2( 105, 60, 55, 130 )
+
+[node name="alertAnm" type="AnimationPlayer" parent="."]
+autoplay = "anmIdle"
+anims/anmAlert = SubResource( 3 )
+anims/anmIdle = SubResource( 4 )
 
 [connection signal="area_entered" from="damagedoerCol" to="." method="_on_damagedoerCol_area_entered"]

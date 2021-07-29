@@ -17,7 +17,7 @@ enum attack_types {
 	MULTIPLICADOR,
 	TANQUE}
 
-export(attack_types) var attack_type = attack_types.MELEE
+export(attack_types) var attack_type = attack_types.HORDA
 
 export(state_machine) var default_state = state_machine.WAITING
 onready var currect_state = default_state
@@ -34,13 +34,19 @@ func _init():
 	if not sprite == null:
 		$enemySprite.texture = sprite
 func _process(delta):
+	match currect_state:
+		state_machine.HUNTING:
+			if not attack_type == attack_types.TANQUE:
+				shoot()
+		state_machine.RUNAWAY:
+			shoot()
+		state_machine.SHOOTING:
+			shoot()
+func _physics_process(delta):
 	if health <= 0:
-		#print("dead")
 		currect_state = state_machine.DEAD
-	else:
-		#print("state: " + String(currect_state) + "\nhealth: " + String(health))
-		pass
 	
+	correct_shoot_position()
 	match currect_state:
 		state_machine.WAITING:
 			aply_gravity(delta)
@@ -51,13 +57,12 @@ func _process(delta):
 					currect_state = state_machine.RUNAWAY
 				else:
 					currect_state = state_machine.HUNTING
+					$sfxNoticed.play()
 		state_machine.HUNTING:
 			hunt(delta)
 			if attack_type == attack_types.TANQUE:
 				if OS.get_ticks_msec() > HWGprevioustimetofire:
 					currect_state = state_machine.SHOOTING
-			else:
-				shoot()
 				
 			if not find_player():
 				currect_state = state_machine.WAITING
@@ -67,13 +72,11 @@ func _process(delta):
 			$enemyAnm.play("anmHunting", -1, 1.2)
 			$EnemySprint.emitting = true
 			runaway(delta)
-			shoot(0.3)
 			eye_reach = 600
 			if not find_player():
 				currect_state = state_machine.WAITING
 		state_machine.SHOOTING:
 			aply_gravity(delta)
-			shoot(1)
 			
 			if HWGtimetofire != 0:
 				HWGtimetofire -= 1
@@ -88,8 +91,10 @@ func _process(delta):
 			if not is_on_floor():
 				aply_gravity(delta)
 			else:
+				$sfxDie.play()
+				#$sfxNoticed.play()
 				$enemyCol.disabled = true
-				set_process(false)
+				set_physics_process(false)
 
 func is_health_low() -> bool:
 	if health <= runaway_health:
@@ -129,7 +134,7 @@ func find_player(vision := 600, eyeReach := -1) -> bool:
 export(int) var react_time = 500
 export(int) var target_player_dist = 140
 export(int) var jump_heigh = 800
-export(int) var avoid_distance = 20
+export(int) var avoid_distance = 50
 var vel = Vector2(0, 0)
 var grav = 1800
 var max_grav = 3000
@@ -142,21 +147,24 @@ func hunt(delta):
 		$enemyAnm.play("anmHunting")
 		if Player.position.x < position.x - target_player_dist:
 			set_dir(-1)
+			$enemySprite.flip_h = false
 		elif Player.position.x > position.x + target_player_dist:
 			set_dir(1)
+			$enemySprite.flip_h = true
 		else:
 			set_dir(0)
 	else:
-		if not find_player(450, avoid_distance):
+		if not find_player(600, avoid_distance):
 			$enemyAnm.play("anmHunting")
 			if Player.position.x < position.x - target_player_dist:
 				set_dir(-1)
+				$enemySprite.flip_h = false
 			elif Player.position.x > position.x + target_player_dist:
 				set_dir(1)
+				$enemySprite.flip_h = true
 			else:
 				set_dir(0)
 		else:
-			$enemyAnm.play("anmWaiting")
 			set_dir(0)
 
 	if OS.get_ticks_msec() > next_dir_time:
@@ -184,8 +192,10 @@ func hunt(delta):
 func runaway(delta):
 	if Player.position.x < position.x - target_player_dist and true:
 		set_dir(1)
+		$enemySprite.flip_h = true
 	elif Player.position.x > position.x + target_player_dist and true:
 		set_dir(-1)
+		$enemySprite.flip_h = true
 	else:
 		set_dir(0)
 
@@ -225,31 +235,35 @@ func aply_gravity(delta):
 
 	vel = move_and_slide(vel, Vector2(0, -1))
 
-var _bullet = preload("res://Objects/Bullet/oBullet.tscn")
+func correct_shoot_position():
+	if $enemySprite.flip_h:
+		$enemySprite/BulletPos.position =  Vector2(337.843, -432.192)
+	else:
+		$enemySprite/BulletPos.position =  Vector2(-337.843, -432.192)
+
+var minion = preload("res://Objects/Enemy/Horda/Minion/oHordaMinion.tscn")
 onready var bulletPos = $enemySprite/BulletPos
 func shoot(rate_speed := 1):
 	match attack_type:
 		attack_types.HORDA:
-			pass
-		attack_types.MULTIPLICADOR:
-			pass
-		attack_types.TANQUE:
-			var bala_instance = _bullet.instance()
-			bala_instance.global_position = bulletPos.global_position
-			bala_instance.look_at(Player.get_global_position())
-			bala_instance.damage = 1
-			bala_instance.add_to_group("ShootByEnemy")
-			get_parent().call_deferred("add_child", bala_instance)
+			var minion_instance = minion.instance()
+			minion_instance.global_position = bulletPos.global_position
+			
+			$sfxShoot.play()
+			
+			get_parent().call_deferred("add_child", minion_instance)
 			
 			GameManager.camera.startshaking(1.2, 6, 0.25)
 			
-			yield(get_tree().create_timer(1.5 * rate_speed), "timeout")
+			set_process(false)
+			yield(get_tree().create_timer(2 * rate_speed), "timeout")
+			set_process(true)
 func _on_enemyHitbox_area_entered(area):
 	if attack_type == attack_types.MELEE:
 		var body = area.get_parent()
 		if body.is_in_group("Player"):
 			if not body.dead: 
-				body.health -= 1
+				body.take_damage(1)
 				body.knockback(10000, -1, true)
 				GameManager.camera.startshaking(1.3, 8, 0.2)
 func _on_enemyHitbox2_area_entered(area):
@@ -257,6 +271,6 @@ func _on_enemyHitbox2_area_entered(area):
 		var body = area.get_parent()
 		if body.is_in_group("Player"):
 			if not body.dead: 
-				body.health -= 1
+				body.take_damage(1)
 				body.knockback(10000, 1, true)
 				GameManager.camera.startshaking(1.3, 8, 0.2)

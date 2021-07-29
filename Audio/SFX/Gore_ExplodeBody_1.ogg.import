@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Gore_ExplodeBody_1.ogg-7a8886ba245f592e7fcc89cd6a2b0
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

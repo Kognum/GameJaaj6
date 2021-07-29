@@ -97,8 +97,8 @@ func is_health_low() -> bool:
 	else:
 		return false
 
-export(int) var eye_reach = 240
-func find_player(vision := 600, eyeReach := -1) -> bool:
+export(int) var eye_reach = 400
+func find_player(vision := 640, eyeReach := -1) -> bool:
 	if eyeReach == -1:
 		eyeReach = eye_reach
 	vision = vision + (eyeReach / 4)
@@ -249,7 +249,7 @@ func _on_enemyHitbox_area_entered(area):
 		var body = area.get_parent()
 		if body.is_in_group("Player"):
 			if not body.dead: 
-				body.health -= 1
+				body.take_damage(1)
 				body.knockback(10000, -1, true)
 				GameManager.camera.startshaking(1.3, 8, 0.2)
 func _on_enemyHitbox2_area_entered(area):
@@ -257,6 +257,6 @@ func _on_enemyHitbox2_area_entered(area):
 		var body = area.get_parent()
 		if body.is_in_group("Player"):
 			if not body.dead: 
-				body.health -= 1
+				body.take_damage(1)
 				body.knockback(10000, 1, true)
 				GameManager.camera.startshaking(1.3, 8, 0.2)
