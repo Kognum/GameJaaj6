@@ -25,10 +25,15 @@ func _ready():
 func _process(_delta):
 	position += (Vector2.RIGHT * bulletspeed).rotated(rotation) * _delta
 
+var blood_slapsh = preload("res://Objects/Blood/oBlood.tscn")
 func _on_Area2D_body_entered(body):
 	if is_in_group("ShootByPlayer"):
 		if body.is_in_group("Enemy"):
-			body.health -= damage
+			var blood_slapsh_instance = blood_slapsh.instance()
+			blood_slapsh_instance.global_position = global_position
+			get_parent().call_deferred("add_child", blood_slapsh_instance)
+			
+			body.take_damage(damage)
 		if !body.is_in_group("Player"):
 			queue_free()
 	

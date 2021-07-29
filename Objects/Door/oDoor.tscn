@@ -31,7 +31,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.5 ),
 "transitions": PoolRealArray( 1, 0.4, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("sprInterract:position")
@@ -57,9 +57,8 @@ shape = SubResource( 1 )
 [node name="sprInterract" type="Sprite" parent="."]
 visible = false
 modulate = Color( 1, 1, 1, 0 )
-self_modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 0, -156 )
-scale = Vector2( 0.4, 0.4 )
+scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 3 )
 
 [node name="interactAnm" type="AnimationPlayer" parent="."]

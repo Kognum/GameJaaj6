@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Objects/Enemy/Horda/Minion/scrHordaMinion.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Enemy/Horda/sprHorda.png" type="Texture" id=2]
+[ext_resource path="res://Audio/SFX/Player/Player_HIT.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Shaders/shrEnemy.shader" type="Shader" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 25.0575
@@ -10,6 +12,11 @@ height = 69.728
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 32.8357
 height = 0.0
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 4 )
+shader_param/hit_color = Color( 1, 1, 1, 1 )
+shader_param/hit_strength = 0.0
 
 [node name="oHordaMinion" type="KinematicBody2D" groups=[
 "Enemy",
@@ -24,6 +31,7 @@ shape = SubResource( 1 )
 [node name="minionHitbox" type="Area2D" parent="." groups=[
 "Enemy",
 ]]
+position = Vector2( 72.2995, 0 )
 collision_layer = 4
 collision_mask = 3
 
@@ -35,7 +43,6 @@ shape = SubResource( 2 )
 [node name="minionHitbox2" type="Area2D" parent="." groups=[
 "Enemy",
 ]]
-position = Vector2( 77.0746, 0 )
 collision_layer = 4
 collision_mask = 3
 
@@ -45,10 +52,17 @@ rotation = 1.57079
 shape = SubResource( 2 )
 
 [node name="minionSprite" type="Sprite" parent="."]
+material = SubResource( 3 )
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 2 )
+flip_h = true
 region_enabled = true
 region_rect = Rect2( 42.202, 155.375, 416.25, 192.375 )
+
+[node name="sfxHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = 10.0
+bus = "SFX"
 
 [connection signal="area_entered" from="minionHitbox" to="." method="_on_minionHitbox_area_entered"]
 [connection signal="area_entered" from="minionHitbox2" to="." method="_on_minionHitbox2_area_entered"]

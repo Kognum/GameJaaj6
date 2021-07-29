@@ -92,8 +92,16 @@ func _physics_process(delta):
 				aply_gravity(delta)
 			else:
 				$sfxDie.play()
-				#$sfxNoticed.play()
 				$enemyCol.disabled = true
+				
+				get_tree().paused = true
+				$deathBlood.visible = true
+				set_physics_process(false)
+				yield(get_tree().create_timer(0.2), "timeout")
+				set_physics_process(true)
+				get_tree().paused = false
+				$deathBlood.visible = false
+				
 				set_physics_process(false)
 
 func is_health_low() -> bool:
@@ -241,6 +249,32 @@ func correct_shoot_position():
 	else:
 		$enemySprite/BulletPos.position =  Vector2(-337.843, -432.192)
 
+func take_damage(damage : float = 1, howstrong :int = 100, whichside :int = 0, has_sound :bool = false):
+	if not health <= 0:
+		health -= damage
+		knockback(howstrong, whichside, has_sound)
+		$enemySprite.material.set_shader_param("hit_strength", 1.0)
+		yield(get_tree().create_timer(0.05),"timeout")
+		$enemySprite.material.set_shader_param("hit_strength", 0.0)
+func knockback(howstrong :int = 100, whichside :int = 0, has_sound :bool = false):
+	var direction : Vector2
+	
+	if whichside == 0:
+		if $enemySprite.flip_v:
+			direction.x += -1
+		else:
+			direction.x += 1
+	else:
+		direction.x = whichside
+	
+	if howstrong != 0:
+		howstrong -= 1
+	
+	if has_sound:
+		$sfxHit.play()
+	
+	direction = move_and_slide(direction * howstrong, Vector2.UP)
+
 var minion = preload("res://Objects/Enemy/Horda/Minion/oHordaMinion.tscn")
 onready var bulletPos = $enemySprite/BulletPos
 func shoot(rate_speed := 1):
@@ -263,14 +297,16 @@ func _on_enemyHitbox_area_entered(area):
 		var body = area.get_parent()
 		if body.is_in_group("Player"):
 			if not body.dead: 
-				body.take_damage(1)
-				body.knockback(10000, -1, true)
+				body.take_damage(1, 10000, -1, true)
 				GameManager.camera.startshaking(1.3, 8, 0.2)
 func _on_enemyHitbox2_area_entered(area):
 	if attack_type == attack_types.MELEE:
 		var body = area.get_parent()
 		if body.is_in_group("Player"):
 			if not body.dead: 
-				body.take_damage(1)
-				body.knockback(10000, 1, true)
+				body.take_damage(1, 10000, 1, true)
 				GameManager.camera.startshaking(1.3, 8, 0.2)
+
+func _on_enemyAnm_animation_finished(anim_name):
+	if anim_name == "anmDead":
+		queue_free()

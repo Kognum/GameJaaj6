@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Objects/Enemy/Horda/scrHorda.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/UI/sprInteract.png" type="Texture" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://Audio/SFX/Shoot/GunFIRE_Shotgun3.mp3" type="AudioStream" id=4]
 [ext_resource path="res://Audio/SFX/Enemy/HORDA_1.mp3" type="AudioStream" id=5]
 [ext_resource path="res://Audio/SFX/Gore_ExplodeBody_1.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Sprites/sprBlood.png" type="Texture" id=7]
+[ext_resource path="res://Shaders/shrEnemy.shader" type="Shader" id=8]
+[ext_resource path="res://Audio/SFX/Player/Player_HIT.ogg" type="AudioStream" id=9]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 102.476
@@ -13,6 +16,11 @@ height = 104.198
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 43, 89 )
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = ExtResource( 8 )
+shader_param/hit_color = Color( 1, 1, 1, 1 )
+shader_param/hit_strength = 0.0
 
 [sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -29,7 +37,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 0.4, 1 ),
 "update": 0,
-"values": [ Vector2( 0.55, 0.3 ), Vector2( 1.1, 0.6 ) ]
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 0.3, 0.3 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("sprAlert:modulate")
@@ -53,7 +61,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 1.2, 1.5 ),
 "transitions": PoolRealArray( 1, 0.4, 1 ),
 "update": 0,
-"values": [ Vector2( 3.8147e-06, -209 ), Vector2( 3.8147e-06, -209 ), Vector2( 3.8147e-06, -164 ) ]
+"values": [ Vector2( 0, -251.715 ), Vector2( 0, -251.715 ), Vector2( 0, -200 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -68,7 +76,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 3.8147e-06, -209 ) ]
+"values": [ Vector2( 0, -251.715 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("sprAlert:scale")
@@ -80,7 +88,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0.55, 0.3 ) ]
+"values": [ Vector2( 0.3, 0.3 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("sprAlert:modulate")
@@ -97,6 +105,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id=6]
 resource_name = "anmDead"
+length = 7.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("EnemyBlood:emitting")
 tracks/0/interp = 1
@@ -128,10 +137,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1.4, 1 ),
+"times": PoolRealArray( 0, 1, 6.5, 7 ),
+"transitions": PoolRealArray( 1.4, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0.705882, 0.286275, 0.286275, 1 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.705882, 0.286275, 0.286275, 1 ), Color( 0.705882, 0.286275, 0.286275, 1 ), Color( 0.705882, 0.286275, 0.286275, 0 ) ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -248,7 +257,16 @@ scale_amount = 8.35
 scale_amount_random = 0.63
 color = Color( 0.886275, 0.168627, 0.168627, 0 )
 
+[node name="deathBlood" type="Sprite" parent="."]
+visible = false
+position = Vector2( 123.983, -90.0419 )
+rotation = -0.261799
+scale = Vector2( 2.15808, 2.1587 )
+texture = ExtResource( 7 )
+hframes = 4
+
 [node name="enemySprite" type="Sprite" parent="."]
+material = SubResource( 10 )
 position = Vector2( 0, 127.497 )
 scale = Vector2( 0.305, 0.295 )
 texture = ExtResource( 3 )
@@ -263,10 +281,9 @@ scale = Vector2( 1, 1.04167 )
 
 [node name="sprAlert" type="Sprite" parent="."]
 modulate = Color( 1, 0, 0, 0 )
-position = Vector2( 3.8147e-06, -209 )
-scale = Vector2( 0.55, 0.3 )
+position = Vector2( 0, -251.715 )
+scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 2 )
-region_enabled = true
 region_rect = Rect2( 105, 60, 55, 130 )
 
 [node name="EnemySprint" type="CPUParticles2D" parent="."]
@@ -297,6 +314,11 @@ volume_db = 6.0
 pitch_scale = 0.6
 bus = "SFX"
 
+[node name="sfxHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )
+volume_db = 15.0
+bus = "SFX"
+
 [node name="alertAnm" type="AnimationPlayer" parent="."]
 autoplay = "anmIdle"
 anims/anmAlert = SubResource( 4 )
@@ -309,3 +331,4 @@ anims/anmWaiting = SubResource( 8 )
 
 [connection signal="area_entered" from="enemyHitbox" to="." method="_on_enemyHitbox_area_entered"]
 [connection signal="area_entered" from="enemyHitbox2" to="." method="_on_enemyHitbox2_area_entered"]
+[connection signal="animation_finished" from="enemyAnm" to="." method="_on_enemyAnm_animation_finished"]

@@ -73,6 +73,7 @@ func fitsprite():
 
 func _ready():
 	fitsprite()
+	$Sprite.material.set_shader_param("hit_strength", 0.0)
 var wheretogo : Vector2
 var holdtime = 1500
 var maxtime
@@ -107,11 +108,18 @@ func _process(delta):
 			else:
 				currentbeh = behaviour.FLYINGAROUND
 		behaviour.DEAD:
-			$damagetakerCol.disabled = true
-			$damagetakerColDead.disabled = false
-			
-			modulate = Color.red
-			aply_only_gravity(delta)
+			$deathAnm.play("anmDeath")
+			if not is_on_floor():
+				$damagetakerCol.disabled = true
+				#$damagetakerCol.queue_free()
+				$damagetakerColDead.disabled = false
+				aply_only_gravity(delta)
+			else:
+				$sfxDie.play()
+				$damagetakerCol.queue_free()
+				$damagetakerColDead.queue_free()
+				
+				set_process(false)
 	
 	playersprite.flip_h = wheretogo.x >= 0
 	
@@ -141,6 +149,32 @@ func aply_only_gravity(_delta):
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 
+func take_damage(damage : float = 1, howstrong :int = 100, whichside :int = 0, has_sound :bool = false):
+	if not health <= 0:
+		health -= damage
+		knockback(howstrong, whichside, has_sound)
+		$Sprite.material.set_shader_param("hit_strength", 1.0)
+		yield(get_tree().create_timer(0.05),"timeout")
+		$Sprite.material.set_shader_param("hit_strength", 0.0)
+func knockback(howstrong :int = 100, whichside :int = 0, has_sound :bool = false):
+	var direction : Vector2
+	
+	if whichside == 0:
+		if $Sprite.flip_v:
+			direction.x += 1
+		else:
+			direction.x += -1
+	else:
+		direction.x = whichside
+	
+	if howstrong != 0:
+		howstrong -= 1
+	
+	if has_sound:
+		$sfxHit.play()
+	
+	direction = move_and_slide(direction * howstrong, Vector2.UP)
+
 func createchildren(whatsize, howmany : float):
 	var selfclonetscn = load("res://Objects/Enemy/HardHitter/oHardHitter.tscn")
 	while howmany > 0:
@@ -161,11 +195,28 @@ func _on_damagedoerCol_area_entered(area):
 				if not body.dead: 
 					match currentsize:
 						SIZE.GIANT:
-							body.take_damage(2)
+							body.take_damage(1, 10000, -1, true)
 						SIZE.SMALL:
-							body.take_damage(0.3)
+							body.take_damage(0.3, 7000, -1, true)
 						SIZE.MINI:
-							body.take_damage(0.3)
-					body.knockback(10000, -1, true)
+							body.take_damage(0.2, 3000, -1, true)
 					
 					GameManager.camera.startshaking(1.3, 8, 0.2)
+func _on_damagedoerCol2_area_entered(area):
+		if currentbeh == behaviour.HUNTINGPLAYER:
+			var body = area.get_parent()
+			if body.is_in_group("Player"):
+				if not body.dead: 
+					match currentsize:
+						SIZE.GIANT:
+							body.take_damage(1, 10000, 1, true)
+						SIZE.SMALL:
+							body.take_damage(0.3, 7000, 1, true)
+						SIZE.MINI:
+							body.take_damage(0.2, 3000, 1, true)
+
+					
+					GameManager.camera.startshaking(1.3, 8, 0.2)
+
+func _on_deathAnm_animation_finished(anim_name):
+	queue_free()

@@ -138,7 +138,7 @@ region_rect = Rect2( 1532.46, 777.323, 341.731, 744.13 )
 visible = false
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 0, -362 )
-scale = Vector2( 0.308594, 0.308594 )
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 
 [node name="interactAnm" type="AnimationPlayer" parent="."]

@@ -46,6 +46,7 @@ func find_player(vision := 600, eyeReach := -1) -> bool:
 
 func _ready():
 	keepdrifting = keepdriftingforhowlong + OS.get_ticks_msec()
+	$minionSprite.material.set_shader_param("hit_strength", 0.0)
 
 var wheretogo : Vector2
 var holdtime = 1500
@@ -78,34 +79,51 @@ func _process(delta):
 				move_and_slide(directiontospawn * stopforce)
 			else:
 				currentbeh = behaviour.FLYINGAROUND
-			
-			
-			pass
-		
-		
-		
-	playersprite.flip_h = wheretogo.x >= 0
 	
-
 	if health <= 0:
 		var drop_instance = drop.instance()
 		drop_instance.global_position = global_position
 		get_parent().call_deferred("add_child", drop_instance)
+		
 		queue_free()
+
+func take_damage(damage : float = 1, howstrong :int = 100, whichside :int = 0, has_sound :bool = false):
+	if not health <= 0:
+		health -= damage
+		knockback(howstrong, whichside, has_sound)
+		$minionSprite.material.set_shader_param("hit_strength", 1.0)
+		yield(get_tree().create_timer(0.05),"timeout")
+		$minionSprite.material.set_shader_param("hit_strength", 0.0)
+func knockback(howstrong :int = 100, whichside :int = 0, has_sound :bool = false):
+	var direction : Vector2
+	
+	if whichside == 0:
+		if $minionSprite.flip_v:
+			direction.x += -1
+		else:
+			direction.x += 1
+	else:
+		direction.x = whichside
+	
+	if howstrong != 0:
+		howstrong -= 1
+	
+	if has_sound:
+		$sfxHit.play()
+	
+	direction = move_and_slide(direction * howstrong, Vector2.UP)
 
 func _on_minionHitbox_area_entered(area):
 		if currentbeh == behaviour.HUNTINGPLAYER:
 			var body = area.get_parent()
 			if body.is_in_group("Player"):
 				if not body.dead: 
-					body.take_damage(1)
-					body.knockback(8000, -1, true)
+					body.take_damage(1, 8000, -1, true)
 					GameManager.camera.startshaking(1.3, 8, 0.2)
 func _on_minionHitbox2_area_entered(area):
 		if currentbeh == behaviour.HUNTINGPLAYER:
 			var body = area.get_parent()
 			if body.is_in_group("Player"):
 				if not body.dead: 
-					body.take_damage(1)
-					body.knockback(8000, 1, true)
+					body.take_damage(1, 8000, 1, true)
 					GameManager.camera.startshaking(1.3, 8, 0.2)

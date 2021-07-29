@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Objects/Player/sprCharBody.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Player/sprCharArm.png" type="Texture" id=2]
@@ -260,6 +260,22 @@ tracks/3/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=11]
+resource_name = "anmHit"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("playerSprites:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2, 2.5, 3 ),
+"transitions": PoolRealArray( 0.4, 1, 0.4, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.431373 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.431373 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.431373 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [sub_resource type="Shader" id=9]
 code = "shader_type canvas_item;
 
@@ -379,7 +395,8 @@ shape = SubResource( 2 )
 position = Vector2( 0, 84.2273 )
 scale = Vector2( 1.05, 0.95 )
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_lock_": true
 }
 
 [node name="playerSprite" type="Sprite" parent="playerSprites"]
@@ -418,26 +435,34 @@ anims/anmIdle = SubResource( 6 )
 anims/anmJump = SubResource( 7 )
 anims/anmWalk = SubResource( 8 )
 
+[node name="hitAnimation" type="AnimationPlayer" parent="."]
+anims/anmHit = SubResource( 11 )
+
 [node name="sfxFootstep" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
-volume_db = 4.0
+volume_db = 9.0
+bus = "SFX"
 
 [node name="sfxFootstepJump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 8 )
-volume_db = 4.0
+volume_db = 9.0
+bus = "SFX"
 
 [node name="sfxShoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 volume_db = 5.0
+bus = "SFX"
 
 [node name="bgsHeartbeat" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
 volume_db = 5.0
 autoplay = true
+bus = "BGS"
 
 [node name="sfxHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 11 )
 volume_db = 15.0
+bus = "SFX"
 
 [node name="Flash" type="Sprite" parent="."]
 position = Vector2( 282, 146 )
@@ -467,12 +492,10 @@ __meta__ = {
 layer = 6
 
 [node name="sprWPCycle" type="TextureRect" parent="nHUD"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -890.164
-margin_top = 109.513
-margin_right = -678.164
-margin_bottom = 312.513
+margin_left = 57.0244
+margin_top = 58.5096
+margin_right = 308.024
+margin_bottom = 298.51
 texture = ExtResource( 7 )
 expand = true
 __meta__ = {

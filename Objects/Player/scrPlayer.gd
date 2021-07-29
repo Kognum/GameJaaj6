@@ -42,6 +42,7 @@ func _process(delta):
 			shoot()
 func _physics_process(delta):
 	if not dead:
+		print(accept_damage)
 		if GameManager.globals.player_move:
 			move(delta)
 		if GameManager.globals.player_look:
@@ -156,7 +157,7 @@ func shoot():
 				bala_instance_1.bullet_type = bala_instance_1.bullet_types.SHOTGUN
 				bala_instance_1.damage = 7
 				bala_instance_1.bulletspeed = 2500
-				bala_instance_1.basetilt = 0.12
+				bala_instance_1.basetilt = 0.15
 				
 				get_parent().call_deferred("add_child", bala_instance_1)
 				
@@ -169,7 +170,7 @@ func shoot():
 				bala_instance_2.bullet_type = bala_instance_2.bullet_types.SHOTGUN
 				bala_instance_2.damage = 7
 				bala_instance_2.bulletspeed = 2500
-				bala_instance_2.basetilt = 0.15
+				bala_instance_2.basetilt = 0.18
 				
 				get_parent().call_deferred("add_child", bala_instance_2)
 				
@@ -187,7 +188,7 @@ func shoot():
 				get_parent().call_deferred("add_child", bala_instance_3)
 				
 				GameManager.camera.startshaking(1.5, 10, 0.3)
-				knockback(100)
+				knockback(200)
 				
 				gunFire.visible = false
 				set_process(false)
@@ -218,7 +219,7 @@ func shoot():
 				get_parent().call_deferred("add_child", bala_instance)
 				
 				GameManager.camera.startshaking(1.5, 10, 0.3)
-				knockback(100)
+				knockback(200)
 				
 				gunFire.visible = false
 				set_process(false)
@@ -249,7 +250,7 @@ func shoot():
 				get_parent().call_deferred("add_child", bala_instance)
 				
 				GameManager.camera.startshaking(1.5, 10, 0.3)
-				knockback(100)
+				knockback(120)
 				
 				set_process(false)
 				yield(get_tree().create_timer(.07), "timeout")
@@ -312,15 +313,23 @@ var can_regenerate := false
 var heal_cooldown := 9.0
 var max_heal_cooldown := 9.0
 var start_cooldown = false
-func take_damage(damage : float = 1):
+var accept_damage = true
+func take_damage(damage : float = 1, howstrong :int = 100, whichside :int = 0, has_sound :bool = false):
 	if not health <= 0:
-		health -= damage
+		if accept_damage:
+			health -= damage
+			knockback(howstrong, whichside, has_sound)
+			
+			can_regenerate = false
+			heal_cooldown = max_heal_cooldown
+			start_cooldown = true
 		
-		can_regenerate = false
-		heal_cooldown = max_heal_cooldown
-		start_cooldown = true
+		accept_damage = false
+		$hitAnimation.play("anmHit")
+		yield($hitAnimation, "animation_finished")
+		accept_damage = true
 func manage_health(_delta):
-	print(health)
+	#print(health)
 	
 	if health < 0:
 		health = 0
@@ -328,22 +337,22 @@ func manage_health(_delta):
 	var opacity_level = $nUI/BackBufferCopy/fxDamage.material.get_shader_param("opacity")
 	match health:
 		0:
-			$bgsHeartbeat.volume_db = linear2db(1)
+			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(1), _delta * health)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 1, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = true
 		1:
-			$bgsHeartbeat.volume_db = linear2db(0.75)
+			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0.75), _delta * health)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.5, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = false
 		2:
-			$bgsHeartbeat.volume_db = linear2db(0.35)
+			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0.35), _delta * health)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.3, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = false
 		3:
-			$bgsHeartbeat.volume_db = linear2db(0)
+			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0), _delta * health)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.0, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = false
