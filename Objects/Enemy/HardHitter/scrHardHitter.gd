@@ -17,11 +17,17 @@ enum SIZE{
 	
 export(SIZE) var currentsize = SIZE.GIANT
 export var health = 100
-export var directiontospawn : Vector2
+var directiontospawn : Vector2
+export var spawnvel : float
 
-export var keepdriftingforhowlong = 30.0
-var keepdrifting
+var rects = [
+	Rect2(Vector2(37.481, 1307.31), Vector2(402.277, 359.65)),
+	Rect2(Vector2(138, 1850.832), Vector2(146, 148.126)),
+	Rect2(Vector2(93.74, 1679.415), Vector2(272.041, 168.406))
+]
 
+export var keepdriftingforhowlong = 250.0
+onready var playersprite = $Sprite
 
 
 # Declare member variables here. Examples:
@@ -58,17 +64,30 @@ func find_player(vision := 600, eyeReach := -1) -> bool:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	keepdrifting = keepdriftingforhowlong + OS.get_ticks_msec()
+	fitsprite()
 	pass # Replace with function body.
 
 
+func fitsprite():
+	var whichrect
+	match currentsize:
+		SIZE.GIANT:
+			whichrect = 0
+		SIZE.MINI:
+			whichrect = 1
+		SIZE.SMALL:
+			whichrect = 2
+	playersprite.region_rect = rects[whichrect]
+	
+	pass
+
 var wheretogo : Vector2
 var holdtime = 1500
+var maxtime
+var prevtime
 func _process(delta):
 	
-	print(health)
-	
-	var playersprite = $Sprite
+
 	
 	
 	match currentbeh:
@@ -79,7 +98,6 @@ func _process(delta):
 				holdtime = OS.get_ticks_msec() + 1500
 			else:
 				move_and_slide(wheretogo) * 5
-				
 			
 			if find_player():
 				currentbeh = behaviour.HUNTINGPLAYER
@@ -88,19 +106,21 @@ func _process(delta):
 		behaviour.HUNTINGPLAYER:
 			var playerpos = Player.get_global_position()
 			wheretogo = -(global_position - playerpos)
-			print(wheretogo)
 			move_and_slide(wheretogo) * 7
 			#global_position = lerp(global_position, playerpos, delta)
 			pass
 		behaviour.SEPARATING:
-			if OS.get_ticks_msec() < keepdrifting:
-				var stopforce = inverse_lerp(OS.get_ticks_msec(), keepdrifting, delta)
+			if maxtime == null and prevtime == null:
+				prevtime = OS.get_ticks_msec()
+				maxtime = prevtime + keepdriftingforhowlong
 				
-				move_and_slide(directiontospawn * stopforce)
+			if maxtime > OS.get_ticks_msec():
+				var driftingstrenght = inverse_lerp(maxtime, prevtime, OS.get_ticks_msec())
+				print(driftingstrenght)
+				global_position += (directiontospawn * driftingstrenght)
+				
 			else:
 				currentbeh = behaviour.FLYINGAROUND
-			
-			
 			pass
 		
 		
@@ -128,13 +148,14 @@ func _process(delta):
 	pass
 	
 func createchildren(whatsize, howmany : float):
+	var selfclonetscn = load("res://Objects/Enemy/HardHitter/oHardHitter.tscn")
 	while howmany > 0:
-		var newchild = duplicate()
-		get_parent().add_child(newchild)
+		var newchild = selfclonetscn.instance()
 		newchild.global_position = global_position
 		newchild.currentsize = whatsize
-		newchild.directiontospawn = Vector2(rand_range(-100, 100), rand_range(-100, 100))
+		newchild.directiontospawn = Vector2(rand_range(-spawnvel, spawnvel), rand_range(-spawnvel, spawnvel))
 		newchild.currentbeh = behaviour.SEPARATING
+		get_parent().add_child(newchild)
 		howmany -= 1
 		pass
 	pass

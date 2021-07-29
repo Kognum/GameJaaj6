@@ -12,7 +12,11 @@ radius = 84.1518
 [node name="oHardHitter" type="KinematicBody2D" groups=[
 "Enemy",
 ]]
+collision_layer = 4
+collision_mask = 17
 script = ExtResource( 1 )
+health = 10
+spawnvel = 15.0
 
 [node name="damagetakerCol" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -26,6 +30,6 @@ shape = SubResource( 2 )
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 3 )
 region_enabled = true
-region_rect = Rect2( 37.4807, 1307.31, 402.277, 359.65 )
+region_rect = Rect2( 37.481, 1307.31, 402.277, 359.65 )
 
 [connection signal="area_entered" from="damagedoerCol" to="." method="_on_damagedoerCol_area_entered"]
