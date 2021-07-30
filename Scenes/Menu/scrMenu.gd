@@ -1,23 +1,29 @@
 extends Control
 
-var clicks := 0
-
+var _cursor = preload("res://Objects/Cursor/oCursor.tscn")
 func _ready():
-	GameManager.globals.lock_mouse = false
-	$musMenu.pitch_scale = 2.7
-
-func _on_btnClick_released():
-	$Page1/btnClick.queue_free()
 	GameManager.globals.lock_mouse = true
-	$Page2.visible = true
-	$musMenu.pitch_scale = 1.2
-func _on_btnClick2_released():
-	$Page2/btnClick2.queue_free()
-	$Page3.visible = true
-	$musMenu.pitch_scale = 0.8
-func _on_btnClick3_released():
-	$Page3/btnClick3.queue_free()
-	$Page4.visible = true
-	$musMenu.pitch_scale = 1
-func _on_btnClick4_released():
-	SceneChanger.change_scene("res://Scenes/Prototype/scnPrototype.tscn", true)
+	
+	var cursor_instance = _cursor.instance()
+	cursor_instance.cursor = cursor_instance.cursors.DEFAULT
+	call_deferred("add_child",cursor_instance)
+
+func exit_game():
+	get_tree().quit()
+func start_game():
+	SceneChanger.change_scene("res://Scenes/Intro/scnIntro.tscn", true)
+
+func _on_TouchScreenButton3_released(): # PLAY
+	get_node("oCursor").queue_free()
+	#$musMenu.stop()
+	
+	$menuAnm.play("anmPlay")
+func _on_TouchScreenButton2_released(): # CREDITS
+	$sfxClick.play()
+	
+	$menuAnm.play("anmCredits")
+func _on_TouchScreenButton_released(): # EXIT
+	$sfxClick.play()
+	get_node("oCursor").queue_free()
+	
+	$menuAnm.play("anmExit")

@@ -11,6 +11,7 @@ var globals = {
 	"changing_cycle": false}
 
 var camera = null
+var game_paused = false
 
 var playerdoorexitloc = Vector2.ZERO
 
@@ -18,19 +19,26 @@ func _ready():
 	$PauseScreen.visible = false
 func _process(delta):
 	if Input.is_action_just_pressed("player_quit"):
-		if OS.get_name() == "HTML5": # Ele n sai direito do jogo em htlm, ent decidi só pausar o jogo msm
+		if not OS.get_name() == "HTML5":
 			get_tree().paused =! get_tree().paused
+			game_paused =! game_paused
 		else:
 			get_tree().quit()
 	if Input.is_action_just_pressed("player_fullscreen"):
 		OS.window_fullscreen = !OS.window_fullscreen
 	
-	if get_tree().paused: # fiz shaders pararem quando o jogar pausar
+	if get_tree().paused:
 		VisualServer.set_shader_time_scale(0)
 		$PauseScreen.visible = true
 	else:
 		VisualServer.set_shader_time_scale(1)
 		$PauseScreen.visible = false
+	
+	$PauseScreen/Text.visible = game_paused
+	if game_paused and Input.is_action_just_pressed("player_menu"):
+		SceneChanger.change_scene("res://Scenes/Menu/scnMenu.tscn", true)
+		get_tree().paused = false
+		game_paused = false
 
 func _input(event):
 	if globals.lock_mouse:

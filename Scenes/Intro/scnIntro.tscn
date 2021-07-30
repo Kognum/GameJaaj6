@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scenes/Intro/comic.png" type="Texture" id=1]
+[ext_resource path="res://Shaders/shrBlur.shader" type="Shader" id=2]
+[ext_resource path="res://Scenes/Intro/scrIntro.gd" type="Script" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+shader_param/amount = 1.0
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 960, 540 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "anmDefault"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BackBufferCopy/fxBlur:material:shader_param/amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "change_scene"
+} ]
+}
+
+[node name="scnIntro" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="comic" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -54.0
+margin_top = -27.0
+margin_right = 26.0
+margin_bottom = 18.0
+rect_rotation = 0.10667
+rect_pivot_offset = Vector2( 1000, 563 )
+texture = ExtResource( 1 )
+expand = true
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+position = Vector2( 960, 540 )
+scale = Vector2( 9.6, 5.4 )
+copy_mode = 2
+
+[node name="fxBlur" type="ColorRect" parent="BackBufferCopy"]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -100.0
+margin_right = -100.0
+margin_bottom = -100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+shape = SubResource( 3 )
+
+[node name="introAnm" type="AnimationPlayer" parent="."]
+autoplay = "anmDefault"
+anims/anmDefault = SubResource( 2 )
+
+[connection signal="released" from="TouchScreenButton" to="." method="_on_TouchScreenButton_released"]

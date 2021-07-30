@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/LUMUS.mp3-2077e5ec81c93612b1d3dc370b68904f.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Menu/LUMUS.mp3"
+dest_files=[ "res://.import/LUMUS.mp3-2077e5ec81c93612b1d3dc370b68904f.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

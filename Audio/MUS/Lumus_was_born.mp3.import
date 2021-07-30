@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Lumus_was_born.mp3-144ba3e173689cb407308f253f2fde9e.mp3str"
+
+[deps]
+
+source_file="res://Audio/MUS/Lumus_was_born.mp3"
+dest_files=[ "res://.import/Lumus_was_born.mp3-144ba3e173689cb407308f253f2fde9e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

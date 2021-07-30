@@ -40,11 +40,11 @@ z_index = 7
 script = ExtResource( 2 )
 
 [node name="sprCursor" type="Sprite" parent="."]
-position = Vector2( -2.84217e-14, -1.42109e-14 )
+position = Vector2( 16.0458, 22.181 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 364.125, 26.125, 398.25, 405 )
+region_rect = Rect2( 50.5, 60.8801, 254.25, 289.975 )
 
 [node name="cursorAnm" type="AnimationPlayer" parent="."]
 autoplay = "anmIdle"
