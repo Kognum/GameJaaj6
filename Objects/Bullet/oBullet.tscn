@@ -14,12 +14,10 @@ collision_mask = 17
 script = ExtResource( 2 )
 
 [node name="sprBullet" type="Sprite" parent="."]
-position = Vector2( 3, 1 )
 texture = ExtResource( 4 )
 region_rect = Rect2( 23.5618, 31.4392, 43.7048, 31.5884 )
 
 [node name="Colisão2" type="CollisionShape2D" parent="."]
-position = Vector2( 2.28204, 0.464417 )
 rotation = 1.5708
 shape = SubResource( 1 )
 

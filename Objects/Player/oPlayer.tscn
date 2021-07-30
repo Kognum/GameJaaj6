@@ -450,7 +450,7 @@ bus = "SFX"
 
 [node name="sfxShoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
-volume_db = 5.0
+volume_db = 4.0
 bus = "SFX"
 
 [node name="bgsHeartbeat" type="AudioStreamPlayer" parent="."]
@@ -461,7 +461,7 @@ bus = "BGS"
 
 [node name="sfxHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 11 )
-volume_db = 15.0
+volume_db = -80.0
 bus = "SFX"
 
 [node name="Flash" type="Sprite" parent="."]

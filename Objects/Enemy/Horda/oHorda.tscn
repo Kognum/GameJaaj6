@@ -17,15 +17,15 @@ height = 104.198
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 43, 89 )
 
-[sub_resource type="ShaderMaterial" id=10]
+[sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 8 )
 shader_param/hit_color = Color( 1, 1, 1, 1 )
 shader_param/hit_strength = 0.0
 
-[sub_resource type="Curve" id=3]
+[sub_resource type="Curve" id=4]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprAlert:scale")
@@ -64,7 +64,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, -251.715 ), Vector2( 0, -251.715 ), Vector2( 0, -200 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprAlert:position")
@@ -103,8 +103,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "anmDead"
+[sub_resource type="Animation" id=7]
 length = 7.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("EnemyBlood:emitting")
@@ -143,7 +142,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.705882, 0.286275, 0.286275, 1 ), Color( 0.705882, 0.286275, 0.286275, 1 ), Color( 0.705882, 0.286275, 0.286275, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -159,7 +158,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0.305, 0.305 ), Vector2( 0.305, 0.295 ), Vector2( 0.305, 0.305 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 length = 4.0
 loop = true
 tracks/0/type = "value"
@@ -266,7 +265,7 @@ texture = ExtResource( 7 )
 hframes = 4
 
 [node name="enemySprite" type="Sprite" parent="."]
-material = SubResource( 10 )
+material = SubResource( 3 )
 position = Vector2( 0, 127.497 )
 scale = Vector2( 0.305, 0.295 )
 texture = ExtResource( 3 )
@@ -297,7 +296,7 @@ initial_velocity = 112.74
 damping = 25.0
 scale_amount = 14.52
 scale_amount_random = 0.63
-scale_amount_curve = SubResource( 3 )
+scale_amount_curve = SubResource( 4 )
 
 [node name="sfxNoticed" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
@@ -316,18 +315,17 @@ bus = "SFX"
 
 [node name="sfxHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 9 )
-volume_db = 15.0
 bus = "SFX"
 
 [node name="alertAnm" type="AnimationPlayer" parent="."]
 autoplay = "anmIdle"
-anims/anmAlert = SubResource( 4 )
-anims/anmIdle = SubResource( 5 )
+anims/anmAlert = SubResource( 5 )
+anims/anmIdle = SubResource( 6 )
 
 [node name="enemyAnm" type="AnimationPlayer" parent="."]
-anims/anmDead = SubResource( 6 )
-anims/anmHunting = SubResource( 7 )
-anims/anmWaiting = SubResource( 8 )
+anims/anmDead = SubResource( 7 )
+anims/anmHunting = SubResource( 8 )
+anims/anmWaiting = SubResource( 9 )
 
 [connection signal="area_entered" from="enemyHitbox" to="." method="_on_enemyHitbox_area_entered"]
 [connection signal="area_entered" from="enemyHitbox2" to="." method="_on_enemyHitbox2_area_entered"]

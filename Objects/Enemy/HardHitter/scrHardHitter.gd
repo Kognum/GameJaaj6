@@ -149,14 +149,14 @@ func aply_only_gravity(_delta):
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 
-func take_damage(damage : float = 1, howstrong :int = 100, whichside :int = 0, has_sound :bool = false):
+func take_damage(damage : float = 1, howstrong :int = 100, whichside :int = 0, has_sound :bool = true):
 	if not health <= 0:
 		health -= damage
 		knockback(howstrong, whichside, has_sound)
 		$Sprite.material.set_shader_param("hit_strength", 1.0)
 		yield(get_tree().create_timer(0.05),"timeout")
 		$Sprite.material.set_shader_param("hit_strength", 0.0)
-func knockback(howstrong :int = 100, whichside :int = 0, has_sound :bool = false):
+func knockback(howstrong :int = 100, whichside :int = 0, has_sound :bool = true):
 	var direction : Vector2
 	
 	if whichside == 0:

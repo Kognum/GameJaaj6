@@ -20,12 +20,12 @@ radius = 48.5
 [sub_resource type="CircleShape2D" id=4]
 radius = 48.5
 
-[sub_resource type="ShaderMaterial" id=7]
+[sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 7 )
 shader_param/hit_color = Color( 1, 1, 1, 1 )
 shader_param/hit_strength = 0.0
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprAlert:scale")
@@ -64,7 +64,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, -164 ), Vector2( 0, -164 ), Vector2( 0, -119 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprAlert:position")
@@ -156,7 +156,7 @@ collision_mask = 3
 shape = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 7 )
+material = SubResource( 5 )
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 3 )
 region_enabled = true
@@ -173,7 +173,6 @@ bus = "SFX"
 
 [node name="sfxHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
-volume_db = 15.0
 bus = "SFX"
 
 [node name="sprAlert" type="Sprite" parent="."]
@@ -185,8 +184,8 @@ region_rect = Rect2( 105, 60, 55, 130 )
 
 [node name="alertAnm" type="AnimationPlayer" parent="."]
 autoplay = "anmIdle"
-anims/anmAlert = SubResource( 5 )
-anims/anmIdle = SubResource( 6 )
+anims/anmAlert = SubResource( 6 )
+anims/anmIdle = SubResource( 7 )
 
 [node name="deathAnm" type="AnimationPlayer" parent="."]
 anims/anmDeath = SubResource( 8 )

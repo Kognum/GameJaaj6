@@ -61,7 +61,6 @@ region_rect = Rect2( 42.202, 155.375, 416.25, 192.375 )
 
 [node name="sfxHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
-volume_db = 10.0
 bus = "SFX"
 
 [connection signal="area_entered" from="minionHitbox" to="." method="_on_minionHitbox_area_entered"]
