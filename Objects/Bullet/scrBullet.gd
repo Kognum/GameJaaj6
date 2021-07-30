@@ -17,11 +17,17 @@ func _ready():
 	
 	match bullet_type:
 		bullet_types.METRALHADORA:
-			$sprBullet.texture = load("res://Objects/Bullet/bala_metralhadora.png")
+			$sprBullet.visible = true
+			$sprBullet2.visible = false
+			$sprBullet3.visible = false
 		bullet_types.SNIPER:
-			$sprBullet.texture = load("res://Objects/Bullet/bala_sniper.png")
+			$sprBullet.visible = false
+			$sprBullet2.visible = true
+			$sprBullet3.visible = false
 		bullet_types.SHOTGUN:
-			$sprBullet.texture = load("res://Objects/Bullet/bala_shotgun.png")
+			$sprBullet.visible = false
+			$sprBullet2.visible = false
+			$sprBullet3.visible = true
 func _process(_delta):
 	position += (Vector2.RIGHT * bulletspeed).rotated(rotation) * _delta
 
