@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Audio/MUS/Lumus_was_born.mp3" type="AudioStream" id=1]
 [ext_resource path="res://Scenes/Menu/Opening.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Scenes/Menu/Play.png" type="Texture" id=10]
 [ext_resource path="res://Audio/SFX/Player/Player_Dead.ogg" type="AudioStream" id=11]
 [ext_resource path="res://Audio/SFX/Menu/click3_menu.mp3" type="AudioStream" id=12]
+[ext_resource path="res://Scenes/Menu/Credits.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 100, 35 )
@@ -22,13 +23,17 @@ extents = Vector2( 140, 35 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 120, 35 )
 
-[sub_resource type="OpenSimplexNoise" id=4]
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 960, 540 )
+
+[sub_resource type="OpenSimplexNoise" id=5]
 octaves = 1
 
-[sub_resource type="NoiseTexture" id=5]
-noise = SubResource( 4 )
+[sub_resource type="NoiseTexture" id=6]
+seamless = true
+noise = SubResource( 5 )
 
-[sub_resource type="ShaderMaterial" id=6]
+[sub_resource type="ShaderMaterial" id=7]
 shader = ExtResource( 3 )
 shader_param/octaves = 3
 shader_param/starting_amplitude = 0.5
@@ -36,10 +41,9 @@ shader_param/starting_frequency = 1.0
 shader_param/shift = -1.0
 shader_param/velocity = Vector2( 1, 1 )
 shader_param/fog_color = Color( 1, 0.560784, 0, 1 )
-shader_param/noise = SubResource( 5 )
+shader_param/noise = SubResource( 6 )
 
-[sub_resource type="Animation" id=7]
-resource_name = "anmCredits"
+[sub_resource type="Animation" id=8]
 length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Transitons:material:shader_param/shift")
@@ -78,8 +82,7 @@ tracks/2/keys = {
 "values": [ false, false, true ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "anmExit"
+[sub_resource type="Animation" id=9]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Transitons:material:shader_param/shift")
 tracks/0/interp = 1
@@ -107,7 +110,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 length = 5.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Transitons:material:shader_param/shift")
@@ -170,8 +173,7 @@ tracks/4/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=10]
-resource_name = "anmPlay"
+[sub_resource type="Animation" id=11]
 length = 5.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Menu:visible")
@@ -350,6 +352,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Credits" type="TextureRect" parent="Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 13 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TouchScreenButtonC" type="TouchScreenButton" parent="Credits"]
+shape = SubResource( 4 )
+
 [node name="Play" type="Control" parent="."]
 visible = false
 anchor_right = 1.0
@@ -373,7 +387,7 @@ anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="Transitons" type="TextureRect" parent="."]
-material = SubResource( 6 )
+material = SubResource( 7 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -385,10 +399,10 @@ __meta__ = {
 
 [node name="menuAnm" type="AnimationPlayer" parent="."]
 autoplay = "anmOpening"
-anims/anmCredits = SubResource( 7 )
-anims/anmExit = SubResource( 8 )
-anims/anmOpening = SubResource( 9 )
-anims/anmPlay = SubResource( 10 )
+anims/anmCredits = SubResource( 8 )
+anims/anmExit = SubResource( 9 )
+anims/anmOpening = SubResource( 10 )
+anims/anmPlay = SubResource( 11 )
 
 [node name="sfxLumus" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
@@ -413,3 +427,4 @@ bus = "MUS"
 [connection signal="released" from="Menu/Exit/TouchScreenButton" to="." method="_on_TouchScreenButton_released"]
 [connection signal="released" from="Menu/Credits/TouchScreenButton2" to="." method="_on_TouchScreenButton2_released"]
 [connection signal="released" from="Menu/Play/TouchScreenButton3" to="." method="_on_TouchScreenButton3_released"]
+[connection signal="released" from="Credits/TouchScreenButtonC" to="." method="_on_TouchScreenButtonC_released"]

@@ -27,3 +27,8 @@ func _on_TouchScreenButton_released(): # EXIT
 	get_node("oCursor").queue_free()
 	
 	$menuAnm.play("anmExit")
+
+func _on_TouchScreenButtonC_released():
+	$sfxClick.play()
+	
+	$menuAnm.play_backwards("anmCredits")

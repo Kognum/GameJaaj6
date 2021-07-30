@@ -35,6 +35,7 @@ func _process(delta):
 		$PauseScreen.visible = false
 	
 	$PauseScreen/Text.visible = game_paused
+	$PauseScreen/Margin.visible = game_paused
 	if game_paused and Input.is_action_just_pressed("player_menu"):
 		SceneChanger.change_scene("res://Scenes/Menu/scnMenu.tscn", true)
 		get_tree().paused = false
