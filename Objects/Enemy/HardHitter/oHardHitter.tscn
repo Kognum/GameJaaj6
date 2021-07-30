@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Objects/Enemy/HardHitter/scrHardHitter.gd" type="Script" id=1]
 [ext_resource path="res://Audio/SFX/Enemy/SPAWN_2.mp3" type="AudioStream" id=2]
@@ -6,7 +6,8 @@
 [ext_resource path="res://Audio/SFX/Gore_ExplodeBody_1.ogg" type="AudioStream" id=4]
 [ext_resource path="res://Sprites/UI/sprInteract.png" type="Texture" id=5]
 [ext_resource path="res://Audio/SFX/Player/Player_HIT.ogg" type="AudioStream" id=6]
-[ext_resource path="res://Shaders/shrEnemy.shader" type="Shader" id=7]
+[ext_resource path="res://Shaders/shrHitFlash.shader" type="Shader" id=7]
+[ext_resource path="res://Sprites/sprBlood.png" type="Texture" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 72.3609
@@ -154,6 +155,14 @@ collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="damagedoerCol2"]
 shape = SubResource( 4 )
+
+[node name="deathBlood" type="Sprite" parent="."]
+visible = false
+position = Vector2( 60.3, -30.3561 )
+rotation = -0.261799
+scale = Vector2( 0.878922, 0.879174 )
+texture = ExtResource( 8 )
+hframes = 4
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 5 )

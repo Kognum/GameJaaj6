@@ -1,15 +1,18 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Objects/Player/sprCharBody.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Player/sprCharArm.png" type="Texture" id=2]
 [ext_resource path="res://Objects/Player/scrPlayer.gd" type="Script" id=3]
 [ext_resource path="res://Objects/Player/sprGunfire.png" type="Texture" id=4]
 [ext_resource path="res://Audio/SFX/Footstep/footstep_2.mp3" type="AudioStream" id=5]
+[ext_resource path="res://Objects/Player/sprHealth.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/UI/WeaponCycle/sprWPCycle1.png" type="Texture" id=7]
 [ext_resource path="res://Audio/SFX/Footstep/footstep_jump_3.mp3" type="AudioStream" id=8]
 [ext_resource path="res://Audio/SFX/Shoot/GunFIRE_MachineGun2.mp3" type="AudioStream" id=9]
 [ext_resource path="res://Audio/SFX/Player/Heartbeat_D.ogg" type="AudioStream" id=10]
 [ext_resource path="res://Audio/SFX/Player/Player_HIT.ogg" type="AudioStream" id=11]
+[ext_resource path="res://Shaders/shrOverlayFog.shader" type="Shader" id=12]
+[ext_resource path="res://Shaders/shrHitFlash.shader" type="Shader" id=13]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 41.0
@@ -17,6 +20,16 @@ height = 81.5
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 62.6299, 96.7798 )
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = ExtResource( 13 )
+shader_param/hit_color = Color( 1, 1, 1, 1 )
+shader_param/hit_strength = 0.0
+
+[sub_resource type="ShaderMaterial" id=18]
+shader = ExtResource( 13 )
+shader_param/hit_color = Color( 1, 1, 1, 1 )
+shader_param/hit_strength = 0.0
 
 [sub_resource type="CanvasItemMaterial" id=3]
 blend_mode = 1
@@ -46,7 +59,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 0.4, 1 ),
 "update": 0,
-"values": [ Vector2( 1.17, 0.8 ), Vector2( 1.17, 0.8 ) ]
+"values": [ Vector2( 1.05, 1.05 ), Vector2( 1.17, 0.8 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("playerSprites:modulate")
@@ -58,7 +71,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 0.705882, 0.286275, 0.286275, 1 ), Color( 0.705882, 0.286275, 0.286275, 1 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.705882, 0.286275, 0.286275, 1 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -355,6 +368,45 @@ shader_param/color2 = Color( 0.756863, 0.054902, 0.054902, 1 )
 shader_param/direction = Vector2( 0, -2 )
 shader_param/opacity = 0.0
 
+[sub_resource type="OpenSimplexNoise" id=12]
+seed = 1
+octaves = 1
+period = 76.5
+
+[sub_resource type="NoiseTexture" id=13]
+seamless = true
+noise = SubResource( 12 )
+
+[sub_resource type="ShaderMaterial" id=14]
+shader = ExtResource( 12 )
+shader_param/octaves = 2
+shader_param/starting_amplitude = 0.5
+shader_param/starting_frequency = 1.0
+shader_param/shift = 1.0
+shader_param/velocity = Vector2( 1, 1 )
+shader_param/fog_color = Color( 0, 0, 0, 1 )
+shader_param/noise = SubResource( 13 )
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = ExtResource( 12 )
+shader_param/octaves = 2
+shader_param/starting_amplitude = 0.5
+shader_param/starting_frequency = 1.0
+shader_param/shift = 1.0
+shader_param/velocity = Vector2( 1, 1 )
+shader_param/fog_color = Color( 0, 0, 0, 1 )
+shader_param/noise = SubResource( 13 )
+
+[sub_resource type="ShaderMaterial" id=16]
+shader = ExtResource( 12 )
+shader_param/octaves = 2
+shader_param/starting_amplitude = 0.5
+shader_param/starting_frequency = 1.0
+shader_param/shift = 1.0
+shader_param/velocity = Vector2( 1, 1 )
+shader_param/fog_color = Color( 0, 0, 0, 1 )
+shader_param/noise = SubResource( 13 )
+
 [node name="oPlayer" type="KinematicBody2D" groups=[
 "Player",
 ]]
@@ -400,6 +452,7 @@ __meta__ = {
 }
 
 [node name="playerSprite" type="Sprite" parent="playerSprites"]
+material = SubResource( 17 )
 position = Vector2( 0, -84.2273 )
 scale = Vector2( 0.15, 0.15 )
 texture = ExtResource( 1 )
@@ -408,6 +461,7 @@ texture = ExtResource( 1 )
 position = Vector2( 0, -69.2273 )
 
 [node name="Arm" type="Sprite" parent="playerSprites/ArmPivot"]
+material = SubResource( 18 )
 position = Vector2( 34.9724, 0.922821 )
 scale = Vector2( 0.142, 0.142 )
 texture = ExtResource( 2 )
@@ -496,7 +550,70 @@ margin_left = 57.0244
 margin_top = 58.5096
 margin_right = 308.024
 margin_bottom = 298.51
+mouse_filter = 2
 texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heath" type="Control" parent="nHUD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="health1" type="TextureRect" parent="nHUD/Heath"]
+modulate = Color( 0.784314, 0.784314, 0.784314, 1 )
+material = SubResource( 14 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -210.444
+margin_top = 99.9249
+margin_right = -52.4434
+margin_bottom = 257.924
+rect_rotation = 4.20629
+rect_pivot_offset = Vector2( 79, 79 )
+mouse_filter = 2
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="health2" type="TextureRect" parent="nHUD/Heath"]
+modulate = Color( 0.784314, 0.784314, 0.784314, 1 )
+material = SubResource( 15 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -351.555
+margin_top = 98.116
+margin_right = -193.555
+margin_bottom = 256.114
+rect_rotation = -2.80654
+rect_pivot_offset = Vector2( 79, 79 )
+mouse_filter = 2
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="health3" type="TextureRect" parent="nHUD/Heath"]
+modulate = Color( 0.784314, 0.784314, 0.784314, 1 )
+material = SubResource( 16 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -498.127
+margin_top = 99.2349
+margin_right = -340.127
+margin_bottom = 257.234
+rect_rotation = 3.04613
+rect_pivot_offset = Vector2( 79, 79 )
+mouse_filter = 2
+texture = ExtResource( 6 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false

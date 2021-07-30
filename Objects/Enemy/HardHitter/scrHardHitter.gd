@@ -73,7 +73,9 @@ func fitsprite():
 
 func _ready():
 	fitsprite()
+	
 	$Sprite.material.set_shader_param("hit_strength", 0.0)
+	$Sprite.material = $Sprite.material.duplicate()
 var wheretogo : Vector2
 var holdtime = 1500
 var maxtime
@@ -111,7 +113,6 @@ func _process(delta):
 			$deathAnm.play("anmDeath")
 			if not is_on_floor():
 				$damagetakerCol.disabled = true
-				#$damagetakerCol.queue_free()
 				$damagetakerColDead.disabled = false
 				aply_only_gravity(delta)
 			else:
@@ -130,6 +131,15 @@ func _process(delta):
 			SIZE.GIANT:
 				sizetochoose = SIZE.SMALL
 				quantitytochoose = 3
+				
+				get_tree().paused = true
+				$deathBlood.visible = true
+				set_process(false)
+				yield(get_tree().create_timer(0.2), "timeout")
+				set_process(true)
+				get_tree().paused = false
+				$deathBlood.visible = false
+				
 				queue_free()
 			SIZE.SMALL:
 				sizetochoose = SIZE.MINI

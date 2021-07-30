@@ -46,7 +46,9 @@ func find_player(vision := 600, eyeReach := -1) -> bool:
 
 func _ready():
 	keepdrifting = keepdriftingforhowlong + OS.get_ticks_msec()
+	
 	$minionSprite.material.set_shader_param("hit_strength", 0.0)
+	$minionSprite.material = $minionSprite.material.duplicate()
 
 var wheretogo : Vector2
 var holdtime = 1500

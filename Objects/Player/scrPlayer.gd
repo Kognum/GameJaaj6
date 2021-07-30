@@ -42,7 +42,6 @@ func _process(delta):
 			shoot()
 func _physics_process(delta):
 	if not dead:
-		print(accept_damage)
 		if GameManager.globals.player_move:
 			move(delta)
 		if GameManager.globals.player_look:
@@ -53,6 +52,7 @@ func _physics_process(delta):
 		manage_health(delta)
 	else:
 		aply_only_gravity(delta)
+		$hitAnimation.stop()
 		$playerAnimation.play("anmDead", 1)
 		yield($playerAnimation, "animation_finished")
 		SceneChanger.change_scene("res://Scenes/GameOver/scnGameOver.tscn")
@@ -323,18 +323,26 @@ func take_damage(damage : float = 1, howstrong :int = 100, whichside :int = 0, h
 			can_regenerate = false
 			heal_cooldown = max_heal_cooldown
 			start_cooldown = true
+			
+			$playerSprites/playerSprite.material.set_shader_param("hit_strength", 1.0)
+			$playerSprites/ArmPivot/Arm.material.set_shader_param("hit_strength", 1.0)
+			yield(get_tree().create_timer(0.1),"timeout")
+			$playerSprites/playerSprite.material.set_shader_param("hit_strength", 0.0)
+			$playerSprites/ArmPivot/Arm.material.set_shader_param("hit_strength", 0.0)
 		
 		accept_damage = false
 		$hitAnimation.play("anmHit")
 		yield($hitAnimation, "animation_finished")
 		accept_damage = true
 func manage_health(_delta):
-	#print(health)
 	
 	if health < 0:
 		health = 0
 	
 	var opacity_level = $nUI/BackBufferCopy/fxDamage.material.get_shader_param("opacity")
+	var shift_level1 = $nHUD/Heath/health1.material.get_shader_param("shift")
+	var shift_level2 = $nHUD/Heath/health2.material.get_shader_param("shift")
+	var shift_level3 = $nHUD/Heath/health3.material.get_shader_param("shift")
 	match health:
 		0:
 			#$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(1), _delta * health)
@@ -342,23 +350,39 @@ func manage_health(_delta):
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 1, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = true
+			
+			$nHUD/Heath/health1.material.set_shader_param("shift", -0.2)
+			$nHUD/Heath/health2.material.set_shader_param("shift", -0.2)
+			$nHUD/Heath/health3.material.set_shader_param("shift", -0.2)
 		1:
 			#$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0.75), _delta * health)
 			$bgsHeartbeat.volume_db = linear2db(0.75)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.5, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = false
+			
+			$nHUD/Heath/health1.material.set_shader_param("shift", lerp(shift_level1, 1.0, _delta * health))
+			$nHUD/Heath/health2.material.set_shader_param("shift", lerp(shift_level2, -0.2, _delta * health))
+			$nHUD/Heath/health3.material.set_shader_param("shift", lerp(shift_level3, -0.2, _delta * health))
 		2:
 			#$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0.35), _delta * health)
 			$bgsHeartbeat.volume_db = linear2db(0.35)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.3, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = false
+			
+			$nHUD/Heath/health1.material.set_shader_param("shift", lerp(shift_level1, 1.0, _delta * health))
+			$nHUD/Heath/health2.material.set_shader_param("shift", lerp(shift_level2, 1.0, _delta * health))
+			$nHUD/Heath/health3.material.set_shader_param("shift", lerp(shift_level3, -0.2, _delta * health))
 		3:
 			#$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0), _delta * health)
 			$bgsHeartbeat.volume_db = linear2db(0)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.0, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
+			
+			$nHUD/Heath/health1.material.set_shader_param("shift", lerp(shift_level1, 1.0, _delta * health))
+			$nHUD/Heath/health2.material.set_shader_param("shift", lerp(shift_level2, 1.0, _delta * health))
+			$nHUD/Heath/health3.material.set_shader_param("shift", lerp(shift_level3, 1.0, _delta * health))
 			dead = false
 	
 	if start_cooldown:
