@@ -262,9 +262,13 @@ func shoot():
 		wp_cycle = 0 
 	elif wp_cycle < 0:
 		wp_cycle = 2
-	
-	if Input.is_action_just_pressed("player_secondary"): # DEBUG
+func change_cycle(cycle_no :int = -1):
+	GameManager.globals.changing_cycle = true
+	$sfxCycle.play()
+	if cycle_no == -1:
 		wp_cycle += 1
+	else:
+		wp_cycle += cycle_no
 
 func play_footstep():
 	$sfxFootstep.pitch_scale = rand_range(0.75, 1.3)

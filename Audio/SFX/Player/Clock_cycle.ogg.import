@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Clock_cycle.ogg-7da060c57749d4791606dd2dcb1bdccc.oggstr"
+
+[deps]
+
+source_file="res://Audio/SFX/Player/Clock_cycle.ogg"
+dest_files=[ "res://.import/Clock_cycle.ogg-7da060c57749d4791606dd2dcb1bdccc.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

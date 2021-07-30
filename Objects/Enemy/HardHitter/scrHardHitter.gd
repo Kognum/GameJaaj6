@@ -135,7 +135,7 @@ func _process(delta):
 				get_tree().paused = true
 				$deathBlood.visible = true
 				set_process(false)
-				yield(get_tree().create_timer(0.2), "timeout")
+				yield(get_tree().create_timer(0.12), "timeout")
 				set_process(true)
 				get_tree().paused = false
 				$deathBlood.visible = false

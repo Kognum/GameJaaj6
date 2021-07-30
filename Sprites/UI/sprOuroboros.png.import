@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sprHealth.png-0960f58527956e0e10cf279ae051ad23.stex"
+path="res://.import/sprOuroboros.png-814082a367567747bcb29d0609d79168.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/Player/sprHealth.png"
-dest_files=[ "res://.import/sprHealth.png-0960f58527956e0e10cf279ae051ad23.stex" ]
+source_file="res://Sprites/UI/sprOuroboros.png"
+dest_files=[ "res://.import/sprOuroboros.png-814082a367567747bcb29d0609d79168.stex" ]
 
 [params]
 

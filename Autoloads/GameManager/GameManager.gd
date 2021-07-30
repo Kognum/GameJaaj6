@@ -7,7 +7,8 @@ var globals = {
 	"player_move": true,
 	"player_look": true,
 	"player_shoot": true,
-	"player_node": null}
+	"player_node": null,
+	"changing_cycle": false}
 
 var camera = null
 

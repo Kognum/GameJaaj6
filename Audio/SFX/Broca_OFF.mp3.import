@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Broca_OFF.mp3-a1953cfbbb219fa63cab3f78f1273e2e.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Broca_OFF.mp3"
+dest_files=[ "res://.import/Broca_OFF.mp3-a1953cfbbb219fa63cab3f78f1273e2e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

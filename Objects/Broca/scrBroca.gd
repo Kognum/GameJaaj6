@@ -11,8 +11,10 @@ func _process(delta):
 			destroyed = true
 		if destroyed:
 			$interactAnm.play_backwards("anmInteract")
-			$brocaAnm.play("anmDestroyed")
+			$brocaAnm.play("anmDestroyed", .7)
+			$sfxOFF.play()
 			$brocaBlood.emitting = true
+			set_process(false)
 
 func _on_oPC_body_entered(body):
 	if not destroyed:
