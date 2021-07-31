@@ -342,11 +342,11 @@ camera_bounds = Rect2( 1920, 0, 3840, 1080 )
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="Rooms/02/Sprites/ParallaxBackground2"]
 position = Vector2( 2636.38, 48 )
-motion_scale = Vector2( 0.5, 0.5 )
+motion_scale = Vector2( 0.6, 0.6 )
 motion_offset = Vector2( 1, 1 )
 
 [node name="Sprite" type="Sprite" parent="Rooms/02/Sprites/ParallaxBackground2/ParallaxLayer3"]
-position = Vector2( 1, 1 )
+position = Vector2( -855.38, 304 )
 scale = Vector2( 2.91463, 2.92683 )
 texture = ExtResource( 6 )
 
@@ -356,25 +356,25 @@ motion_scale = Vector2( 0.6, 0.6 )
 motion_offset = Vector2( 1, 1 )
 
 [node name="Sprite" type="Sprite" parent="Rooms/02/Sprites/ParallaxBackground2/ParallaxLayer"]
-position = Vector2( 1, 1 )
+position = Vector2( -1044, 364 )
 texture = ExtResource( 27 )
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="Rooms/02/Sprites/ParallaxBackground2"]
-position = Vector2( 2827, 122.5 )
+position = Vector2( 2827, 69.5 )
 motion_scale = Vector2( 0.7, 0.7 )
 motion_offset = Vector2( 1, 1 )
 
 [node name="Sprite" type="Sprite" parent="Rooms/02/Sprites/ParallaxBackground2/ParallaxLayer4"]
-position = Vector2( 1, 1 )
+position = Vector2( -769, 307.5 )
 texture = ExtResource( 32 )
 
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="Rooms/02/Sprites/ParallaxBackground2"]
-position = Vector2( 2827, 122.5 )
+position = Vector2( 2827, 69.5 )
 motion_scale = Vector2( 0.8, 0.8 )
 motion_offset = Vector2( 1, 1 )
 
 [node name="Sprite" type="Sprite" parent="Rooms/02/Sprites/ParallaxBackground2/ParallaxLayer5"]
-position = Vector2( 1, 1 )
+position = Vector2( -572, 411.5 )
 texture = ExtResource( 29 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="Rooms/02/Sprites/ParallaxBackground2"]
@@ -383,16 +383,16 @@ motion_scale = Vector2( 0.9, 0.9 )
 motion_offset = Vector2( 1, 1 )
 
 [node name="Sprite" type="Sprite" parent="Rooms/02/Sprites/ParallaxBackground2/ParallaxLayer2"]
-position = Vector2( 960, 540 )
+position = Vector2( 1050, 747 )
 texture = ExtResource( 28 )
 
 [node name="ParallaxLayer6" type="ParallaxLayer" parent="Rooms/02/Sprites/ParallaxBackground2"]
 position = Vector2( 1808, -368 )
-motion_scale = Vector2( 0.9, 0.9 )
+motion_scale = Vector2( 0.95, 0.95 )
 motion_offset = Vector2( 1, 1 )
 
 [node name="Sprite" type="Sprite" parent="Rooms/02/Sprites/ParallaxBackground2/ParallaxLayer6"]
-position = Vector2( 960, 540 )
+position = Vector2( 935, 849 )
 texture = ExtResource( 30 )
 
 [node name="Sprite" type="Sprite" parent="Rooms/02/Sprites" index="1"]
