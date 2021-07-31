@@ -139,12 +139,6 @@ shape = SubResource( 4 )
 
 [node name="Objs" type="Node2D" parent="Map"]
 
-[node name="oHardHitter2" parent="Map/Objs" instance=ExtResource( 7 )]
-position = Vector2( 1139.86, 364.411 )
-
-[node name="oHardHitter3" parent="Map/Objs" instance=ExtResource( 7 )]
-position = Vector2( 1601.98, 588 )
-
 [node name="Ents" type="Node2D" parent="Map"]
 
 [node name="oDoor" parent="Map/Ents" instance=ExtResource( 10 )]
@@ -265,6 +259,12 @@ shape = SubResource( 7 )
 
 [node name="Entities" type="Node" parent="scnPrototype"]
 
+[node name="oHardHitter2" parent="scnPrototype/Entities" instance=ExtResource( 7 )]
+position = Vector2( 1222, 108 )
+
+[node name="oHardHitter3" parent="scnPrototype/Entities" instance=ExtResource( 7 )]
+position = Vector2( 1684.12, 331.589 )
+
 [node name="Objects" type="Node" parent="scnPrototype"]
 
 [node name="oBroca" parent="scnPrototype/Objects" instance=ExtResource( 3 )]
@@ -279,7 +279,7 @@ position = Vector2( 1240, 622 )
 [node name="oPlayer" parent="." groups=[
 "Jogador",
 ] instance=ExtResource( 2 )]
-position = Vector2( 278.455, 738.847 )
+position = Vector2( 201, 746 )
 
 [node name="Camera2D" type="Camera2D" parent="oPlayer"]
 current = true

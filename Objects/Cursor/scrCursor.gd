@@ -6,6 +6,8 @@ enum cursors {
 var cursor = cursors.AIM
 
 func _ready():
+	rotation_degrees = 0
+	
 	match cursor:
 		cursors.DEFAULT:
 			$sprCursor.region_rect = Rect2(50.5, 60.88, 254.25, 289.975)

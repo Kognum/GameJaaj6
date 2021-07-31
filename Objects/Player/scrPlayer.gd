@@ -76,7 +76,7 @@ func move(_delta):
 	
 	jump(_delta)
 	
-	velocity = move_and_slide(velocity, Vector2.UP)
+	velocity = move_and_slide(velocity, Vector2.UP, true)
 func get_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
 func jump(_delta):
@@ -90,7 +90,7 @@ func aply_only_gravity(_delta):
 	velocity.x = 0 
 	velocity.y += get_gravity() * _delta
 	
-	velocity = move_and_slide(velocity, Vector2.UP)
+	velocity = move_and_slide(velocity, Vector2.UP, true)
 
 func animate():
 	if is_on_floor():
@@ -349,8 +349,8 @@ func manage_health(_delta):
 	var shift_level3 = $nHUD/Heath/health3.material.get_shader_param("shift")
 	match health:
 		0:
-			#$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(1), _delta * health)
-			$bgsHeartbeat.volume_db = linear2db(1)
+			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, 0, _delta * health)
+			#$bgsHeartbeat.volume_db = linear2db(1)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 1, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = true
@@ -359,8 +359,8 @@ func manage_health(_delta):
 			$nHUD/Heath/health2.material.set_shader_param("shift", -0.2)
 			$nHUD/Heath/health3.material.set_shader_param("shift", -0.2)
 		1:
-			#$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0.75), _delta * health)
-			$bgsHeartbeat.volume_db = linear2db(0.75)
+			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, -0, _delta * health)
+			#$bgsHeartbeat.volume_db = linear2db(0.75)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.5, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = false
@@ -369,8 +369,8 @@ func manage_health(_delta):
 			$nHUD/Heath/health2.material.set_shader_param("shift", lerp(shift_level2, -0.2, _delta * health))
 			$nHUD/Heath/health3.material.set_shader_param("shift", lerp(shift_level3, -0.2, _delta * health))
 		2:
-			#$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0.35), _delta * health)
-			$bgsHeartbeat.volume_db = linear2db(0.35)
+			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, -15, _delta * health)
+			#$bgsHeartbeat.volume_db = linear2db(0.35)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.3, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = false
@@ -379,8 +379,8 @@ func manage_health(_delta):
 			$nHUD/Heath/health2.material.set_shader_param("shift", lerp(shift_level2, 1.0, _delta * health))
 			$nHUD/Heath/health3.material.set_shader_param("shift", lerp(shift_level3, -0.2, _delta * health))
 		3:
-			#$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, linear2db(0), _delta * health)
-			$bgsHeartbeat.volume_db = linear2db(0)
+			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, -80, _delta * health)
+			#$bgsHeartbeat.volume_db = linear2db(0)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.0, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			

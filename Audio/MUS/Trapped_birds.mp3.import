@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Trapped_birds.mp3-7dd960054ad7bce60e6cff33cc7693d2.mp3str"
+
+[deps]
+
+source_file="res://Audio/MUS/Trapped_birds.mp3"
+dest_files=[ "res://.import/Trapped_birds.mp3-7dd960054ad7bce60e6cff33cc7693d2.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,453 @@
+[gd_scene load_steps=35 format=2]
+
+[ext_resource path="res://Scenes/Main/Rooms/Rooom.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Main/Rooms/01/01.png" type="Texture" id=2]
+[ext_resource path="res://Objects/Player/oPlayer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Camerashake.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Main/Rooms/02/02.png" type="Texture" id=5]
+[ext_resource path="res://Objects/Broca/oBroca.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Main/Rooms/03/03.png" type="Texture" id=8]
+[ext_resource path="res://Scenes/Main/Rooms/05/05.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/sprBlood.png" type="Texture" id=10]
+[ext_resource path="res://Scenes/Main/scrMain.gd" type="Script" id=11]
+[ext_resource path="res://Audio/SFX/Player/Player_Dead.ogg" type="AudioStream" id=12]
+[ext_resource path="res://Audio/SFX/Gore_ExplodeBody_1.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Audio/MUS/Trapped_birds.mp3" type="AudioStream" id=14]
+[ext_resource path="res://Audio/MUS/Falling_time.mp3" type="AudioStream" id=15]
+[ext_resource path="res://Scripts/MusicManeger.gd" type="Script" id=16]
+[ext_resource path="res://Objects/Trigger/oTrigger.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Scenes/Main/Rooms/04/04.png" type="Texture" id=18]
+[ext_resource path="res://Scenes/Main/Rooms/06/06.png" type="Texture" id=19]
+[ext_resource path="res://Scenes/Main/Rooms/07/07.png" type="Texture" id=20]
+[ext_resource path="res://Scenes/Main/Rooms/08/08.png" type="Texture" id=21]
+[ext_resource path="res://Scenes/Main/Rooms/09/09.png" type="Texture" id=22]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 606, 143 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 368, 169 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 431.982, 169 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 178, 393 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 425, 142 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 615, 166 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 81, 127 )
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 2402, 21 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 118, 79 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 630, 79 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 228, 115 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 238, 181 )
+
+[sub_resource type="Animation" id=11]
+resource_name = "anmStart"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Rooms/01/Sprites/Colisions/CollisionShape2D4:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("oPlayer:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2.1, 2.3, 2.5 ),
+"transitions": PoolRealArray( 1.4, 0.4, 1 ),
+"update": 0,
+"values": [ Vector2( 271, 631 ), Vector2( 349, 589 ), Vector2( 514, 754 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("oPlayer:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2, 2.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("oPlayer:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 2.1, 2.4, 2.5, 2.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.85, 1.1 ), Vector2( 0.85, 1.1 ), Vector2( 1, 0.85 ), Vector2( 1, 1 ) ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 2, 2.1, 2.3, 2.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "screen_shake"
+}, {
+"args": [  ],
+"method": "slow_down"
+}, {
+"args": [  ],
+"method": "slow_up"
+}, {
+"args": [  ],
+"method": "activate_player"
+} ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Rooms/01/Objects/sprSplash:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 2.05, 2.1, 2.2, 2.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Rooms/01/Objects/partclesSplash:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 2.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Rooms/01/Objects/sprSplash:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 2.05, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/8/type = "method"
+tracks/8/path = NodePath("Audio/sfxHit1")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 2.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
+tracks/9/type = "method"
+tracks/9/path = NodePath("Audio/sfxHit2")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 2.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
+
+[node name="scnMain" type="Node2D"]
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_vertical_guides_": [ 4844.0 ]
+}
+
+[node name="Audio" type="Node2D" parent="."]
+script = ExtResource( 16 )
+
+[node name="sfxHit1" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource( 12 )
+bus = "SFX"
+
+[node name="sfxHit2" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource( 13 )
+bus = "SFX"
+
+[node name="msuQuiet" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 14 )
+volume_db = -2.0
+bus = "MUS"
+
+[node name="msuAction" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 15 )
+volume_db = -5.0
+bus = "MUS"
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="01" parent="Rooms" instance=ExtResource( 1 )]
+camera_bounds = Rect2( 0, 0, 1920, 1080 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/01/Sprites" index="0"]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/01/Sprites/Colisions" index="0"]
+position = Vector2( 613, 984 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/01/Sprites/Colisions" index="1"]
+position = Vector2( 1513, 925 )
+shape = SubResource( 2 )
+one_way_collision = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Rooms/01/Sprites/Colisions" index="2"]
+position = Vector2( 1565, 1169 )
+rotation = -0.159748
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Rooms/01/Sprites/Colisions" index="3"]
+position = Vector2( 230, 481 )
+shape = SubResource( 4 )
+disabled = true
+
+[node name="oBroca" parent="Rooms/01/Objects" index="0" instance=ExtResource( 7 )]
+position = Vector2( 1550, 739 )
+
+[node name="partclesSplash" type="CPUParticles2D" parent="Rooms/01/Objects" index="1"]
+position = Vector2( 185, 644 )
+emitting = false
+amount = 50
+lifetime = 5.0
+speed_scale = 4.0
+emission_shape = 1
+emission_sphere_radius = 40.0
+initial_velocity = 155.03
+damping = 10.53
+scale_amount = 11.38
+color = Color( 1, 1, 1, 0.596078 )
+
+[node name="sprSplash" type="Sprite" parent="Rooms/01/Objects" index="2"]
+visible = false
+position = Vector2( 211, 637 )
+scale = Vector2( 0.746, 0.585 )
+texture = ExtResource( 10 )
+hframes = 4
+frame = 3
+
+[node name="02" parent="Rooms" instance=ExtResource( 1 )]
+position = Vector2( 1920, 0 )
+camera_bounds = Rect2( 1920, 0, 3840, 1080 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/02/Sprites" index="0"]
+texture = ExtResource( 5 )
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/02/Sprites/Colisions" index="0"]
+position = Vector2( 425, 1080 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/02/Sprites/Colisions" index="1"]
+position = Vector2( 1398, 925 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Rooms/02/Sprites/Colisions" index="2"]
+position = Vector2( 1734, 721 )
+shape = SubResource( 7 )
+one_way_collision = true
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Rooms/02/Sprites/Colisions" index="3"]
+position = Vector2( 1836, 667 )
+shape = SubResource( 7 )
+one_way_collision = true
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Rooms/02/Sprites/Colisions" index="4"]
+position = Vector2( 425, -19 )
+shape = SubResource( 13 )
+
+[node name="03" parent="Rooms" instance=ExtResource( 1 )]
+position = Vector2( 3840, 0 )
+camera_bounds = Rect2( 3840, 0, 5760, 1080 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/03/Sprites" index="0"]
+texture = ExtResource( 8 )
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/03/Sprites/Colisions" index="0"]
+position = Vector2( 97, 840 )
+shape = SubResource( 8 )
+one_way_collision = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/03/Sprites/Colisions" index="1"]
+position = Vector2( 771, 957 )
+shape = SubResource( 9 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Rooms/03/Sprites/Colisions" index="2"]
+position = Vector2( 1692, 825 )
+shape = SubResource( 10 )
+one_way_collision = true
+
+[node name="oTrigger" parent="Rooms/03/Objects" index="0" instance=ExtResource( 17 )]
+position = Vector2( 5276, 1248 )
+scale = Vector2( 2.5661, 0.737295 )
+
+[node name="04" parent="Rooms" instance=ExtResource( 1 )]
+position = Vector2( 5760, 0 )
+camera_bounds = Rect2( 5760, 0, 7680, 1080 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/04/Sprites" index="0"]
+texture = ExtResource( 18 )
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/04/Sprites/Colisions" index="0"]
+position = Vector2( 260, 853 )
+rotation = -0.140781
+shape = SubResource( 12 )
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="Rooms/04/Sprites/Colisions" index="1"]
+polygon = PoolVector2Array( 180, 587, 202, 695, 463, 646, 528, 475 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooms/04/Sprites/Colisions" index="2"]
+position = Vector2( 960, 199 )
+build_mode = 1
+polygon = PoolVector2Array( -136, 29, -10, 64, 233, 78, 300, 33, 331, 33, 267, 94, 261, 183, -6, 204, -330, 250, -320, 231, -268, 223, -170, 153, -117, 79 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Rooms/04/Sprites/Colisions" index="3"]
+polygon = PoolVector2Array( 499, 152, 604, 205, 648, 257, 492, 199, 434, 155, 355, 152, 256, 141, 125, 162, 95, 23, 451, 34 )
+one_way_collision = true
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Rooms/04/Sprites/Colisions" index="4"]
+polygon = PoolVector2Array( 1396, 711, 1481, 729, 1600, 692, 1929, 544, 1919, 819, 1519, 908, 1471, 772, 1428, 758 )
+one_way_collision = true
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Rooms/04/Sprites/Colisions" index="5"]
+polygon = PoolVector2Array( 1238, 905, 1357, 934, 1359, 953, 1330, 953, 1300, 1008, 1302, 1078, 1194, 1074, 1190, 835, 1158, 578, 1130, 491, 1128, 383, 1232, 379, 1202, 644, 1232, 843 )
+
+[node name="oTrigger" parent="Rooms/04/Objects" index="0" instance=ExtResource( 17 )]
+position = Vector2( 6919, 1247 )
+scale = Vector2( 5.31642, 0.747192 )
+
+[node name="05" parent="Rooms" instance=ExtResource( 1 )]
+position = Vector2( 3840, -1080 )
+camera_bounds = Rect2( 3840, -1080, 5760, 0 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/05/Sprites" index="0"]
+texture = ExtResource( 9 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooms/05/Sprites/Colisions" index="0"]
+polygon = PoolVector2Array( 1891, 773, 1613, 770, 1553, 912, 1464, 944, 1221, 896, 1115, 901, 1059, 883, 1083, 732, 713, 715, 582, 691, 578, 611, 493, 546, 498, 520, 546, 397, 594, 314, 1093, 258, 1272, 445, 1448, 410, 1798, 525, 1925, 533, 2020, 478, 2005, -1, 521, -4, 468, 110, 309, 198, 178, 274, 112, 286, 170, 364, 193, 657, 145, 704, 624, 999, 591, 1065, 637, 1070, 856, 1077, 1328, 1272, 1723, 1097, 1773, 1060, 1828, 1075, 1909, 1085, 1915, 784 )
+
+[node name="06" parent="Rooms" instance=ExtResource( 1 )]
+position = Vector2( 5758, -1080 )
+camera_bounds = Rect2( 5760, -1080, 7680, 0 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/06/Sprites" index="0"]
+texture = ExtResource( 19 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooms/06/Sprites/Colisions" index="0"]
+polygon = PoolVector2Array( 391, 1098, 373, 996, 358, 887, 222, 886, -3, 783, 1, 1080 )
+
+[node name="07" parent="Rooms" instance=ExtResource( 1 )]
+position = Vector2( 7678, 0 )
+camera_bounds = Rect2( 7680, 0, 9598, 1080 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/07/Sprites" index="0"]
+texture = ExtResource( 20 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooms/07/Sprites/Colisions" index="0"]
+polygon = PoolVector2Array( 0, 550, 827, 344, 835, 411, 943, 437, 1060, 469, 1200, 494, 1630, 532, 1928, 571, 1931, 868, 1386, 851, 1110, 865, 818, 834, 432, 839, -1, 818 )
+
+[node name="08" parent="Rooms" instance=ExtResource( 1 )]
+position = Vector2( 9598, 0 )
+camera_bounds = Rect2( 9598, 0, 11518, 1080 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/08/Sprites" index="0"]
+texture = ExtResource( 21 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooms/08/Sprites/Colisions" index="0"]
+polygon = PoolVector2Array( -8, 570, 267, 562, 500, 522, 858, 496, 1221, 473, 1558, 418, 1490, 76, 1727, 87, 1748, 695, 23, 740 )
+
+[node name="09" parent="Rooms" instance=ExtResource( 1 )]
+position = Vector2( 9598, -1080 )
+camera_bounds = Rect2( 9598, -1080, 0, 11518 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/09/Sprites" index="0"]
+texture = ExtResource( 22 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooms/09/Sprites/Colisions" index="0"]
+position = Vector2( 974, 540 )
+polygon = PoolVector2Array( 78, 111, 578, 95, 580, -275, 595, -277, 595, 126, 547, 129, 611, 464, 358, 475, 219, 140, 43.9999, 140, 40, -262, 59, -262 )
+
+[node name="oPlayer" parent="." instance=ExtResource( 3 )]
+position = Vector2( 514, 754 )
+scale = Vector2( 1, 0.85 )
+z_index = 1
+
+[node name="Camera2D" type="Camera2D" parent="oPlayer"]
+current = true
+zoom = Vector2( 0.85, 0.85 )
+limit_smoothed = true
+smoothing_enabled = true
+editor_draw_limits = true
+script = ExtResource( 4 )
+maxoffset = Vector2( 5, 5 )
+
+[node name="mainAnm" type="AnimationPlayer" parent="."]
+autoplay = "anmStart"
+anims/anmStart = SubResource( 11 )
+
+[editable path="Rooms/01"]
+[editable path="Rooms/02"]
+[editable path="Rooms/03"]
+[editable path="Rooms/04"]
+[editable path="Rooms/05"]
+[editable path="Rooms/06"]
+[editable path="Rooms/07"]
+[editable path="Rooms/08"]
+[editable path="Rooms/09"]
