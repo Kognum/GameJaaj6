@@ -9,8 +9,6 @@
 [ext_resource path="res://Scenes/Prototype/sky.png" type="Texture" id=8]
 [ext_resource path="res://Scripts/Camerashake.gd" type="Script" id=9]
 
-
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 695.863, 162 )
 
@@ -132,4 +130,3 @@ position = Vector2( 150.916, 512.476 )
 scale = Vector2( 1.5, 1.5 )
 ToWhere = "res://Scenes/Prototype/scnPrototype.tscn"
 shouldtrigger = false
-wheretosendtheplayer = Vector2( 928, 667 )
