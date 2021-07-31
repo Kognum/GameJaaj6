@@ -14,6 +14,9 @@ func _process(delta):
 		if $Entities.get_child_count() == 0:
 			get_parent().get_parent().get_node("Audio").action_amount = 0 
 			count_enemies = false
+	
+	for layer in $Sprites/ParallaxBackground.get_children():
+		layer.visible = visible
 
 func _on_Bound_area_exited(area):
 	if area.is_in_group("PlayerLevelHitbox"):
