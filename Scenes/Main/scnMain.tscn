@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://Scenes/Main/Rooms/Rooom.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Main/Rooms/01/mapa_01_p5.png" type="Texture" id=2]
@@ -17,7 +17,7 @@
 [ext_resource path="res://Audio/MUS/Falling_time.mp3" type="AudioStream" id=15]
 [ext_resource path="res://Scripts/MusicManeger.gd" type="Script" id=16]
 [ext_resource path="res://Objects/Trigger/oTrigger.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Scenes/Main/Rooms/04/04.png" type="Texture" id=18]
+[ext_resource path="res://Scenes/Main/Rooms/04/mapa_04_p4.png" type="Texture" id=18]
 [ext_resource path="res://Scenes/Main/Rooms/06/06.png" type="Texture" id=19]
 [ext_resource path="res://Scenes/Main/Rooms/07/07.png" type="Texture" id=20]
 [ext_resource path="res://Scenes/Main/Rooms/08/08.png" type="Texture" id=21]
@@ -33,11 +33,14 @@
 [ext_resource path="res://Scenes/Main/Rooms/02/mapa_prototipo_p1.png" type="Texture" id=31]
 [ext_resource path="res://Scenes/Main/Rooms/02/mapa_prototipo_p5.png" type="Texture" id=32]
 [ext_resource path="res://Scenes/Main/Rooms/03/mapa_03_f.png" type="Texture" id=33]
-[ext_resource path="res://Objects/Enemy/Heavy/oHeavy.tscn" type="PackedScene" id=34]
 [ext_resource path="res://Objects/Enemy/Horda/oHorda.tscn" type="PackedScene" id=35]
 [ext_resource path="res://Scenes/Main/Rooms/03/mapa_03_p2.png" type="Texture" id=36]
 [ext_resource path="res://Scenes/Main/Rooms/03/mapa_03_p5.png" type="Texture" id=37]
 [ext_resource path="res://Objects/Enemy/HardHitter/oHardHitter.tscn" type="PackedScene" id=38]
+[ext_resource path="res://Scenes/Main/Rooms/04/mapa_04_p3.png" type="Texture" id=39]
+[ext_resource path="res://Scenes/Main/Rooms/04/mapa_04_f.png" type="Texture" id=40]
+[ext_resource path="res://Scenes/Main/Rooms/04/mapa_04_p2.png" type="Texture" id=41]
+[ext_resource path="res://Scenes/Main/Rooms/04/mapa_04_p1.png" type="Texture" id=42]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 606, 143 )
@@ -439,12 +442,6 @@ one_way_collision = true
 position = Vector2( 425, -19 )
 shape = SubResource( 8 )
 
-[node name="oHardHitter" parent="Rooms/02/Entities" index="0" instance=ExtResource( 38 )]
-position = Vector2( 2880, 517 )
-
-[node name="oHardHitter2" parent="Rooms/02/Entities" index="1" instance=ExtResource( 38 )]
-position = Vector2( 3215, 368 )
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Rooms/02"]
 
 [node name="03" parent="Rooms" instance=ExtResource( 1 )]
@@ -501,6 +498,18 @@ texture = ExtResource( 36 )
 texture = ExtResource( 33 )
 centered = false
 
+[node name="ParallaxBackground3" type="ParallaxBackground" parent="Rooms/03/Sprites" index="2"]
+layer = 1
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="Rooms/03/Sprites/ParallaxBackground3"]
+position = Vector2( 4056, 96 )
+motion_scale = Vector2( 1.1, 1.1 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/03/Sprites/ParallaxBackground3/ParallaxLayer7"]
+position = Vector2( 960, 540 )
+texture = ExtResource( 8 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/03/Sprites/Colisions" index="0"]
 position = Vector2( 97, 840 )
 shape = SubResource( 9 )
@@ -515,25 +524,6 @@ position = Vector2( 1692, 825 )
 shape = SubResource( 11 )
 one_way_collision = true
 
-[node name="ParallaxBackground3" type="ParallaxBackground" parent="Rooms/03/Sprites" index="3"]
-layer = 1
-
-[node name="ParallaxLayer7" type="ParallaxLayer" parent="Rooms/03/Sprites/ParallaxBackground3"]
-position = Vector2( 4056, 96 )
-motion_scale = Vector2( 1.1, 1.1 )
-motion_offset = Vector2( 1, 1 )
-
-[node name="Sprite" type="Sprite" parent="Rooms/03/Sprites/ParallaxBackground3/ParallaxLayer7"]
-position = Vector2( 960, 540 )
-texture = ExtResource( 8 )
-
-[node name="oHeavy" parent="Rooms/03/Entities" index="0" instance=ExtResource( 34 )]
-position = Vector2( 4617, 721 )
-
-[node name="oHardHitter" parent="Rooms/03/Entities" index="1" instance=ExtResource( 38 )]
-position = Vector2( 5367, 436 )
-currentsize = 1
-
 [node name="oTrigger" parent="Rooms/03/Objects" index="0" instance=ExtResource( 17 )]
 position = Vector2( 5276, 1248 )
 scale = Vector2( 2.5661, 0.737295 )
@@ -543,7 +533,7 @@ position = Vector2( 5760, 0 )
 camera_bounds = Rect2( 5760, 0, 7680, 1080 )
 
 [node name="Sprite" type="Sprite" parent="Rooms/04/Sprites" index="0"]
-texture = ExtResource( 18 )
+texture = ExtResource( 40 )
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/04/Sprites/Colisions" index="0"]
@@ -570,16 +560,63 @@ one_way_collision = true
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Rooms/04/Sprites/Colisions" index="5"]
 polygon = PoolVector2Array( 1238, 905, 1357, 934, 1359, 953, 1330, 953, 1300, 1008, 1302, 1078, 1194, 1074, 1190, 835, 1158, 578, 1130, 491, 1128, 383, 1232, 379, 1202, 644, 1232, 843 )
 
-[node name="oHardHitter" parent="Rooms/04/Entities" index="0" instance=ExtResource( 38 )]
-position = Vector2( 6996, 107 )
-
-[node name="oHardHitter2" parent="Rooms/04/Entities" index="1" instance=ExtResource( 38 )]
-position = Vector2( 7441, 427 )
+[node name="oHardHitter2" parent="Rooms/04/Entities" index="0" instance=ExtResource( 38 )]
+position = Vector2( 7576, 64 )
 currentsize = 1
 
 [node name="oTrigger" parent="Rooms/04/Objects" index="0" instance=ExtResource( 17 )]
 position = Vector2( 6919, 1247 )
 scale = Vector2( 5.31642, 0.747192 )
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="Rooms/04"]
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Rooms/04/ParallaxBackground2"]
+position = Vector2( 5328, 40 )
+motion_scale = Vector2( 0.6, 0.6 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/04/ParallaxBackground2/ParallaxLayer3"]
+position = Vector2( -1260.38, 312 )
+scale = Vector2( 2.91463, 2.92683 )
+texture = ExtResource( 6 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Rooms/04/ParallaxBackground2"]
+position = Vector2( 5368, 10.15 )
+motion_scale = Vector2( 0.6, 0.6 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/04/ParallaxBackground2/ParallaxLayer"]
+position = Vector2( -1328, 301.49 )
+texture = ExtResource( 18 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="Rooms/04/ParallaxBackground2"]
+position = Vector2( 4392, 40 )
+motion_scale = Vector2( 0.5, 0.5 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/04/ParallaxBackground2/ParallaxLayer4"]
+position = Vector2( -1035, 306.5 )
+texture = ExtResource( 39 )
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="Rooms/04/ParallaxBackground2"]
+position = Vector2( 7080, -8 )
+motion_scale = Vector2( 0.8, 0.8 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/04/ParallaxBackground2/ParallaxLayer5"]
+position = Vector2( -1808, 544 )
+texture = ExtResource( 41 )
+
+[node name="ParallaxBackground3" type="ParallaxBackground" parent="Rooms/04"]
+layer = 1
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="Rooms/04/ParallaxBackground3"]
+position = Vector2( 7800, 616 )
+motion_scale = Vector2( 1.1, 1.1 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/04/ParallaxBackground3/ParallaxLayer7"]
+texture = ExtResource( 42 )
 
 [node name="05" parent="Rooms" instance=ExtResource( 1 )]
 position = Vector2( 3840, -1080 )
