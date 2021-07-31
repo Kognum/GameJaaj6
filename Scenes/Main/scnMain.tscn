@@ -1,10 +1,11 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://Scenes/Main/Rooms/Rooom.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Main/Rooms/01/01.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Main/Rooms/01/mapa_01_p5.png" type="Texture" id=2]
 [ext_resource path="res://Objects/Player/oPlayer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Camerashake.gd" type="Script" id=4]
-[ext_resource path="res://Scenes/Main/Rooms/02/02.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/Main/Rooms/02/mapa_prototipo_f.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/Main/Rooms/sky.png" type="Texture" id=6]
 [ext_resource path="res://Objects/Broca/oBroca.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Main/Rooms/03/03.png" type="Texture" id=8]
 [ext_resource path="res://Scenes/Main/Rooms/05/05.png" type="Texture" id=9]
@@ -21,6 +22,16 @@
 [ext_resource path="res://Scenes/Main/Rooms/07/07.png" type="Texture" id=20]
 [ext_resource path="res://Scenes/Main/Rooms/08/08.png" type="Texture" id=21]
 [ext_resource path="res://Scenes/Main/Rooms/09/09.png" type="Texture" id=22]
+[ext_resource path="res://Scenes/Main/Rooms/01/mapa_01_f.png" type="Texture" id=23]
+[ext_resource path="res://Scenes/Main/Rooms/01/mapa_01_p3.png" type="Texture" id=24]
+[ext_resource path="res://Scenes/Main/Rooms/01/mapa_01_p2.png" type="Texture" id=25]
+[ext_resource path="res://Scenes/Main/Rooms/01/mapa_01_p4.png" type="Texture" id=26]
+[ext_resource path="res://Scenes/Main/Rooms/02/mapa_prototipo_p6.png" type="Texture" id=27]
+[ext_resource path="res://Scenes/Main/Rooms/02/mapa_prototipo_p3.png" type="Texture" id=28]
+[ext_resource path="res://Scenes/Main/Rooms/02/mapa_prototipo_p4.png" type="Texture" id=29]
+[ext_resource path="res://Scenes/Main/Rooms/02/mapa_prototipo_p2.png" type="Texture" id=30]
+[ext_resource path="res://Scenes/Main/Rooms/02/mapa_prototipo_p1.png" type="Texture" id=31]
+[ext_resource path="res://Scenes/Main/Rooms/02/mapa_prototipo_p5.png" type="Texture" id=32]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 606, 143 )
@@ -43,23 +54,22 @@ extents = Vector2( 615, 166 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 81, 127 )
 
-[sub_resource type="RectangleShape2D" id=13]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 2402, 21 )
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 118, 79 )
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 630, 79 )
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 228, 115 )
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 238, 181 )
 
-[sub_resource type="Animation" id=11]
-resource_name = "anmStart"
+[sub_resource type="Animation" id=13]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Rooms/01/Sprites/Colisions/CollisionShape2D4:disabled")
@@ -230,7 +240,7 @@ bus = "MUS"
 camera_bounds = Rect2( 0, 0, 1920, 1080 )
 
 [node name="Sprite" type="Sprite" parent="Rooms/01/Sprites" index="0"]
-texture = ExtResource( 2 )
+texture = ExtResource( 23 )
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/01/Sprites/Colisions" index="0"]
@@ -251,6 +261,54 @@ shape = SubResource( 3 )
 position = Vector2( 230, 481 )
 shape = SubResource( 4 )
 disabled = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Rooms/01/Sprites" index="2"]
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Rooms/01/Sprites/ParallaxBackground"]
+position = Vector2( 532.382, 352 )
+motion_scale = Vector2( 0.5, 0.5 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/01/Sprites/ParallaxBackground/ParallaxLayer3"]
+position = Vector2( 1, 1 )
+scale = Vector2( 2.91463, 2.92683 )
+texture = ExtResource( 6 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Rooms/01/Sprites/ParallaxBackground"]
+position = Vector2( 723, 368 )
+motion_scale = Vector2( 0.6, 0.6 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/01/Sprites/ParallaxBackground/ParallaxLayer"]
+position = Vector2( 1, 1 )
+texture = ExtResource( 2 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="Rooms/01/Sprites/ParallaxBackground"]
+position = Vector2( 723, 426.5 )
+motion_scale = Vector2( 0.7, 0.7 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/01/Sprites/ParallaxBackground/ParallaxLayer4"]
+position = Vector2( 1, 1 )
+texture = ExtResource( 26 )
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="Rooms/01/Sprites/ParallaxBackground"]
+position = Vector2( 723, 426.5 )
+motion_scale = Vector2( 0.8, 0.8 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/01/Sprites/ParallaxBackground/ParallaxLayer5"]
+position = Vector2( 1, 1 )
+texture = ExtResource( 24 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Rooms/01/Sprites/ParallaxBackground"]
+position = Vector2( -296, -64 )
+motion_scale = Vector2( 0.9, 0.9 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/01/Sprites/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 960, 540 )
+texture = ExtResource( 25 )
 
 [node name="oBroca" parent="Rooms/01/Objects" index="0" instance=ExtResource( 7 )]
 position = Vector2( 1550, 739 )
@@ -280,9 +338,78 @@ frame = 3
 position = Vector2( 1920, 0 )
 camera_bounds = Rect2( 1920, 0, 3840, 1080 )
 
-[node name="Sprite" type="Sprite" parent="Rooms/02/Sprites" index="0"]
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="Rooms/02/Sprites" index="0"]
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Rooms/02/Sprites/ParallaxBackground2"]
+position = Vector2( 2636.38, 48 )
+motion_scale = Vector2( 0.5, 0.5 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/02/Sprites/ParallaxBackground2/ParallaxLayer3"]
+position = Vector2( 1, 1 )
+scale = Vector2( 2.91463, 2.92683 )
+texture = ExtResource( 6 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Rooms/02/Sprites/ParallaxBackground2"]
+position = Vector2( 2827, 64 )
+motion_scale = Vector2( 0.6, 0.6 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/02/Sprites/ParallaxBackground2/ParallaxLayer"]
+position = Vector2( 1, 1 )
+texture = ExtResource( 27 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="Rooms/02/Sprites/ParallaxBackground2"]
+position = Vector2( 2827, 122.5 )
+motion_scale = Vector2( 0.7, 0.7 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/02/Sprites/ParallaxBackground2/ParallaxLayer4"]
+position = Vector2( 1, 1 )
+texture = ExtResource( 32 )
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="Rooms/02/Sprites/ParallaxBackground2"]
+position = Vector2( 2827, 122.5 )
+motion_scale = Vector2( 0.8, 0.8 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/02/Sprites/ParallaxBackground2/ParallaxLayer5"]
+position = Vector2( 1, 1 )
+texture = ExtResource( 29 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Rooms/02/Sprites/ParallaxBackground2"]
+position = Vector2( 1496, -232 )
+motion_scale = Vector2( 0.9, 0.9 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/02/Sprites/ParallaxBackground2/ParallaxLayer2"]
+position = Vector2( 960, 540 )
+texture = ExtResource( 28 )
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="Rooms/02/Sprites/ParallaxBackground2"]
+position = Vector2( 1808, -368 )
+motion_scale = Vector2( 0.9, 0.9 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/02/Sprites/ParallaxBackground2/ParallaxLayer6"]
+position = Vector2( 960, 540 )
+texture = ExtResource( 30 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/02/Sprites" index="1"]
 texture = ExtResource( 5 )
 centered = false
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Rooms/02/Sprites" index="2"]
+layer = -99
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="Rooms/02/Sprites/ParallaxBackground"]
+position = Vector2( 1928, -112.5 )
+motion_scale = Vector2( 0.9, 0.9 )
+motion_offset = Vector2( 1, 1 )
+
+[node name="Sprite" type="Sprite" parent="Rooms/02/Sprites/ParallaxBackground/ParallaxLayer7"]
+position = Vector2( 960, 540 )
+texture = ExtResource( 31 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/02/Sprites/Colisions" index="0"]
 position = Vector2( 425, 1080 )
@@ -304,7 +431,9 @@ one_way_collision = true
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Rooms/02/Sprites/Colisions" index="4"]
 position = Vector2( 425, -19 )
-shape = SubResource( 13 )
+shape = SubResource( 8 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Rooms/02"]
 
 [node name="03" parent="Rooms" instance=ExtResource( 1 )]
 position = Vector2( 3840, 0 )
@@ -316,16 +445,16 @@ centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/03/Sprites/Colisions" index="0"]
 position = Vector2( 97, 840 )
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 one_way_collision = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/03/Sprites/Colisions" index="1"]
 position = Vector2( 771, 957 )
-shape = SubResource( 9 )
+shape = SubResource( 10 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Rooms/03/Sprites/Colisions" index="2"]
 position = Vector2( 1692, 825 )
-shape = SubResource( 10 )
+shape = SubResource( 11 )
 one_way_collision = true
 
 [node name="oTrigger" parent="Rooms/03/Objects" index="0" instance=ExtResource( 17 )]
@@ -440,7 +569,7 @@ maxoffset = Vector2( 5, 5 )
 
 [node name="mainAnm" type="AnimationPlayer" parent="."]
 autoplay = "anmStart"
-anims/anmStart = SubResource( 11 )
+anims/anmStart = SubResource( 13 )
 
 [editable path="Rooms/01"]
 [editable path="Rooms/02"]
