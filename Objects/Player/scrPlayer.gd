@@ -54,8 +54,15 @@ func _physics_process(delta):
 		aply_only_gravity(delta)
 		$hitAnimation.stop()
 		$playerAnimation.play("anmDead", 1)
+		set_physics_process(false)
 		yield($playerAnimation, "animation_finished")
-		SceneChanger.change_scene("res://Scenes/GameOver/scnGameOver.tscn")
+		set_physics_process(true)
+		if GameManager.cycle >= 3:
+			SceneChanger.change_scene("res://Scenes/GameOver/scnGameOver.tscn")
+		else:
+			get_parent().next_cycle()
+			dead = false
+			health = max_health
 
 export var speed = 100.0
 var velocity := Vector2.ZERO
@@ -192,8 +199,13 @@ func shoot():
 				
 				gunFire.visible = false
 				set_process(false)
-				yield(get_tree().create_timer(.5), "timeout")
+				yield(get_tree().create_timer(.3), "timeout")
 				set_process(true)
+				$sfxReloadShotgun.play()
+				set_process(false)
+				yield(get_tree().create_timer(.2), "timeout")
+				set_process(true)
+				
 			else:
 				gunFire.visible = false
 		wp_cycles.SPNIPER:
@@ -223,7 +235,11 @@ func shoot():
 				
 				gunFire.visible = false
 				set_process(false)
-				yield(get_tree().create_timer(1), "timeout")
+				yield(get_tree().create_timer(.6), "timeout")
+				set_process(true)
+				$sfxReloadSniper.play()
+				set_process(false)
+				yield(get_tree().create_timer(.4), "timeout")
 				set_process(true)
 			else:
 				gunFire.visible = false
@@ -354,20 +370,12 @@ func manage_health(_delta):
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 1, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = true
-			
-			$nHUD/Heath/health1.material.set_shader_param("shift", -0.2)
-			$nHUD/Heath/health2.material.set_shader_param("shift", -0.2)
-			$nHUD/Heath/health3.material.set_shader_param("shift", -0.2)
 		1:
 			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, -0, _delta * health)
 			#$bgsHeartbeat.volume_db = linear2db(0.75)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.5, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = false
-			
-			$nHUD/Heath/health1.material.set_shader_param("shift", lerp(shift_level1, 1.0, _delta * health))
-			$nHUD/Heath/health2.material.set_shader_param("shift", lerp(shift_level2, -0.2, _delta * health))
-			$nHUD/Heath/health3.material.set_shader_param("shift", lerp(shift_level3, -0.2, _delta * health))
 		2:
 			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, -15, _delta * health)
 			#$bgsHeartbeat.volume_db = linear2db(0.35)
@@ -375,20 +383,31 @@ func manage_health(_delta):
 			$nUI/BackBufferCopy/fxDamage.visible = true
 			dead = false
 			
-			$nHUD/Heath/health1.material.set_shader_param("shift", lerp(shift_level1, 1.0, _delta * health))
-			$nHUD/Heath/health2.material.set_shader_param("shift", lerp(shift_level2, 1.0, _delta * health))
-			$nHUD/Heath/health3.material.set_shader_param("shift", lerp(shift_level3, -0.2, _delta * health))
 		3:
 			$bgsHeartbeat.volume_db = lerp($bgsHeartbeat.volume_db, -80, _delta * health)
 			#$bgsHeartbeat.volume_db = linear2db(0)
 			$nUI/BackBufferCopy/fxDamage.material.set_shader_param("opacity", lerp(opacity_level, 0.0, _delta * health))
 			$nUI/BackBufferCopy/fxDamage.visible = true
-			
-			$nHUD/Heath/health1.material.set_shader_param("shift", lerp(shift_level1, 1.0, _delta * health))
-			$nHUD/Heath/health2.material.set_shader_param("shift", lerp(shift_level2, 1.0, _delta * health))
-			$nHUD/Heath/health3.material.set_shader_param("shift", lerp(shift_level3, 1.0, _delta * health))
 			dead = false
 	
+	match GameManager.cycle:
+			0:
+				$nHUD/Heath/health1.material.set_shader_param("shift", lerp(shift_level1, 1.0, _delta * health))
+				$nHUD/Heath/health2.material.set_shader_param("shift", lerp(shift_level2, 1.0, _delta * health))
+				$nHUD/Heath/health3.material.set_shader_param("shift", lerp(shift_level3, 1.0, _delta * health))
+			1:
+				$nHUD/Heath/health1.material.set_shader_param("shift", lerp(shift_level1, 1.0, _delta * health))
+				$nHUD/Heath/health2.material.set_shader_param("shift", lerp(shift_level2, 1.0, _delta * health))
+				$nHUD/Heath/health3.material.set_shader_param("shift", lerp(shift_level3, -0.2, _delta * health))
+			2:
+				$nHUD/Heath/health1.material.set_shader_param("shift", lerp(shift_level1, 1.0, _delta * health))
+				$nHUD/Heath/health2.material.set_shader_param("shift", lerp(shift_level2, -0.2, _delta * health))
+				$nHUD/Heath/health3.material.set_shader_param("shift", lerp(shift_level3, -0.2, _delta * health))
+			3:
+				$nHUD/Heath/health1.material.set_shader_param("shift", lerp(shift_level1, -0.2, _delta * health))
+				$nHUD/Heath/health2.material.set_shader_param("shift", lerp(shift_level2, -0.2, _delta * health))
+				$nHUD/Heath/health3.material.set_shader_param("shift", lerp(shift_level3, -0.2, _delta * health))
+		
 	if start_cooldown:
 		heal_cooldown -= _delta
 		if heal_cooldown <= 0:

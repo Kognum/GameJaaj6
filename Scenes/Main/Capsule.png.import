@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mapa_prototipo_f.png-51a4d8f623c7ce9ee91dc48cf88c97f9.stex"
+path="res://.import/Capsule.png-1f23b5e0acae8ca77b6390cb5508f296.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Prototype/mapa_prototipo_f.png"
-dest_files=[ "res://.import/mapa_prototipo_f.png-51a4d8f623c7ce9ee91dc48cf88c97f9.stex" ]
+source_file="res://Scenes/Main/Capsule.png"
+dest_files=[ "res://.import/Capsule.png-1f23b5e0acae8ca77b6390cb5508f296.stex" ]
 
 [params]
 

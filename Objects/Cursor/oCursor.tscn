@@ -32,7 +32,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1.4, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 180.0, 180.0 ]
+"values": [ 0.0, 360.0, 360.0 ]
 }
 
 [node name="oCursor" type="Node2D"]

@@ -11,8 +11,8 @@
 [ext_resource path="res://Scenes/Main/Rooms/05/05.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/sprBlood.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/Main/scrMain.gd" type="Script" id=11]
-[ext_resource path="res://Audio/SFX/Player/Player_Dead.ogg" type="AudioStream" id=12]
-[ext_resource path="res://Audio/SFX/Gore_ExplodeBody_1.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Audio/SFX/CAPSULE_1.wav" type="AudioStream" id=12]
+[ext_resource path="res://Scenes/Main/Capsule.png" type="Texture" id=13]
 [ext_resource path="res://Audio/MUS/Trapped_birds.mp3" type="AudioStream" id=14]
 [ext_resource path="res://Audio/MUS/Falling_time.mp3" type="AudioStream" id=15]
 [ext_resource path="res://Scripts/MusicManeger.gd" type="Script" id=16]
@@ -79,7 +79,7 @@ extents = Vector2( 228, 115 )
 extents = Vector2( 238, 181 )
 
 [sub_resource type="Animation" id=13]
-length = 3.0
+length = 2.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("Rooms/01/Sprites/Colisions/CollisionShape2D4:disabled")
 tracks/0/interp = 1
@@ -99,10 +99,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 2.1, 2.3, 2.5 ),
-"transitions": PoolRealArray( 1.4, 0.4, 1 ),
+"times": PoolRealArray( 0, 2.1, 2.3, 2.5 ),
+"transitions": PoolRealArray( 1.4, 1.4, 0.4, 1 ),
 "update": 0,
-"values": [ Vector2( 271, 631 ), Vector2( 349, 589 ), Vector2( 514, 754 ) ]
+"values": [ Vector2( 271, 631 ), Vector2( 271, 631 ), Vector2( 349, 589 ), Vector2( 514, 754 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("oPlayer:visible")
@@ -135,7 +135,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 2, 2.1, 2.3, 2.6 ),
+"times": PoolRealArray( 2, 2.1, 2.3, 2.8 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -187,33 +187,29 @@ tracks/7/keys = {
 "update": 1,
 "values": [ false, true, false ]
 }
-tracks/8/type = "method"
-tracks/8/path = NodePath("Audio/sfxHit1")
+tracks/8/type = "value"
+tracks/8/path = NodePath("Audio/sfxCapsule:playing")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 2.1 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ 0.0 ],
-"method": "play"
-} ]
+"times": PoolRealArray( 0, 0.9, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
 }
-tracks/9/type = "method"
-tracks/9/path = NodePath("Audio/sfxHit2")
+tracks/9/type = "value"
+tracks/9/path = NodePath("Audio/sfxCapsule:pitch_scale")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 2.1 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ 0.0 ],
-"method": "play"
-} ]
+"times": PoolRealArray( 0, 2, 2.1, 2.3, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.57, 0.57, 1.0 ]
 }
 
 [node name="scnMain" type="Node2D"]
@@ -225,14 +221,6 @@ __meta__ = {
 [node name="Audio" type="Node2D" parent="."]
 script = ExtResource( 16 )
 
-[node name="sfxHit1" type="AudioStreamPlayer2D" parent="Audio"]
-stream = ExtResource( 12 )
-bus = "SFX"
-
-[node name="sfxHit2" type="AudioStreamPlayer2D" parent="Audio"]
-stream = ExtResource( 13 )
-bus = "SFX"
-
 [node name="msuQuiet" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 14 )
 volume_db = -2.0
@@ -243,12 +231,16 @@ stream = ExtResource( 15 )
 volume_db = -5.0
 bus = "MUS"
 
+[node name="sfxCapsule" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 12 )
+
 [node name="Rooms" type="Node2D" parent="."]
 
 [node name="01" parent="Rooms" instance=ExtResource( 1 )]
 camera_bounds = Rect2( 0, 0, 1920, 1080 )
 
 [node name="Sprite" type="Sprite" parent="Rooms/01/Sprites" index="0"]
+position = Vector2( 0, 7 )
 texture = ExtResource( 23 )
 centered = false
 
@@ -318,6 +310,39 @@ motion_offset = Vector2( 1, 1 )
 [node name="Sprite" type="Sprite" parent="Rooms/01/Sprites/ParallaxBackground/ParallaxLayer2"]
 position = Vector2( 960, 540 )
 texture = ExtResource( 25 )
+
+[node name="Capsule" type="Sprite" parent="Rooms/01/Sprites" index="3"]
+modulate = Color( 0.52549, 0.52549, 0.52549, 1 )
+position = Vector2( 435, 776 )
+rotation = 1.12999
+scale = Vector2( 0.443223, 0.443223 )
+z_index = -1
+texture = ExtResource( 13 )
+flip_h = true
+region_enabled = true
+region_rect = Rect2( 136.5, 331.393, 587.25, 1100.25 )
+
+[node name="Capsule2" type="Sprite" parent="Rooms/01/Sprites" index="4"]
+modulate = Color( 0.52549, 0.52549, 0.52549, 1 )
+position = Vector2( 742, 789 )
+rotation = -0.842435
+scale = Vector2( 0.443223, 0.443223 )
+z_index = -2
+texture = ExtResource( 13 )
+flip_h = true
+region_enabled = true
+region_rect = Rect2( 136.5, 331.393, 587.25, 1100.25 )
+
+[node name="Capsule3" type="Sprite" parent="Rooms/01/Sprites" index="5"]
+modulate = Color( 0.52549, 0.52549, 0.52549, 1 )
+position = Vector2( 963, 782 )
+rotation = 2.27358
+scale = Vector2( 0.443223, 0.443223 )
+z_index = -2
+texture = ExtResource( 13 )
+flip_h = true
+region_enabled = true
+region_rect = Rect2( 136.5, 331.393, 587.25, 1100.25 )
 
 [node name="oBroca" parent="Rooms/01/Objects" index="0" instance=ExtResource( 7 )]
 position = Vector2( 1624, 747 )
@@ -442,6 +467,9 @@ one_way_collision = true
 position = Vector2( 425, -19 )
 shape = SubResource( 8 )
 
+[node name="oHardHitter" parent="Rooms/02/Entities" index="0" instance=ExtResource( 38 )]
+position = Vector2( 2345, 696 )
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Rooms/02"]
 
 [node name="03" parent="Rooms" instance=ExtResource( 1 )]
@@ -561,7 +589,7 @@ one_way_collision = true
 polygon = PoolVector2Array( 1238, 905, 1357, 934, 1359, 953, 1330, 953, 1300, 1008, 1302, 1078, 1194, 1074, 1190, 835, 1158, 578, 1130, 491, 1128, 383, 1232, 379, 1202, 644, 1232, 843 )
 
 [node name="oHardHitter2" parent="Rooms/04/Entities" index="0" instance=ExtResource( 38 )]
-position = Vector2( 7576, 64 )
+position = Vector2( 7441, 427 )
 currentsize = 1
 
 [node name="oTrigger" parent="Rooms/04/Objects" index="0" instance=ExtResource( 17 )]
@@ -630,7 +658,11 @@ centered = false
 polygon = PoolVector2Array( 1891, 773, 1613, 770, 1553, 912, 1464, 944, 1221, 896, 1115, 901, 1059, 883, 1083, 732, 713, 715, 582, 691, 578, 611, 493, 546, 498, 520, 546, 397, 594, 314, 1093, 258, 1272, 445, 1448, 410, 1798, 525, 1925, 533, 2020, 478, 2005, -1, 521, -4, 468, 110, 309, 198, 178, 274, 112, 286, 170, 364, 193, 657, 145, 704, 624, 999, 591, 1065, 637, 1070, 856, 1077, 1328, 1272, 1723, 1097, 1773, 1060, 1828, 1075, 1909, 1085, 1915, 784 )
 
 [node name="oHorda" parent="Rooms/05/Entities" index="0" instance=ExtResource( 35 )]
-position = Vector2( 4688, -504 )
+position = Vector2( 5145, -305 )
+
+[node name="oBroca" parent="Rooms/05/Objects" index="0" instance=ExtResource( 7 )]
+position = Vector2( 4585, -329 )
+scale = Vector2( -1, 1 )
 
 [node name="06" parent="Rooms" instance=ExtResource( 1 )]
 position = Vector2( 5758, -1080 )
@@ -678,8 +710,8 @@ position = Vector2( 974, 540 )
 polygon = PoolVector2Array( 78, 111, 578, 95, 580, -275, 595, -277, 595, 126, 547, 129, 611, 464, 358, 475, 219, 140, 43.9999, 140, 40, -262, 59, -262 )
 
 [node name="oPlayer" parent="." instance=ExtResource( 3 )]
-position = Vector2( 514, 754 )
-scale = Vector2( 1, 0.85 )
+visible = false
+position = Vector2( 271, 631 )
 z_index = 1
 
 [node name="Camera2D" type="Camera2D" parent="oPlayer"]

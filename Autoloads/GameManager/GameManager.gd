@@ -10,6 +10,7 @@ var globals = {
 	"player_node": null,
 	"changing_cycle": false}
 
+var cycle := 0
 var camera = null
 var game_paused = false
 

@@ -16,3 +16,31 @@ func slow_down():
 	Engine.time_scale = 0.3
 func slow_up():
 	Engine.time_scale = 1
+
+func next_cycle():
+	$mainAnm.play("anmStart")
+	$"Rooms/01/Objects/partclesSplash".emitting = false
+	GameManager.cycle += 1
+	for room in $Rooms.get_children():
+		if not room.name == "01":
+			room.reset()
+			room.player_got_here = false
+
+func _process(delta):
+	match GameManager.cycle:
+		0:
+			$"Rooms/01/Sprites/Capsule".visible = false
+			$"Rooms/01/Sprites/Capsule2".visible = false
+			$"Rooms/01/Sprites/Capsule3".visible = false
+		1:
+			$"Rooms/01/Sprites/Capsule".visible = true
+			$"Rooms/01/Sprites/Capsule2".visible = false
+			$"Rooms/01/Sprites/Capsule3".visible = false
+		2:
+			$"Rooms/01/Sprites/Capsule".visible = true
+			$"Rooms/01/Sprites/Capsule2".visible = true
+			$"Rooms/01/Sprites/Capsule3".visible = false
+		3:
+			$"Rooms/01/Sprites/Capsule".visible = true
+			$"Rooms/01/Sprites/Capsule2".visible = true
+			$"Rooms/01/Sprites/Capsule3".visible = true
