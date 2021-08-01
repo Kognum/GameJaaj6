@@ -19,6 +19,10 @@ onready var gunFire = $playerSprites/ArmPivot/Arm/BulletPos/bulletGunfire
 onready var body = $playerSprites/playerSprite
 onready var anm = $playerAnimation
 onready var flash = $Flash
+onready var timelabel = $nHUD/Timer/Label
+export var timer : float
+var secs
+var mins
 
 var _cursor = preload("res://Objects/Cursor/oCursor.tscn")
 var possibledoortoentner = null
@@ -41,6 +45,13 @@ func _process(delta):
 		if GameManager.globals.player_shoot:
 			shoot()
 func _physics_process(delta):
+	
+	#Timer
+	timer -= delta
+	secs = fmod(timer, 60)
+	mins = fmod(timer, 60*60) / 60
+	timelabel.text = "%02d : %02d" % [mins, secs]
+	
 	if not dead:
 		if GameManager.globals.player_move:
 			move(delta)

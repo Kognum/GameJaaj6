@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Empty_streets.mp3-81f43d44320b252b7f022eac51de0bf1.mp3str"
+
+[deps]
+
+source_file="res://Audio/BGM/Empty_streets.mp3"
+dest_files=[ "res://.import/Empty_streets.mp3-81f43d44320b252b7f022eac51de0bf1.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

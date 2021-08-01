@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Falling_time.mp3-0459dc269bad5d1b9659ca69e6026e52.mp3str"
+
+[deps]
+
+source_file="res://Scripts/Falling_time.mp3"
+dest_files=[ "res://.import/Falling_time.mp3-0459dc269bad5d1b9659ca69e6026e52.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

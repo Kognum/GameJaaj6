@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Falling_time.mp3-aab2bd95751e0a9fb5f0a7cddd436509.mp3str"
+
+[deps]
+
+source_file="res://Audio/BGM/Falling_time.mp3"
+dest_files=[ "res://.import/Falling_time.mp3-aab2bd95751e0a9fb5f0a7cddd436509.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

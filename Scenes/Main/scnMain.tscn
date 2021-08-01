@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://Scenes/Main/Rooms/Rooom.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Main/Rooms/01/mapa_01_p5.png" type="Texture" id=2]
@@ -13,8 +13,8 @@
 [ext_resource path="res://Scenes/Main/scrMain.gd" type="Script" id=11]
 [ext_resource path="res://Audio/SFX/CAPSULE_1.wav" type="AudioStream" id=12]
 [ext_resource path="res://Scenes/Main/Capsule.png" type="Texture" id=13]
-[ext_resource path="res://Audio/MUS/Trapped_birds.mp3" type="AudioStream" id=14]
-[ext_resource path="res://Audio/MUS/Falling_time.mp3" type="AudioStream" id=15]
+[ext_resource path="res://Audio/BGM/Empty_streets.mp3" type="AudioStream" id=14]
+[ext_resource path="res://Audio/BGM/Modern-day_battle.mp3" type="AudioStream" id=15]
 [ext_resource path="res://Scripts/MusicManeger.gd" type="Script" id=16]
 [ext_resource path="res://Objects/Trigger/oTrigger.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Main/Rooms/04/mapa_04_p4.png" type="Texture" id=18]
@@ -33,6 +33,7 @@
 [ext_resource path="res://Scenes/Main/Rooms/02/mapa_prototipo_p1.png" type="Texture" id=31]
 [ext_resource path="res://Scenes/Main/Rooms/02/mapa_prototipo_p5.png" type="Texture" id=32]
 [ext_resource path="res://Scenes/Main/Rooms/03/mapa_03_f.png" type="Texture" id=33]
+[ext_resource path="res://Objects/Enemy/Heavy/oHeavy.tscn" type="PackedScene" id=34]
 [ext_resource path="res://Objects/Enemy/Horda/oHorda.tscn" type="PackedScene" id=35]
 [ext_resource path="res://Scenes/Main/Rooms/03/mapa_03_p2.png" type="Texture" id=36]
 [ext_resource path="res://Scenes/Main/Rooms/03/mapa_03_p5.png" type="Texture" id=37]
@@ -41,6 +42,7 @@
 [ext_resource path="res://Scenes/Main/Rooms/04/mapa_04_f.png" type="Texture" id=40]
 [ext_resource path="res://Scenes/Main/Rooms/04/mapa_04_p2.png" type="Texture" id=41]
 [ext_resource path="res://Scenes/Main/Rooms/04/mapa_04_p1.png" type="Texture" id=42]
+[ext_resource path="res://Audio/BGM/Falling_time.mp3" type="AudioStream" id=43]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 606, 143 )
@@ -233,6 +235,10 @@ bus = "MUS"
 
 [node name="sfxCapsule" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 12 )
+
+[node name="msuFalling" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 43 )
+volume_db = -5.0
 
 [node name="Rooms" type="Node2D" parent="."]
 
@@ -468,7 +474,7 @@ position = Vector2( 425, -19 )
 shape = SubResource( 8 )
 
 [node name="oHardHitter" parent="Rooms/02/Entities" index="0" instance=ExtResource( 38 )]
-position = Vector2( 2345, 696 )
+position = Vector2( 3504, 272 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Rooms/02"]
 
@@ -556,6 +562,12 @@ one_way_collision = true
 position = Vector2( 5276, 1248 )
 scale = Vector2( 2.5661, 0.737295 )
 
+[node name="oHeavy" parent="Rooms/03/Objects" index="1" instance=ExtResource( 34 )]
+position = Vector2( 4872, 715.227 )
+
+[node name="oHardHitter" parent="Rooms/03/Objects" index="2" instance=ExtResource( 38 )]
+position = Vector2( 4944, 288 )
+
 [node name="04" parent="Rooms" instance=ExtResource( 1 )]
 position = Vector2( 5760, 0 )
 camera_bounds = Rect2( 5760, 0, 7680, 1080 )
@@ -589,7 +601,7 @@ one_way_collision = true
 polygon = PoolVector2Array( 1238, 905, 1357, 934, 1359, 953, 1330, 953, 1300, 1008, 1302, 1078, 1194, 1074, 1190, 835, 1158, 578, 1130, 491, 1128, 383, 1232, 379, 1202, 644, 1232, 843 )
 
 [node name="oHardHitter2" parent="Rooms/04/Entities" index="0" instance=ExtResource( 38 )]
-position = Vector2( 7441, 427 )
+position = Vector2( 7208, -688 )
 currentsize = 1
 
 [node name="oTrigger" parent="Rooms/04/Objects" index="0" instance=ExtResource( 17 )]
@@ -658,7 +670,8 @@ centered = false
 polygon = PoolVector2Array( 1891, 773, 1613, 770, 1553, 912, 1464, 944, 1221, 896, 1115, 901, 1059, 883, 1083, 732, 713, 715, 582, 691, 578, 611, 493, 546, 498, 520, 546, 397, 594, 314, 1093, 258, 1272, 445, 1448, 410, 1798, 525, 1925, 533, 2020, 478, 2005, -1, 521, -4, 468, 110, 309, 198, 178, 274, 112, 286, 170, 364, 193, 657, 145, 704, 624, 999, 591, 1065, 637, 1070, 856, 1077, 1328, 1272, 1723, 1097, 1773, 1060, 1828, 1075, 1909, 1085, 1915, 784 )
 
 [node name="oHorda" parent="Rooms/05/Entities" index="0" instance=ExtResource( 35 )]
-position = Vector2( 5145, -305 )
+position = Vector2( 4864, -480 )
+speed = 0
 
 [node name="oBroca" parent="Rooms/05/Objects" index="0" instance=ExtResource( 7 )]
 position = Vector2( 4585, -329 )
@@ -686,6 +699,12 @@ centered = false
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooms/07/Sprites/Colisions" index="0"]
 polygon = PoolVector2Array( 0, 550, 827, 344, 835, 411, 943, 437, 1060, 469, 1200, 494, 1630, 532, 1928, 571, 1931, 868, 1386, 851, 1110, 865, 818, 834, 432, 839, -1, 818 )
 
+[node name="oHardHitter" parent="Rooms/07/Entities" index="0" instance=ExtResource( 38 )]
+position = Vector2( 9400, 160.6 )
+
+[node name="oHardHitter2" parent="Rooms/07/Entities" index="1" instance=ExtResource( 38 )]
+position = Vector2( 9096, 264 )
+
 [node name="08" parent="Rooms" instance=ExtResource( 1 )]
 position = Vector2( 9598, 0 )
 camera_bounds = Rect2( 9598, 0, 11518, 1080 )
@@ -696,6 +715,9 @@ centered = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooms/08/Sprites/Colisions" index="0"]
 polygon = PoolVector2Array( -8, 570, 267, 562, 500, 522, 858, 496, 1221, 473, 1558, 418, 1490, 76, 1727, 87, 1748, 695, 23, 740 )
+
+[node name="oHeavy" parent="Rooms/08/Entities" index="0" instance=ExtResource( 34 )]
+position = Vector2( 10848, 304 )
 
 [node name="09" parent="Rooms" instance=ExtResource( 1 )]
 position = Vector2( 9598, -1080 )
