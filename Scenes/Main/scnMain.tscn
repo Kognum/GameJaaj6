@@ -1114,7 +1114,7 @@ position = Vector2( 974, 540 )
 polygon = PoolVector2Array( 78, 111, 578, 95, 580, -275, 595, -277, 595, 126, 547, 129, 611, 464, 358, 475, 219, 140, 43.9999, 140, 40, -262, 59, -262 )
 
 [node name="oHardHitter" parent="Rooms/09/Entities" index="0" instance=ExtResource( 38 )]
-position = Vector2( 9845, -507 )
+position = Vector2( 10122, -695 )
 
 [node name="oHardHitter2" parent="Rooms/09/Entities" index="1" instance=ExtResource( 38 )]
 position = Vector2( 10102, -892 )
@@ -1139,7 +1139,7 @@ visible = false
 position = Vector2( 271, 631 )
 scale = Vector2( 0.85, 1.1 )
 z_index = 1
-timer = 300.0
+timer = 195.0
 
 [node name="Camera2D" type="Camera2D" parent="oPlayer"]
 current = true

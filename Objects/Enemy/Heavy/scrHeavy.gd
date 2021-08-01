@@ -292,7 +292,7 @@ func shoot(rate_speed := 1):
 				$pivot/enemySprite/BulletPos/bulletGunfire.visible = false
 				
 				set_process(false)
-				yield(get_tree().create_timer(.5), "timeout")
+				yield(get_tree().create_timer(.25), "timeout")
 				set_process(true)
 func _on_enemyHitbox_area_entered(area):
 	if attack_type == attack_types.TANQUE:
