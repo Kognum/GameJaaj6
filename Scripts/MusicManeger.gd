@@ -11,7 +11,7 @@ func start_maneger():
 	$msuQuiet.play()
 
 func _process(delta):
-	#print("action amount: " + String(action_amount))
+	print("action amount: " + String(action_amount))
 	
 	if active:
 		if falling:

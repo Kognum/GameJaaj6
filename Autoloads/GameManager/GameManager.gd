@@ -41,7 +41,7 @@ func _process(delta):
 		get_tree().paused = false
 		game_paused = false
 		
-	if get_tree().root.get_node("scnMain"):
+	if get_parent().get_node("scnMain"):
 		if globals.player_node.timer <= 0:
 			SceneChanger.change_scene("res://Scenes/GameOver/scnCreditsBad.tscn")
 		if brokas == 4:
