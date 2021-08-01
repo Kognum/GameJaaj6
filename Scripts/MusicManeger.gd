@@ -14,19 +14,21 @@ func _process(delta):
 	#print("action amount: " + String(action_amount))
 	
 	if active:
-		
 		if falling:
-			$msuFalling.playing = true
-			$msuAction.volume_db = lerp($msuAction.volume_db, -80, delta * 2)
-			$msuQuiet.volume_db = lerp($msuQuiet.volume_db, -80, delta * 2)
+			if $msuFalling.playing != true:
+				$msuFalling.play()
 			
-		
-		if action_amount > 0 : # INIMIGO NA AREA
-			$msuAction.volume_db = lerp($msuAction.volume_db, -5, delta * 2)
-			$msuQuiet.volume_db = lerp($msuQuiet.volume_db, -80, delta * 2)
-		else: # TA SAFE
+			$msuFalling.volume_db = lerp($msuFalling.volume_db, -5, delta * 2)
 			$msuAction.volume_db = lerp($msuAction.volume_db, -80, delta * 2)
-			$msuQuiet.volume_db = lerp($msuQuiet.volume_db, -2, delta * 2)
+			$msuQuiet.volume_db = lerp($msuQuiet.volume_db, -80, delta * 2)
+		else:
+			
+			if action_amount > 0 : # INIMIGO NA AREA
+				$msuAction.volume_db = lerp($msuAction.volume_db, -5, delta * 2)
+				$msuQuiet.volume_db = lerp($msuQuiet.volume_db, -80, delta * 2)
+			else: # TA SAFE
+				$msuAction.volume_db = lerp($msuAction.volume_db, -80, delta * 2)
+				$msuQuiet.volume_db = lerp($msuQuiet.volume_db, -2, delta * 2)
 	else:
 		$msuFalling.volume_db = lerp($msuFalling.volume_db, -80, delta * 2)
 		$msuAction.volume_db = lerp($msuAction.volume_db, -80, delta * 2)

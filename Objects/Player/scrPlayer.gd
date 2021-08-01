@@ -38,8 +38,6 @@ func _ready():
 	GameManager.globals.lock_mouse = true
 	spawn_cursor()
 	setup_flash()
-	if GameManager.playerdoorexitloc != Vector2.ZERO:
-		global_position = GameManager.playerdoorexitloc
 func _process(delta):
 	if not dead:
 		if GameManager.globals.player_shoot:
@@ -51,6 +49,11 @@ func _physics_process(delta):
 	secs = fmod(timer, 60)
 	mins = fmod(timer, 60*60) / 60
 	timelabel.text = "%02d : %02d" % [mins, secs]
+	if timer <= 54:
+		get_parent().get_node("Audio").falling = true
+		if $alertTimer.is_playing() == false:
+			$alertTimer.play("alertTimer")
+	
 	
 	if not dead:
 		if GameManager.globals.player_move:

@@ -735,6 +735,7 @@ polygon = PoolVector2Array( 78, 111, 578, 95, 580, -275, 595, -277, 595, 126, 54
 visible = false
 position = Vector2( 271, 631 )
 z_index = 1
+timer = 10.0
 
 [node name="Camera2D" type="Camera2D" parent="oPlayer"]
 current = true

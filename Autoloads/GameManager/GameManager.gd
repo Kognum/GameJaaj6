@@ -14,8 +14,6 @@ var cycle := 0
 var camera = null
 var game_paused = false
 
-var playerdoorexitloc = Vector2.ZERO
-
 func _ready():
 	$PauseScreen.visible = false
 func _process(delta):
@@ -41,6 +39,10 @@ func _process(delta):
 		SceneChanger.change_scene("res://Scenes/Menu/scnMenu.tscn", true)
 		get_tree().paused = false
 		game_paused = false
+		
+	if globals.player_node != null:
+		if globals.player_node.timer <= 0:
+			SceneChanger.change_scene("res://Scenes/GameOver/scnGameOver.tscn")
 
 func _input(event):
 	if globals.lock_mouse:
