@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/Credits_fim_ruim.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/GameOver/scrGameOver.gd" type="Script" id=2]
+[ext_resource path="res://Audio/BGM/Wasteland.mp3" type="AudioStream" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 960, 540 )
+
+[node name="scnGameOver" type="Node2D"]
+script = ExtResource( 2 )
+continue_to = "res://Scenes/Menu/scnMenu.tscn"
+
+[node name="sprMain" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="btnContinue" type="TouchScreenButton" parent="."]
+shape = SubResource( 1 )
+
+[node name="bgmGameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = 11.0
+autoplay = true
+bus = "BGM"
+
+[connection signal="released" from="btnContinue" to="." method="_on_btnContinue_released"]

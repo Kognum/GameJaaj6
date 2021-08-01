@@ -14,6 +14,7 @@ func _process(delta):
 			$brocaAnm.play("anmDestroyed", .7)
 			$sfxOFF.play()
 			$brocaBlood.emitting = true
+			GameManager.brokas += 1
 			set_process(false)
 
 func _on_oPC_body_entered(body):

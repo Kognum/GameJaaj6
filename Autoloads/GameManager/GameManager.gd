@@ -13,6 +13,7 @@ var globals = {
 var cycle := 0
 var camera = null
 var game_paused = false
+var brokas = 0
 
 func _ready():
 	$PauseScreen.visible = false
@@ -42,7 +43,9 @@ func _process(delta):
 		
 	if get_tree().root.get_node("scnMain"):
 		if globals.player_node.timer <= 0:
-			SceneChanger.change_scene("res://Scenes/GameOver/scnGameOver.tscn")
+			SceneChanger.change_scene("res://Scenes/GameOver/scnCreditsBad.tscn")
+		if brokas == 4:
+			SceneChanger.change_scene("res://Scenes/GameOver/scnCreditsgood.tscn")
 
 func _input(event):
 	if globals.lock_mouse:

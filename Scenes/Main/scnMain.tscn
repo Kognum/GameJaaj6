@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://Scenes/Main/Rooms/Rooom.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Main/Rooms/01/mapa_01_p5.png" type="Texture" id=2]
@@ -43,6 +43,9 @@
 [ext_resource path="res://Scenes/Main/Rooms/04/mapa_04_p2.png" type="Texture" id=41]
 [ext_resource path="res://Scenes/Main/Rooms/04/mapa_04_p1.png" type="Texture" id=42]
 [ext_resource path="res://Audio/BGM/Falling_time.mp3" type="AudioStream" id=43]
+[ext_resource path="res://Scenes/Main/mapa_upcave_f.png" type="Texture" id=44]
+[ext_resource path="res://Objects/Door/oDoor.tscn" type="PackedScene" id=45]
+[ext_resource path="res://Scenes/Main/download.png" type="Texture" id=46]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 606, 143 )
@@ -351,7 +354,7 @@ region_enabled = true
 region_rect = Rect2( 136.5, 331.393, 587.25, 1100.25 )
 
 [node name="oBroca" parent="Rooms/01/Objects" index="0" instance=ExtResource( 7 )]
-position = Vector2( 1624, 747 )
+position = Vector2( 1624, 784 )
 
 [node name="partclesSplash" type="CPUParticles2D" parent="Rooms/01/Objects" index="1"]
 position = Vector2( 185, 644 )
@@ -511,7 +514,7 @@ motion_offset = Vector2( 1, 1 )
 position = Vector2( -1035, 306.5 )
 
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="Rooms/03/Sprites/ParallaxBackground2"]
-position = Vector2( 4379, 69.5 )
+position = Vector2( 4608, 76 )
 motion_scale = Vector2( 0.8, 0.8 )
 motion_offset = Vector2( 1, 1 )
 
@@ -563,7 +566,7 @@ position = Vector2( 5276, 1248 )
 scale = Vector2( 2.5661, 0.737295 )
 
 [node name="oHeavy" parent="Rooms/03/Objects" index="1" instance=ExtResource( 34 )]
-position = Vector2( 4872, 715.227 )
+position = Vector2( 4680, 715.227 )
 
 [node name="oHardHitter" parent="Rooms/03/Objects" index="2" instance=ExtResource( 38 )]
 position = Vector2( 4944, 288 )
@@ -658,6 +661,9 @@ motion_offset = Vector2( 1, 1 )
 [node name="Sprite" type="Sprite" parent="Rooms/04/ParallaxBackground3/ParallaxLayer7"]
 texture = ExtResource( 42 )
 
+[node name="oBroca" parent="Rooms/04" instance=ExtResource( 7 )]
+position = Vector2( 1304, 939.2 )
+
 [node name="05" parent="Rooms" instance=ExtResource( 1 )]
 position = Vector2( 3840, -1080 )
 camera_bounds = Rect2( 3840, -1080, 5760, 0 )
@@ -665,6 +671,11 @@ camera_bounds = Rect2( 3840, -1080, 5760, 0 )
 [node name="Sprite" type="Sprite" parent="Rooms/05/Sprites" index="0"]
 texture = ExtResource( 9 )
 centered = false
+
+[node name="mapa_upcave_f" type="Sprite" parent="Rooms/05/Sprites" index="1"]
+position = Vector2( 960, 540 )
+z_index = 2
+texture = ExtResource( 44 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rooms/05/Sprites/Colisions" index="0"]
 polygon = PoolVector2Array( 1891, 773, 1613, 770, 1553, 912, 1464, 944, 1221, 896, 1115, 901, 1059, 883, 1083, 732, 713, 715, 582, 691, 578, 611, 493, 546, 498, 520, 546, 397, 594, 314, 1093, 258, 1272, 445, 1448, 410, 1798, 525, 1925, 533, 2020, 478, 2005, -1, 521, -4, 468, 110, 309, 198, 178, 274, 112, 286, 170, 364, 193, 657, 145, 704, 624, 999, 591, 1065, 637, 1070, 856, 1077, 1328, 1272, 1723, 1097, 1773, 1060, 1828, 1075, 1909, 1085, 1915, 784 )
@@ -674,7 +685,7 @@ position = Vector2( 4864, -480 )
 speed = 0
 
 [node name="oBroca" parent="Rooms/05/Objects" index="0" instance=ExtResource( 7 )]
-position = Vector2( 4585, -329 )
+position = Vector2( 4611, -320 )
 scale = Vector2( -1, 1 )
 
 [node name="06" parent="Rooms" instance=ExtResource( 1 )]
@@ -705,6 +716,9 @@ position = Vector2( 9400, 160.6 )
 [node name="oHardHitter2" parent="Rooms/07/Entities" index="1" instance=ExtResource( 38 )]
 position = Vector2( 9096, 264 )
 
+[node name="oBroca" parent="Rooms/07" instance=ExtResource( 7 )]
+position = Vector2( 1154, 504 )
+
 [node name="08" parent="Rooms" instance=ExtResource( 1 )]
 position = Vector2( 9598, 0 )
 camera_bounds = Rect2( 9598, 0, 11518, 1080 )
@@ -719,6 +733,13 @@ polygon = PoolVector2Array( -8, 570, 267, 562, 500, 522, 858, 496, 1221, 473, 15
 [node name="oHeavy" parent="Rooms/08/Entities" index="0" instance=ExtResource( 34 )]
 position = Vector2( 10848, 304 )
 
+[node name="oDoor" parent="Rooms/08" instance=ExtResource( 45 )]
+position = Vector2( 1474, 280 )
+ToWhere = NodePath("../../09/exitpos")
+
+[node name="exitpos2" type="Node2D" parent="Rooms/08"]
+position = Vector2( 1258, 298.51 )
+
 [node name="09" parent="Rooms" instance=ExtResource( 1 )]
 position = Vector2( 9598, -1080 )
 camera_bounds = Rect2( 9598, -1080, 0, 11518 )
@@ -731,11 +752,22 @@ centered = false
 position = Vector2( 974, 540 )
 polygon = PoolVector2Array( 78, 111, 578, 95, 580, -275, 595, -277, 595, 126, 547, 129, 611, 464, 358, 475, 219, 140, 43.9999, 140, 40, -262, 59, -262 )
 
+[node name="exitpos" type="Node2D" parent="Rooms/09"]
+position = Vector2( 1162, 540 )
+
+[node name="download" type="Sprite" parent="Rooms/09"]
+position = Vector2( 960, 540 )
+z_index = 2
+texture = ExtResource( 46 )
+
+[node name="oDoor" parent="Rooms/09" instance=ExtResource( 45 )]
+position = Vector2( 1373.65, 512 )
+
 [node name="oPlayer" parent="." instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 271, 631 )
 z_index = 1
-timer = 10.0
+timer = 300.0
 
 [node name="Camera2D" type="Camera2D" parent="oPlayer"]
 current = true
