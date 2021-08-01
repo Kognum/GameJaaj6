@@ -35,7 +35,8 @@ func reset():
 			if enemy.name.begins_with("@"):
 				enemy.position = positions[positions.keys()[0]]
 			else:
-				enemy.position = positions[enemy.name]
+				if positions.has(enemy.name):
+					enemy.position = positions[enemy.name]
 			
 			enemy.set_process(false)
 			enemy.set_physics_process(false)
