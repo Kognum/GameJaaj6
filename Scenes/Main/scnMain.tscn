@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://Scenes/Main/Rooms/Rooom.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Main/Rooms/01/mapa_01_p5.png" type="Texture" id=2]
@@ -47,6 +47,8 @@
 [ext_resource path="res://Objects/Door/oDoor.tscn" type="PackedScene" id=45]
 [ext_resource path="res://Scenes/Main/download.png" type="Texture" id=46]
 [ext_resource path="res://Scenes/Main/mapa_09_p2.png" type="Texture" id=47]
+[ext_resource path="res://Shaders/shrNoise.shader" type="Shader" id=48]
+[ext_resource path="res://Shaders/shrGradient.shader" type="Shader" id=49]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 606, 143 )
@@ -89,6 +91,148 @@ extents = Vector2( 960, 765 )
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 238, 181 )
+
+[sub_resource type="Animation" id=20]
+resource_name = "anmBadEnding"
+length = 6.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("FX/BackBufferCopy2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FX/BackBufferCopy:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("FX/BackBufferCopy/ColorRect:material:shader_param/power")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 3, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.0, 0.05 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("FX/BackBufferCopy2/ColorRect:material:shader_param/opacity")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 3, 4, 5, 6, 6.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"values": [ {
+"args": [ 2.5 ],
+"method": "screen_shake"
+}, {
+"args": [ 2.8 ],
+"method": "screen_shake"
+}, {
+"args": [ 3.2 ],
+"method": "screen_shake"
+}, {
+"args": [ 3.5 ],
+"method": "screen_shake"
+}, {
+"args": [ 3.9 ],
+"method": "screen_shake"
+} ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "anmGoodEnding"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("FX/BackBufferCopy3:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FX/BackBufferCopy3/ColorRect:material:shader_param/direction")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 1 ), Vector2( 0, 1 ), Vector2( 0, 0.149 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("FX/BackBufferCopy3/ColorRect2:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 2.5, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("FX/BackBufferCopy3/ColorRect2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("FX/BackBufferCopy3/ColorRect:material:shader_param/opacity")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
 
 [sub_resource type="Animation" id=13]
 length = 2.8
@@ -150,7 +294,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 2, 2.1, 2.3, 2.8 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "values": [ {
-"args": [  ],
+"args": [ 2.5 ],
 "method": "screen_shake"
 }, {
 "args": [  ],
@@ -223,6 +367,30 @@ tracks/9/keys = {
 "update": 0,
 "values": [ 1.0, 1.0, 0.57, 0.57, 1.0 ]
 }
+
+[sub_resource type="ShaderMaterial" id=19]
+shader = ExtResource( 49 )
+shader_param/mode = 1
+shader_param/linearColorSpace = false
+shader_param/color1 = Color( 0.960784, 0.701961, 0.298039, 1 )
+shader_param/color2 = Color( 1, 0, 0, 1 )
+shader_param/direction = Vector2( 0, 1 )
+shader_param/opacity = 0.0
+
+[sub_resource type="ShaderMaterial" id=21]
+shader = ExtResource( 49 )
+shader_param/mode = 2
+shader_param/linearColorSpace = false
+shader_param/color1 = Color( 1, 1, 1, 1 )
+shader_param/color2 = Color( 0, 0, 0, 1 )
+shader_param/direction = Vector2( 0, 1 )
+shader_param/opacity = 0.0
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = ExtResource( 48 )
+shader_param/seed = 80.0
+shader_param/power = 0.0
+shader_param/speed = 0.032
 
 [node name="scnMain" type="Node2D"]
 script = ExtResource( 11 )
@@ -671,6 +839,13 @@ one_way_collision = true
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Rooms/04/Sprites/Colisions" index="5"]
 polygon = PoolVector2Array( 1238, 905, 1357, 934, 1359, 953, 1330, 953, 1300, 1008, 1302, 1078, 1194, 1074, 1190, 835, 1158, 578, 1130, 491, 1128, 383, 1232, 379, 1202, 644, 1232, 843 )
 
+[node name="oHardHitter" parent="Rooms/04/Entities" index="0" instance=ExtResource( 38 )]
+position = Vector2( 6335, 342 )
+currentsize = 2
+
+[node name="oHardHitter2" parent="Rooms/04/Entities" index="1" instance=ExtResource( 38 )]
+position = Vector2( 7391, 280 )
+
 [node name="oTrigger" parent="Rooms/04/Objects" index="0" instance=ExtResource( 17 )]
 position = Vector2( 6919, 1247 )
 scale = Vector2( 5.31642, 0.747192 )
@@ -713,6 +888,7 @@ position = Vector2( 5758, -1080 )
 camera_bounds = Rect2( 5760, -1080, 7680, 0 )
 
 [node name="Sprite" type="Sprite" parent="Rooms/06/Sprites" index="0"]
+position = Vector2( 2, 0 )
 texture = ExtResource( 19 )
 centered = false
 
@@ -721,7 +897,6 @@ polygon = PoolVector2Array( 391, 1098, 373, 996, 358, 887, 222, 886, -3, 783, 1,
 
 [node name="oHardHitter2" parent="Rooms/06/Entities" index="0" instance=ExtResource( 38 )]
 position = Vector2( 6996, -688 )
-currentsize = 1
 
 [node name="07" parent="Rooms" instance=ExtResource( 1 )]
 position = Vector2( 7678, 0 )
@@ -800,6 +975,7 @@ position = Vector2( 10971.7, -560 )
 ToWhere = NodePath("../../../08/Objects/exitpos2")
 
 [node name="oPlayer" parent="." instance=ExtResource( 3 )]
+visible = false
 position = Vector2( 271, 631 )
 z_index = 1
 timer = 300.0
@@ -815,7 +991,90 @@ maxoffset = Vector2( 5, 5 )
 
 [node name="mainAnm" type="AnimationPlayer" parent="."]
 autoplay = "anmStart"
+anims/anmBadEnding = SubResource( 20 )
+anims/anmGoodEnding = SubResource( 22 )
 anims/anmStart = SubResource( 13 )
+
+[node name="FX" type="CanvasLayer" parent="."]
+layer = 12
+
+[node name="BackBufferCopy2" type="BackBufferCopy" parent="FX"]
+visible = false
+position = Vector2( 961, 543.5 )
+scale = Vector2( 9.61, 5.435 )
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="FX/BackBufferCopy2"]
+material = SubResource( 19 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -100.0
+margin_right = -100.0
+margin_bottom = -100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackBufferCopy3" type="BackBufferCopy" parent="FX"]
+visible = false
+position = Vector2( 961, 543.5 )
+scale = Vector2( 9.61, 5.435 )
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="FX/BackBufferCopy3"]
+material = SubResource( 21 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -100.0
+margin_right = -100.0
+margin_bottom = -100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="FX/BackBufferCopy3"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -100.0
+margin_right = -100.0
+margin_bottom = -100.0
+color = Color( 1, 1, 1, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="FX"]
+visible = false
+position = Vector2( 962, 543.5 )
+scale = Vector2( 9.6, 5.435 )
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="FX/BackBufferCopy"]
+material = SubResource( 17 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -100.0
+margin_right = -100.0
+margin_bottom = -100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="FX"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="animation_finished" from="mainAnm" to="." method="_on_mainAnm_animation_finished"]
 
 [editable path="Rooms/01"]
 [editable path="Rooms/02"]

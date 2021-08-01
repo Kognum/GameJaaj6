@@ -4,8 +4,8 @@ func _ready():
 	GameManager.globals.player_move = false
 	GameManager.globals.player_look = false
 	GameManager.globals.player_shoot = false
-func screen_shake():
-	GameManager.camera.startshaking(2.5, 12, 0.3)
+func screen_shake(intensity :float = 2.5):
+	GameManager.camera.startshaking(intensity, 12, 0.3)
 func activate_player():
 	GameManager.globals.player_move = true
 	GameManager.globals.player_look = true
@@ -44,3 +44,19 @@ func _process(delta):
 			$"Rooms/01/Sprites/Capsule".visible = true
 			$"Rooms/01/Sprites/Capsule2".visible = true
 			$"Rooms/01/Sprites/Capsule3".visible = true
+	
+	if GameManager.globals.player_node.timer <= 0:
+		GameManager.globals.player_node.timer = 0
+		GameManager.globals.player_node.health = 3
+		GameManager.cycle = 0
+		$mainAnm.play("anmBadEnding")
+	if GameManager.brokas == 4:
+		GameManager.globals.player_node.health = 3
+		GameManager.cycle = 0
+		$mainAnm.play("anmGoodEnding")
+
+func _on_mainAnm_animation_finished(anim_name):
+	if anim_name == "anmBadEnding":
+		SceneChanger.change_scene("res://Scenes/GameOver/scnCreditsBad.tscn", false)
+	elif anim_name == "anmGoodEnding":
+		SceneChanger.change_scene("res://Scenes/GameOver/scnCreditsgood.tscn", false)
