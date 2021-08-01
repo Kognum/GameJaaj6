@@ -772,10 +772,10 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="nHUD/Timer"]
-margin_left = 1623.56
-margin_top = 177.822
-margin_right = 1776.56
-margin_bottom = 290.822
+margin_left = 337.435
+margin_top = 59.0147
+margin_right = 490.435
+margin_bottom = 172.015
 custom_fonts/font = SubResource( 27 )
 text = "10:10"
 __meta__ = {

@@ -40,7 +40,7 @@ func _process(delta):
 		get_tree().paused = false
 		game_paused = false
 		
-	if globals.player_node != null:
+	if get_tree().root.get_node("scnMain"):
 		if globals.player_node.timer <= 0:
 			SceneChanger.change_scene("res://Scenes/GameOver/scnGameOver.tscn")
 
