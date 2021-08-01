@@ -109,7 +109,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id=8]
-length = 7.0
+length = 9.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("EnemyBlood:emitting")
 tracks/0/interp = 1
@@ -141,7 +141,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1, 6.5, 7 ),
+"times": PoolRealArray( 0, 1, 8.5, 9 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.705882, 0.286275, 0.286275, 1 ), Color( 0.705882, 0.286275, 0.286275, 1 ), Color( 0.705882, 0.286275, 0.286275, 0 ) ]
@@ -250,7 +250,6 @@ disabled = true
 
 [node name="EnemyBlood" type="CPUParticles2D" parent="."]
 position = Vector2( 0, 97 )
-emitting = false
 amount = 320
 lifetime = 5.2
 speed_scale = 3.0

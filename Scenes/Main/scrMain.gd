@@ -17,6 +17,9 @@ func slow_down():
 func slow_up():
 	Engine.time_scale = 1
 
+func counting(enable :bool):
+	GameManager.info.counting = enable
+
 func next_cycle():
 	$mainAnm.play("anmStart")
 	$"Rooms/01/Objects/partclesSplash".emitting = false
@@ -48,11 +51,9 @@ func _process(delta):
 	if GameManager.globals.player_node.timer <= 0:
 		GameManager.globals.player_node.timer = 0
 		GameManager.globals.player_node.health = 3
-		GameManager.cycle = 0
 		$mainAnm.play("anmBadEnding")
-	if GameManager.brokas == 4:
+	if GameManager.brokas == 3:
 		GameManager.globals.player_node.health = 3
-		GameManager.cycle = 0
 		$mainAnm.play("anmGoodEnding")
 
 func _on_mainAnm_animation_finished(anim_name):
@@ -60,3 +61,5 @@ func _on_mainAnm_animation_finished(anim_name):
 		SceneChanger.change_scene("res://Scenes/GameOver/scnCreditsBad.tscn", false)
 	elif anim_name == "anmGoodEnding":
 		SceneChanger.change_scene("res://Scenes/GameOver/scnCreditsgood.tscn", false)
+func make_it_all_quiet():
+	AudioServer.set_bus_mute(0, true)

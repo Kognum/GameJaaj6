@@ -140,6 +140,8 @@ func _process(delta):
 				#get_tree().paused = false
 				#$deathBlood.visible = false
 				
+				GameManager.info.enemies += 1
+				
 				queue_free()
 			SIZE.SMALL:
 				sizetochoose = SIZE.MINI

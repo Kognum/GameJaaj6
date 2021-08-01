@@ -87,6 +87,8 @@ func _physics_process(delta):
 				get_tree().paused = false
 				$deathBlood.visible = false
 				
+				GameManager.info.enemies += 1
+				
 				set_physics_process(false)
 
 func is_health_low() -> bool:

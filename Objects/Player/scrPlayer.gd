@@ -45,7 +45,8 @@ func _process(delta):
 func _physics_process(delta):
 	
 	#Timer
-	timer -= delta
+	if GameManager.info.counting:
+		timer -= delta
 	secs = fmod(timer, 60)
 	mins = fmod(timer, 60*60) / 60
 	timelabel.text = "%02d : %02d" % [mins, secs]
@@ -53,7 +54,8 @@ func _physics_process(delta):
 		get_parent().get_node("Audio").falling = true
 		if $alertTimer.is_playing() == false:
 			$alertTimer.play("alertTimer")
-	
+	GameManager.info.secs = secs
+	GameManager.info.mins = mins
 	
 	if not dead:
 		if GameManager.globals.player_move:

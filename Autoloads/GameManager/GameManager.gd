@@ -9,6 +9,11 @@ var globals = {
 	"player_shoot": true,
 	"player_node": null,
 	"changing_cycle": false}
+var info = {
+	"secs": 0.0,
+	"mins": 0.0,
+	"enemies": 0,
+	"counting": false}
 
 var cycle := 0
 var camera = null

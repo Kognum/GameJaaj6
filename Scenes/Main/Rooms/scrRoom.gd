@@ -45,7 +45,7 @@ func _on_Bound_area_exited(area):
 	if area.is_in_group("PlayerLevelHitbox"):
 		visible = false
 	
-	if area.is_in_group("Bullet"):
+	if area.is_in_group("Bullet") and area.is_in_group("ShootByEnemy"):
 		area.queue_free()
 func _on_Bound_area_entered(area):
 	if area.is_in_group("PlayerLevelHitbox"):
@@ -61,6 +61,7 @@ func _on_Bound_area_entered(area):
 				for enemy in $Entities.get_children():
 					enemy.set_process(true)
 					enemy.set_physics_process(true)
+					#pass
 		
 		player_got_here = true
 		visible = true

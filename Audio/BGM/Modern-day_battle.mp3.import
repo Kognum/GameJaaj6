@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Modern-day_battle.mp3-e79b047dd07ee0371d4227bc127110
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

@@ -106,7 +106,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id=8]
 resource_name = "anmDeath"
-length = 7.0
+length = 9.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
 tracks/0/interp = 1
@@ -114,7 +114,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 6.5, 7 ),
+"times": PoolRealArray( 0, 0.5, 8.5, 9 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.705882, 0.286275, 0.286275, 1 ), Color( 0.705882, 0.286275, 0.286275, 1 ), Color( 0.705882, 0.286275, 0.286275, 0 ) ]

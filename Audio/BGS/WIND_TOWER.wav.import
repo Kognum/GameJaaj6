@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/WIND_TOWER.wav-645d1f5f876c6fb9d9b7c5ec88c4031c.sample"
+
+[deps]
+
+source_file="res://Audio/BGS/WIND_TOWER.wav"
+dest_files=[ "res://.import/WIND_TOWER.wav-645d1f5f876c6fb9d9b7c5ec88c4031c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

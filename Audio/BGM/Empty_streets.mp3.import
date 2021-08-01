@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Empty_streets.mp3-81f43d44320b252b7f022eac51de0bf1.m
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
