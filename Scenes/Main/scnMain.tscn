@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://Scenes/Main/Rooms/Rooom.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Main/Rooms/01/mapa_01_p5.png" type="Texture" id=2]
@@ -46,6 +46,7 @@
 [ext_resource path="res://Scenes/Main/mapa_upcave_f.png" type="Texture" id=44]
 [ext_resource path="res://Objects/Door/oDoor.tscn" type="PackedScene" id=45]
 [ext_resource path="res://Scenes/Main/download.png" type="Texture" id=46]
+[ext_resource path="res://Scenes/Main/mapa_09_p2.png" type="Texture" id=47]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 606, 143 )
@@ -757,11 +758,16 @@ position = Vector2( 1162, 540 )
 
 [node name="download" type="Sprite" parent="Rooms/09"]
 position = Vector2( 960, 540 )
-z_index = 2
+z_index = 3
 texture = ExtResource( 46 )
 
 [node name="oDoor" parent="Rooms/09" instance=ExtResource( 45 )]
-position = Vector2( 1373.65, 512 )
+position = Vector2( 1373.65, 520 )
+
+[node name="mapa_09_p2" type="Sprite" parent="Rooms/09"]
+position = Vector2( 960, 540 )
+z_index = 2
+texture = ExtResource( 47 )
 
 [node name="oPlayer" parent="." instance=ExtResource( 3 )]
 visible = false
