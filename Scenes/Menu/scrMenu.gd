@@ -8,6 +8,7 @@ func _ready():
 	GameManager.info.secs = 0
 	GameManager.info.mins = 0
 	GameManager.info.enemies = 0
+	AudioServer.set_bus_mute(0, false)
 	
 	var cursor_instance = _cursor.instance()
 	cursor_instance.cursor = cursor_instance.cursors.DEFAULT
