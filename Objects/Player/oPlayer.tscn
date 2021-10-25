@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://Objects/Player/sprCharBody.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Player/sprCharArm.png" type="Texture" id=2]
@@ -18,6 +18,8 @@
 [ext_resource path="res://Audio/SFX/Shoot/GunR_Shotgun3.mp3" type="AudioStream" id=16]
 [ext_resource path="res://Audio/SFX/Shoot/GunR_Snipe1.mp3" type="AudioStream" id=17]
 [ext_resource path="res://Data/Fonts/Oswald-VariableFont_wght.ttf" type="DynamicFontData" id=18]
+[ext_resource path="res://Joystick/Joystick.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Sprites/Misc/sprWhite.png" type="Texture" id=20]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 41.0
@@ -676,7 +678,7 @@ __meta__ = {
 }
 
 [node name="nHUD" type="CanvasLayer" parent="."]
-layer = 6
+layer = 9
 
 [node name="sprOuroboros" type="TextureRect" parent="nHUD"]
 margin_left = 57.0244
@@ -779,6 +781,45 @@ margin_right = 490.435
 margin_bottom = 172.015
 custom_fonts/font = SubResource( 27 )
 text = "10:10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controls" type="Control" parent="nHUD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="joyMove" parent="nHUD/Controls" instance=ExtResource( 19 )]
+margin_left = 171.0
+margin_top = -398.0
+margin_right = 471.0
+margin_bottom = -97.9999
+joystick_mode = 1
+
+[node name="joyShoot" parent="nHUD/Controls" instance=ExtResource( 19 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -476.0
+margin_top = -414.0
+margin_right = -176.0
+margin_bottom = -114.0
+
+[node name="btnJump" type="TextureButton" parent="nHUD/Controls"]
+margin_left = 1285.0
+margin_top = 768.0
+margin_right = 1428.0
+margin_bottom = 911.0
+shortcut_in_tooltip = false
+action_mode = 0
+texture_normal = ExtResource( 20 )
+texture_pressed = ExtResource( 20 )
+texture_hover = ExtResource( 20 )
+texture_disabled = ExtResource( 20 )
+texture_focused = ExtResource( 20 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

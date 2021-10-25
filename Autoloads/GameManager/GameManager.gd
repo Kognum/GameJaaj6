@@ -48,6 +48,7 @@ func _process(delta):
 
 func _input(event):
 	if globals.lock_mouse:
-		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	else :
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

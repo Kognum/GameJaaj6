@@ -6,6 +6,7 @@ enum cursors {
 var cursor = cursors.AIM
 
 func _ready():
+	position = Vector2(-50, -50)
 	rotation_degrees = 0
 	
 	match cursor:
@@ -16,7 +17,7 @@ func _ready():
 			$sprCursor.region_rect = Rect2(364.125, 26.125, 398.25, 405)
 			$sprCursor.position = Vector2(0, 0)
 func _process(delta):
-	position = get_global_mouse_position()
+	#position = get_global_mouse_position()
 	
 	if GameManager.globals.changing_cycle:
 		$cursorAnm.play("anmSpin")
